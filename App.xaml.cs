@@ -1,4 +1,4 @@
-﻿namespace MauiApp1
+﻿namespace AudioHeaven
 {
     public partial class App : Application
     {

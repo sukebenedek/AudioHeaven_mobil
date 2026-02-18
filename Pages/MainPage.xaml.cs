@@ -1,13 +1,10 @@
-﻿namespace MauiApp1
+﻿namespace AudioHeaven
 {
     public partial class MainPage : ContentPage
     {
-
         public MainPage()
         {
             InitializeComponent();
         }
-
     }
-
 }
