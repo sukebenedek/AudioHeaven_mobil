@@ -9,7 +9,10 @@ namespace AudioHeaven
             InitializeComponent();
 
             Routing.RegisterRoute("RegisterPage", typeof(RegisterPage));
-            //Routing.RegisterRoute("HomePage", typeof(HomePage));
+            Routing.RegisterRoute("HomePage", typeof(HomePage));
+            Routing.RegisterRoute("SearchPage", typeof(SearchPage));
+            Routing.RegisterRoute("MySongsPage", typeof(MySongsPage));
+            Routing.RegisterRoute("LibraryPage", typeof(LibraryPage));
         }
     }
 }

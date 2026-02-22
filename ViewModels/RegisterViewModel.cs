@@ -52,7 +52,7 @@ namespace AudioHeaven.ViewModels
                         UserData.User = authResponse.User;
                         UserData.Token = authResponse.Token;
 
-                        await Shell.Current.GoToAsync($"//main/HomePage");
+                        await Shell.Current.GoToAsync($"//main");
                         return;
                     }
                     else

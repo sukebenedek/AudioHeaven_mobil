@@ -6,7 +6,12 @@
     xmlns:local="clr-namespace:AudioHeaven"
     xmlns:localPages="clr-namespace:AudioHeaven.Pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="AudioHeaven">
+    Title="AudioHeaven"
+   
+    Shell.BackgroundColor="Black"
+    Shell.ForegroundColor="White"
+    Shell.TitleColor="White"
+    >
 
     <ShellContent
     Title="Login"
@@ -17,13 +22,23 @@
     <TabBar Route="main">
         <ShellContent
         Title="Home"
-        Icon="home"
+        Icon="home.png"
         ContentTemplate="{DataTemplate localPages:HomePage}"
-        Route="HomePage" />
-        <!--<ShellContent
+        />
+        <ShellContent
         Title="Search"
-        Icon="search"
-        ContentTemplate="{DataTemplate localPages:SearchPage}" />-->
+        Icon="search.png"
+        ContentTemplate="{DataTemplate localPages:SearchPage}" />
+        <ShellContent
+        Title="My Songs"
+        Icon="note.png"
+        ContentTemplate="{DataTemplate localPages:MySongsPage}" />
+        <ShellContent
+        Title="Library"
+        Icon="library.png"
+        ContentTemplate="{DataTemplate localPages:LibraryPage}" />
+
     </TabBar>
+
 
 </Shell>

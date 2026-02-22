@@ -55,16 +55,17 @@ namespace AudioHeaven.ViewModels
                     UserData.User = authResponse.User;
                     UserData.Token = authResponse.Token;
 
-                    await Shell.Current.GoToAsync("//main/HomePage");
+                    await Shell.Current.GoToAsync("//main");
                 }
                 else
                 {
                     await App.Current!.MainPage!.DisplayAlert("Error", "Invalid email or password", "Ok");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 await App.Current!.MainPage!.DisplayAlert("Server Error", "The server is currently unavailable.", "Ok");
+                //await App.Current!.MainPage!.DisplayAlert("Server Error", ex.Message, "Ok");
             }
         }
     }

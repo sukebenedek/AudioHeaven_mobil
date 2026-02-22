@@ -25,6 +25,12 @@ namespace AudioHeaven
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<SearchPage>();
+            builder.Services.AddSingleton<SearchViewModel>();
+            builder.Services.AddSingleton<LibraryPage>();
+            builder.Services.AddSingleton<LibraryViewModel>();
+            builder.Services.AddSingleton<MySongsPage>();
+            builder.Services.AddSingleton<MySongsViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
