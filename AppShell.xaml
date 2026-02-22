@@ -4,12 +4,26 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AudioHeaven"
+    xmlns:localPages="clr-namespace:AudioHeaven.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="AudioHeaven">
 
     <ShellContent
+    Title="Login"
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Route="LoginPage" />
+
+
+    <TabBar Route="main">
+        <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Icon="home"
+        ContentTemplate="{DataTemplate localPages:HomePage}"
+        Route="HomePage" />
+        <!--<ShellContent
+        Title="Search"
+        Icon="search"
+        ContentTemplate="{DataTemplate localPages:SearchPage}" />-->
+    </TabBar>
 
 </Shell>

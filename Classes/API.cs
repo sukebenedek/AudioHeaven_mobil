@@ -8,7 +8,7 @@ namespace AudioHeaven.Classes
 {
     public static class API
     {
-        public static readonly string BaseUrl = "http://localhost:8000/api";
+        public static readonly string BaseUrl = "http://10.0.2.2:8000/api";
 
         public static async Task<AuthResponse?> LoginAsync(string email, string password)
         {
@@ -22,8 +22,9 @@ namespace AudioHeaven.Classes
             {
                 return await HTTPCommunication<AuthResponse>.Post($"{BaseUrl}/login", loginData);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"API HIBA: {ex.Message}");
                 return null;
             }
         }

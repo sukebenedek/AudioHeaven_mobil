@@ -7,11 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using AudioHeaven.Pages;
 using AudioHeaven.Classes;
+using AudioHeaven.Models;
 
 namespace AudioHeaven.ViewModels
 {
+
     public partial class MainViewModel : ObservableObject
     {
+
+        public User user = new User();
+        public string token = "";
+
         [ObservableProperty]
         string? inputEmail = "a@a.com";
 
@@ -39,28 +45,19 @@ namespace AudioHeaven.ViewModels
             if (InputEmail != null && InputPassword != null && InputPassword.Length >= 8)
             {
                 AuthResponse? authResponse = await API.LoginAsync(InputEmail, InputPassword);
-                await App.Current!.MainPage!.DisplayAlert("Hiba", authResponse.Token, "Ok");
 
-            }
-            else
-            {
-                await App.Current!.MainPage!.DisplayAlert("Hiba", "A nem megfelelő e-mail vagy jelszó!", "Ok");
-            }
+                if (authResponse != null)
+                {
+                    //await App.Current!.MainPage!.DisplayAlert("Hiba", authResponse.Token, "Ok");
+                    user = authResponse.User;
+                    token = authResponse.Token;
 
-            //string? id = steamId == null ? InputSteamId : steamId;
-            //UserData.PlayerData = await API.GetPlayersData(id);
-            //if (UserData.PlayerData != null)
-            //{
-            //    UserData.GamesInLibrary = await API.GetLibrary(id);
-            //    if (UserData.GamesInLibrary == null)
-            //    {
-            //        await App.Current!.MainPage!.DisplayAlert("Hiba", "Az Ön játékkönyvtárának láthatósága privát! Állítsa át a profil adatait nyilvánosra, majd próbálja újra!", "Ok");
-            //        return;
-            //    }
-            //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            //    return;
-            //}
-            //await App.Current!.MainPage!.DisplayAlert("Hiba", "A megadott felhasználóval nem érhető el profil vagy a profil láthatósága privát!", "Ok");
+                    await Shell.Current.GoToAsync($"//main/HomePage");
+                    return;
+                }
+            }
+                
+            await App.Current!.MainPage!.DisplayAlert("Hiba", "A nem megfelelő e-mail vagy jelszó!", "Ok");
         }
     }
 }
