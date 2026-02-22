@@ -27,7 +27,10 @@
 
             <VerticalStackLayout Spacing="0">
                 <Entry Placeholder="Email..."
-                       Keyboard="Email" />
+                       Keyboard="Email"
+                        Text="{Binding InputEmail}"
+                       
+                       />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
@@ -35,7 +38,7 @@
             <VerticalStackLayout Spacing="0" Margin="0, 0, 0, 20">
                 <Entry Placeholder="Password..."
                        IsPassword="True"
-                       
+                        Text="{Binding InputPassword}"
                        
                        />
 
@@ -51,7 +54,10 @@
                     WidthRequest="180"
                     HeightRequest="65"
                     HorizontalOptions="Center"
-                    Margin="0, 10, 0, 0" />
+                    Margin="0, 10, 0, 0" 
+                       Command="{Binding LoginBtnClickedCommand}"
+                    
+                    />
 
             <VerticalStackLayout HorizontalOptions="Center" Spacing="-8">
                 <Button Text="Register"
