@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.Classes
 {
-    public class AuthResponse
+    public static class UserData
     {
-        public User? User { get; set; }
-        public string? Token { get; set; }
-        public string? Message { get; set; }
+        public static User? User { get; set; }
+        public static string? Token { get; set; }
+
     }
 }

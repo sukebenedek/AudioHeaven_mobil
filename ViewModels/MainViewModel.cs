@@ -15,8 +15,6 @@ namespace AudioHeaven.ViewModels
     public partial class MainViewModel : ObservableObject
     {
 
-        public User user = new User();
-        public string token = "";
 
         [ObservableProperty]
         string? inputEmail = "a@a.com";
@@ -42,22 +40,32 @@ namespace AudioHeaven.ViewModels
         [RelayCommand]
         private async Task LoginBtnClicked()
         {
-            if (InputEmail != null && InputPassword != null && InputPassword.Length >= 8)
+            if (string.IsNullOrWhiteSpace(InputEmail) || string.IsNullOrWhiteSpace(InputPassword))
+            {
+                await App.Current!.MainPage!.DisplayAlert("Error", "All fields are required", "Ok");
+                return;
+            }
+
+            try
             {
                 AuthResponse? authResponse = await API.LoginAsync(InputEmail, InputPassword);
 
                 if (authResponse != null)
                 {
-                    //await App.Current!.MainPage!.DisplayAlert("Hiba", authResponse.Token, "Ok");
-                    user = authResponse.User;
-                    token = authResponse.Token;
+                    UserData.User = authResponse.User;
+                    UserData.Token = authResponse.Token;
 
-                    await Shell.Current.GoToAsync($"//main/HomePage");
-                    return;
+                    await Shell.Current.GoToAsync("//main/HomePage");
+                }
+                else
+                {
+                    await App.Current!.MainPage!.DisplayAlert("Error", "Invalid email or password", "Ok");
                 }
             }
-                
-            await App.Current!.MainPage!.DisplayAlert("Hiba", "A nem megfelelő e-mail vagy jelszó!", "Ok");
+            catch (Exception)
+            {
+                await App.Current!.MainPage!.DisplayAlert("Server Error", "The server is currently unavailable.", "Ok");
+            }
         }
     }
 }

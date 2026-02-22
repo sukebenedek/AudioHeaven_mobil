@@ -22,27 +22,34 @@
 
             <VerticalStackLayout Spacing="0">
                 <Entry Placeholder="Email..."
-                   Keyboard="Email" />
+                   Keyboard="Email" 
+                       Text="{Binding InputEmail}"
+                       />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="0">
                 <Entry Placeholder="Username..."
-       Keyboard="Text" />
+       Keyboard="Text" 
+                       Text="{Binding InputUsername}"
+                       />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="0">
                 <Entry Placeholder="Password..."
-       IsPassword="True" />
+       IsPassword="True" 
+                                              Text="{Binding InputPassword1}"
+/>
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
             <VerticalStackLayout Spacing="0" Margin="0, 0, 0, 20">
                 <Entry Placeholder="Password..."
                    IsPassword="True"
+                                              Text="{Binding InputPassword2}"
                    
                    
                    />
@@ -60,7 +67,9 @@
                 WidthRequest="180"
                 HeightRequest="65"
                 HorizontalOptions="Center"
-                Margin="0, 50, 0, 0" />
+                Margin="0, 50, 0, 0" 
+                    
+                    Command="{Binding RegisterBtnClickedCommand}"/>
 
             <!--<VerticalStackLayout HorizontalOptions="Center" Spacing="-8">
                 <Button Text="Login"
