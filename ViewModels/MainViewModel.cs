@@ -22,7 +22,11 @@ namespace AudioHeaven.ViewModels
         [ObservableProperty]
         string? inputPassword = "aaaaaaaa";
 
-
+        [RelayCommand]
+        private async Task DebugBtnClicked()
+        {
+            await Shell.Current.GoToAsync("//main");
+        }
 
         [RelayCommand]
         private async Task RegisterBtnClicked()
@@ -50,21 +54,24 @@ namespace AudioHeaven.ViewModels
             {
                 AuthResponse? authResponse = await API.LoginAsync(InputEmail, InputPassword);
 
-                if (authResponse != null)
+                if (authResponse != null && authResponse.User != null && authResponse.Token != null)
                 {
                     UserData.User = authResponse.User;
                     UserData.Token = authResponse.Token;
 
                     await Shell.Current.GoToAsync("//main");
                 }
-                else
+                else if(authResponse != null && authResponse.Message != null)
                 {
-                    await App.Current!.MainPage!.DisplayAlert("Error", "Invalid email or password", "Ok");
+                    await App.Current!.MainPage!.DisplayAlert("Error", authResponse.Message, "Ok");
+                } else
+                {
+                    await App.Current!.MainPage!.DisplayAlert("Server Error", "The server is currently unavailable.", "Ok");
                 }
             }
             catch (Exception ex)
             {
-                await App.Current!.MainPage!.DisplayAlert("Server Error", "The server is currently unavailable.", "Ok");
+                await App.Current!.MainPage!.DisplayAlert("Error", "Unexpexted error occured.", "Ok");
                 //await App.Current!.MainPage!.DisplayAlert("Server Error", ex.Message, "Ok");
             }
         }

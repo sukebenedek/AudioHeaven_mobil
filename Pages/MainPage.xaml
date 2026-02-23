@@ -75,6 +75,15 @@
                      WidthRequest="70"
                 />
             </VerticalStackLayout>
+
+            <Button Text="Debug"
+       TextColor="{StaticResource LightGray}"
+       HorizontalOptions="Center"
+       BackgroundColor="Transparent"
+       FontSize="18"
+       Command="{Binding DebugBtnClickedCommand}"
+        >
+            </Button>
         </VerticalStackLayout>
     </Grid>
 
