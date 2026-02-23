@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AudioHeaven.Components.LogoutSheetContent">
+    <VerticalStackLayout Padding="20,10,20,30" Spacing="15">
+
+        <Label Text="Account Actions" 
+               TextColor="{x:DynamicResource White}" 
+               FontSize="19" 
+               HorizontalOptions="Center" />
+
+
+        <Border Stroke="#FF453A"
+        StrokeThickness="2"
+        StrokeShape="RoundRectangle 12"
+        BackgroundColor="Transparent"
+        HeightRequest="60"
+        >
+
+            <Button Text="Log Out" 
+            TextColor="#FF453A" 
+            FontAttributes="Bold"
+            FontSize="17" 
+            BackgroundColor="Transparent"
+            Clicked="OnLogoutClicked"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+        </Border>
+
+    </VerticalStackLayout>
+</ContentView>

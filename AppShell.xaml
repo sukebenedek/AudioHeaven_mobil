@@ -16,7 +16,7 @@
     <ShellContent
     Title="Login"
     ContentTemplate="{DataTemplate local:MainPage}"
-    Route="LoginPage" />
+    Route="MainPage" />
 
 
     <TabBar Route="main">

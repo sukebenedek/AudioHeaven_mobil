@@ -1,3 +1,4 @@
+using AudioHeaven.Classes;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Alerts;
 namespace AudioHeaven.Pages;
@@ -25,6 +26,21 @@ public partial class HomePage : ContentPage
         });
 
         return true;
+    }
+
+    private void OnProfileTapped(object sender, EventArgs e)
+    {
+        LogoutSheet.IsOpen = true;
+    }
+
+    private async void OnLogoutRequestedOnPage(object sender, EventArgs e)
+    {
+        LogoutSheet.IsOpen = false; 
+
+        UserData.User = null;
+        UserData.Token = null;
+
+        await Shell.Current.GoToAsync("//MainPage");
     }
 }
 

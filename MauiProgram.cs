@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui;
 using AudioHeaven.ViewModels;
 using AudioHeaven.Pages;
+using Plugin.Maui.BottomSheet.Hosting;
 
 namespace AudioHeaven
 {
@@ -13,6 +14,7 @@ namespace AudioHeaven
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseBottomSheet()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
