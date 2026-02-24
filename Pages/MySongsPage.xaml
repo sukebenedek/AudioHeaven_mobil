@@ -2,11 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AudioHeaven.Pages.MySongsPage"
-             Title="MySongsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:comp="clr-namespace:AudioHeaven.Components"
+             >
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*, Auto" Padding="10,0">
+            <Label Text="MySongs" FontSize="33" FontAttributes="Bold" VerticalOptions="Center" />
+            <comp:ProfileButton Grid.Column="1" Clicked="OnProfileTapped" VerticalOptions="Center"/>
+        </Grid>
+    </Shell.TitleView>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label 
+        Text="Welcome to .NET MAUI!"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+            FontSize="2000"/>
+
+
+            <comp:LogoutSheetContent x:Name="LogoutMenu"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

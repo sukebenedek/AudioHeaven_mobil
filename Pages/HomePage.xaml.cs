@@ -30,17 +30,8 @@ public partial class HomePage : ContentPage
 
     private void OnProfileTapped(object sender, EventArgs e)
     {
-        LogoutSheet.IsOpen = true;
+        LogoutMenu.Open();
     }
 
-    private async void OnLogoutRequestedOnPage(object sender, EventArgs e)
-    {
-        LogoutSheet.IsOpen = false; 
-
-        UserData.User = null;
-        UserData.Token = null;
-
-        await Shell.Current.GoToAsync("//MainPage");
-    }
 }
 

@@ -28,4 +28,9 @@ public partial class MySongsPage : ContentPage
         return true;
     }
 
+    private void OnProfileTapped(object sender, EventArgs e)
+    {
+        LogoutMenu.Open();
+    }
+
 }

@@ -9,11 +9,32 @@ public partial class LogoutSheetContent : ContentView
     public LogoutSheetContent()
     {
         InitializeComponent();
+        lblName.Text = $"Logged in as: {UserData.User?.Name ?? "Guest"}";
     }
 
-    private void OnLogoutClicked(object sender, EventArgs e)
+    private async void OnLogoutClicked(object sender, EventArgs e)
     {
-        LogoutRequested?.Invoke(this, EventArgs.Empty);
+        if (await API.LogoutAsync())
+        {
+            UserData.User = null;
+            UserData.Token = null;
+            await Shell.Current.GoToAsync("//MainPage");
+        }
+        else
+        {
+            await App.Current!.MainPage!.DisplayAlert("Error", "Unexpexted error occured.", "Ok");
+        }
+
+        LogoutSheet.IsOpen = false;
     }
 
+    public void Open()
+    {
+        LogoutSheet.IsOpen = true;
+    }
+
+    public void Close()
+    {
+        LogoutSheet.IsOpen = false;
+    }
 }

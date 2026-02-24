@@ -69,5 +69,25 @@ namespace AudioHeaven.Classes
                 return new AuthResponse { Message = "Server is not reachable. Check your connection." };
             }
         }
+
+        public static async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                var response = await HTTPCommunication<Dictionary<string, string>>.Post($"{BaseUrl}/logout", new { });
+
+                if (response != null && response.ContainsKey("message") &&
+                    response["message"].Contains("succesfully"))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LOGOUT HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
     }
 }
