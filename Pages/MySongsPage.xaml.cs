@@ -5,24 +5,27 @@ namespace AudioHeaven.Pages;
 
 public partial class MySongsPage : ContentPage
 {
-	public MySongsPage(MySongsViewModel vm)
+    private readonly MySongsViewModel _vm;
+    private bool _backPressedOnce = false;
+
+    public MySongsPage(MySongsViewModel vm)
 	{
 		InitializeComponent();
-        this.BindingContext = vm;
+        _vm = vm;
+        BindingContext = _vm;
 
     }
-    private bool _backPressedOnce = false;
 
     protected override bool OnBackButtonPressed()
     {
-        if (_backPressedOnce) return false; // Let OS handle exit
+        if (_backPressedOnce) return false; 
 
         _backPressedOnce = true;
         Toast.Make("Press back again to exit").Show();
 
         Dispatcher.StartTimer(TimeSpan.FromSeconds(2), () => {
             _backPressedOnce = false;
-            return false; // Stop timer
+            return false; 
         });
 
         return true;
@@ -33,4 +36,15 @@ public partial class MySongsPage : ContentPage
         LogoutMenu.Open();
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await _vm.LoadSongsAsync();
+    }
+
+    private async void OnSongsHeaderClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("AllSongsPage");
+    }
 }

@@ -33,6 +33,7 @@ namespace AudioHeaven
             builder.Services.AddSingleton<LibraryViewModel>();
             builder.Services.AddSingleton<MySongsPage>();
             builder.Services.AddSingleton<MySongsViewModel>();
+            builder.Services.AddSingleton<AllSongsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

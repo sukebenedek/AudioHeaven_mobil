@@ -21,6 +21,14 @@ namespace AudioHeaven.Classes
 
             public async static Task<T?> Get(string url)
             {
+                _client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+                if (!string.IsNullOrEmpty(UserData.Token))
+                {
+                    _client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
+                }
+
                 using var response = await _client.GetAsync(url).ConfigureAwait(false);
 
                 if (response != null)
@@ -40,7 +48,7 @@ namespace AudioHeaven.Classes
                         _client.DefaultRequestHeaders.Authorization =
                         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
                 }
-                System.Diagnostics.Debug.WriteLine($"SENDING TOKEN: {UserData.Token}");
+                //System.Diagnostics.Debug.WriteLine($"SENDING TOKEN: {UserData.Token}");
 
                 string jsonPayload = JsonSerializer.Serialize(data);
                 using var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");

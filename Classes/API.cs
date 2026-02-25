@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AudioHeaven.Models;
+using CommunityToolkit.Maui.Core.Extensions;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -88,6 +91,25 @@ namespace AudioHeaven.Classes
             }
 
             return false;
+        }
+
+        public static async Task<ObservableCollection<Song>?> GetUserSongsAsync()
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/users/{UserData.User.Id}/songs";
+
+                var response = await HTTPCommunication<List<Song>>.Get(url);
+
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"SONG FETCH HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
+            }
         }
     }
 }

@@ -37,8 +37,6 @@
         Title="Library"
         Icon="library.png"
         ContentTemplate="{DataTemplate localPages:LibraryPage}" />
-
     </TabBar>
-
 
 </Shell>

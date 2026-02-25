@@ -58,6 +58,8 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\icons\add.png" />
 	  <None Remove="Resources\Images\icons\addgray.png" />
+	  <None Remove="Resources\Images\icons\arrowl.png" />
+	  <None Remove="Resources\Images\icons\arrowr.png" />
 	  <None Remove="Resources\Images\icons\backward.png" />
 	  <None Remove="Resources\Images\icons\edit.png" />
 	  <None Remove="Resources\Images\icons\forward.png" />
@@ -96,6 +98,12 @@
 	  <MauiXaml Update="Components\ProfileButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Components\SongItemRow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\AllSongsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -116,6 +124,8 @@
 	<ItemGroup>
 	  <MauiImage Include="Resources\Images\icons\add.png" />
 	  <MauiImage Include="Resources\Images\icons\addgray.png" />
+	  <MauiImage Include="Resources\Images\icons\arrowl.png" />
+	  <MauiImage Include="Resources\Images\icons\arrowr.png" />
 	  <MauiImage Include="Resources\Images\icons\backward.png" />
 	  <MauiImage Include="Resources\Images\icons\edit.png" />
 	  <MauiImage Include="Resources\Images\icons\forward.png" />
