@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:comp="clr-namespace:AudioHeaven.Components"
              xmlns:bottomsheet="http://pluginmauibottomsheet.com"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="AudioHeaven.Pages.HomePage">
     
     <Shell.TitleView>
@@ -11,17 +12,22 @@
            <comp:ProfileButton Grid.Column="1" Clicked="OnProfileTapped" VerticalOptions="Center"/>
        </Grid> 
     </Shell.TitleView>
-    
-    <ScrollView>
-        <VerticalStackLayout>
-            <Label 
-            Text="Welcome to .NET MAUI!"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-                FontSize="2000"/>
 
-            
-            <comp:LogoutSheetContent x:Name="LogoutMenu"/>
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="0,0,0,80">
+                <Label Text="Welcome to .NET MAUI!"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="150"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <comp:FloatingPlayer VerticalOptions="End" 
+                         Margin="5,0,5,10" />
+        <comp:LogoutSheetContent x:Name="LogoutMenu" />
+
+    </Grid>
+
 </ContentPage>
