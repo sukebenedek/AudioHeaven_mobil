@@ -15,6 +15,7 @@ namespace AudioHeaven
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseBottomSheet()
+                .UseMauiCommunityToolkitMediaElement()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

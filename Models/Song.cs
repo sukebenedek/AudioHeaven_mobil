@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioHeaven.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,9 @@ namespace AudioHeaven.Models
         public string StoredAt { get; set; }
         public string Cover { get; set; }
         public int UserId { get; set; }
-        public int? AlbumId { get; set; } 
+        public int? AlbumId { get; set; }
 
-        public string FullCoverUrl => $"http://10.0.2.2:8000/storage/{Cover.Replace("app/public/", "")}";
+        public string FullCoverUrl => $"{API.BaseUrl.Replace("/api", "")}/{Cover}";
+        //public string FullCoverUrl => $"http://10.0.2.2:8000/storage/covers/BZn7MoFnKOgsOY30zpxVsohitmnn1MJbE7uxDu1f.jpg";
     }
 }

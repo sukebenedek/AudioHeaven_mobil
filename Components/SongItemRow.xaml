@@ -7,8 +7,7 @@
     <Grid ColumnDefinitions="Auto, *, Auto" Padding="10,7" Margin="0" ColumnSpacing="15">
 
         <Border Grid.Column="0" StrokeShape="RoundRectangle 10" HeightRequest="60" WidthRequest="60">
-            <Image Aspect="AspectFill" />
-            <!--Source="{Binding FullCoverUrl}"-->
+            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}"/>
         </Border>
 
         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
