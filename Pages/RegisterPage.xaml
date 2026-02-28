@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:comp="clr-namespace:AudioHeaven.Components"
              x:Class="AudioHeaven.Pages.RegisterPage"
              Title="RegisterPage"
              
              >
     <Grid RowDefinitions="Auto, *" Padding="30" >
-
-        <!--<Label Grid.Row="0"
-           Text="Please log in or register"
-           TextColor="{StaticResource White}"
-           FontSize="30"
-           FontAttributes="Bold"
-           HorizontalOptions="Center"
-           Margin="0, 40, 0, 0" />-->
-
         <VerticalStackLayout Grid.Row="1"
                          VerticalOptions="Center"
                          Spacing="20"
@@ -88,5 +80,11 @@
             />
             </VerticalStackLayout>-->
         </VerticalStackLayout>
+
+        <comp:LoadingOverlay Grid.Row="0" 
+                 Grid.RowSpan="2" 
+                 VerticalOptions="Fill" 
+                 HorizontalOptions="Fill" 
+                 Margin="-30" IsVisible="{Binding IsBusy}"/>
     </Grid>
 </ContentPage>

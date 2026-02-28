@@ -1,13 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AudioHeaven.Classes;
+using AudioHeaven.Models;
+using AudioHeaven.Pages;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AudioHeaven.Pages;
-using AudioHeaven.Classes;
-using AudioHeaven.Models;
 
 namespace AudioHeaven.ViewModels
 {
@@ -21,6 +21,9 @@ namespace AudioHeaven.ViewModels
 
         [ObservableProperty]
         string? inputPassword = "aaaaaaaa";
+
+        [ObservableProperty]
+        private bool isBusy = false;
 
         [RelayCommand]
         private async Task DebugBtnClicked()
@@ -46,34 +49,36 @@ namespace AudioHeaven.ViewModels
         {
             if (string.IsNullOrWhiteSpace(InputEmail) || string.IsNullOrWhiteSpace(InputPassword))
             {
-                await App.Current!.MainPage!.DisplayAlert("Error", "All fields are required", "Ok");
+                await Shell.Current.DisplayAlert("Error", "All fields are required", "Ok");
                 return;
             }
+
+            IsBusy = true;
 
             try
             {
                 AuthResponse? authResponse = await API.LoginAsync(InputEmail, InputPassword);
 
-                if (authResponse != null && authResponse.User != null && authResponse.Token != null)
+                if (authResponse?.User != null && authResponse?.Token != null)
                 {
                     UserData.User = authResponse.User;
                     UserData.Token = authResponse.Token;
 
                     await Shell.Current.GoToAsync("//main");
+                    return;
                 }
-                else if(authResponse != null && authResponse.Message != null)
-                {
-                    await App.Current!.MainPage!.DisplayAlert("Error", authResponse.Message, "Ok");
-                } else
-                {
-                    await App.Current!.MainPage!.DisplayAlert("Server Error", "The server is currently unavailable.", "Ok");
-                }
+
+                IsBusy = false;
+                string msg = authResponse?.Message ?? "Server unavailable.";
+                await Shell.Current.DisplayAlert("Error", msg, "Ok");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await App.Current!.MainPage!.DisplayAlert("Error", "Unexpexted error occured.", "Ok");
-                //await App.Current!.MainPage!.DisplayAlert("Server Error", ex.Message, "Ok");
+                IsBusy = false;
+                await Shell.Current.DisplayAlert("Error", "Unexpected error occurred.", "Ok");
             }
+
+            IsBusy = false;
         }
     }
 }

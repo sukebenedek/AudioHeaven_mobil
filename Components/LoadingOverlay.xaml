@@ -1,0 +1,29 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AudioHeaven.Components.LoadingOverlay"
+             InputTransparent="False"
+             CascadeInputTransparent="False"
+             IsVisible="True">
+    <Grid BackgroundColor="#aa000000" 
+          HorizontalOptions="Fill" 
+          VerticalOptions="Fill">
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer />
+        </Grid.GestureRecognizers>
+
+        <VerticalStackLayout VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             Spacing="20">
+            <ActivityIndicator IsRunning="True" 
+                               Color="{x:DynamicResource LightBlue}" 
+                               HeightRequest="100" 
+                               WidthRequest="100"/>
+            <Label Text="Loading..." 
+                   TextColor="White" 
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>

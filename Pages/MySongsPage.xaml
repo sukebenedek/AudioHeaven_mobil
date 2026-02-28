@@ -15,56 +15,79 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
 
-            <VerticalStackLayout Spacing="0">
-                <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
-                    <Label Grid.Column="0"
-               Text="Songs" 
-               FontSize="25" 
-               TextColor="{x:DynamicResource LightBlue}" 
-               FontAttributes="Bold"
-               VerticalOptions="Center" />
+            <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
 
-                    <ImageButton Grid.Column="1"
-                     Source="arrowr.png" 
-                     BackgroundColor="Transparent"
-                     VerticalOptions="Center"
-                     HeightRequest="30"
-                     WidthRequest="30"
-                     Clicked="OnSongsHeaderClicked" />
-                </Grid>
+                <VerticalStackLayout Spacing="0">
+                    <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
+                        <Label Grid.Column="0"
+                           Text="Songs" 
+                           FontSize="25" 
+                           TextColor="{x:DynamicResource LightBlue}" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+
+                        <ImageButton Grid.Column="1"
+                                 Source="arrowr.png" 
+                                 BackgroundColor="Transparent"
+                                 VerticalOptions="Center"
+                                 HeightRequest="30"
+                                 WidthRequest="30"
+                                 Clicked="OnSongsHeaderClicked" />
+                    </Grid>
+
+                    <BoxView HeightRequest="2" 
+                         Color="{x:DynamicResource LightBlue}" 
+                         HorizontalOptions="Fill" 
+                         Margin="14,0,11,10"/>
+
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
+                    </VerticalStackLayout.GestureRecognizers>
+                </VerticalStackLayout>
+
+                <CollectionView ItemsSource="{Binding Songs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <comp:SongItemRow />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Albums" 
+                   FontSize="25" 
+                   Margin="14,0"
+                   TextColor="{x:DynamicResource LightBlue}" 
+                   FontAttributes="Bold" />
 
                 <BoxView HeightRequest="2" 
-             Color="{x:DynamicResource LightBlue}" 
-             HorizontalOptions="Fill" 
-             Margin="14,0,11,10"/>
-
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
-                </VerticalStackLayout.GestureRecognizers>
+                     Color="{x:DynamicResource LightBlue}" 
+                     HorizontalOptions="Fill" 
+                     Margin="14,0,11,10"/>
             </VerticalStackLayout>
 
-
-            <CollectionView ItemsSource="{Binding Songs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <comp:SongItemRow />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Label Text="Albums" 
-               FontSize="25" 
-                 Margin="14,0"
-            TextColor="{x:DynamicResource LightBlue}" 
-               FontAttributes="Bold" />
-
-            <BoxView HeightRequest="2" 
-                 Color="{x:DynamicResource LightBlue}" 
-                 HorizontalOptions="Fill" 
-                 Margin="14,0,11,10"/>
-
+            <Frame IsVisible="{Binding DoesNotHaveSongs}"
+               BackgroundColor="Transparent"
+               BorderColor="{x:DynamicResource LightBlue}"
+               HasShadow="False"
+               CornerRadius="10"
+               Margin="14,20"
+               Padding="30">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <Label Text="🎵"  TextColor="{x:DynamicResource LightBlue}" FontSize="40" HorizontalOptions="Center"/>
+                    <Label Text="Your music page is currently empty."
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       TextColor="{x:DynamicResource LightBlue}"
+                       HorizontalTextAlignment="Center" />
+                    <Label Text="Upload tracks from your PC to see them here!"
+                       FontSize="13"
+                       TextColor="{x:DynamicResource LightGray}"
+                       HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Frame>
 
             <comp:LogoutSheetContent x:Name="LogoutMenu"/>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

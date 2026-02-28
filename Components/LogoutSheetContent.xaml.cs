@@ -31,6 +31,7 @@ public partial class LogoutSheetContent : ContentView
     public void Open()
     {
         LogoutSheet.IsOpen = true;
+        lblName.Text = $"Logged in as: {UserData.User?.Name ?? "Guest"}";
     }
 
     public void Close()

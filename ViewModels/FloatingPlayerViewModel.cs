@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
+using AudioHeaven.Classes;
 
 namespace AudioHeaven.ViewModels
 {
@@ -12,6 +13,9 @@ namespace AudioHeaven.ViewModels
 
         [ObservableProperty]
         private bool isPlaying;
+
+        public string StreamUrl => $"{API.BaseUrl}/play/{CurrentSong?.Id ?? 1}";
+
 
         public FloatingPlayerViewModel()
         {

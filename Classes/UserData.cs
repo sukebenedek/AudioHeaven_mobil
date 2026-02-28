@@ -11,6 +11,7 @@ namespace AudioHeaven.Classes
     {
         public static User? User { get; set; }
         public static string? Token { get; set; }
+        public static List<Song>? Songs { get; set; }
 
     }
 }

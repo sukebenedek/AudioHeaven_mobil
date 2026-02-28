@@ -18,7 +18,7 @@
         <Grid ColumnDefinitions="Auto, *, Auto">
 
             <toolkit:MediaElement x:Name="musicPlayer" 
-                                  Source="http://10.0.2.2:8000/api/play/1"
+                                  Source="{Binding StreamUrl}"
                                   ShouldAutoPlay="False"
                                   IsVisible="False" />
 

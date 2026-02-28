@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:comp="clr-namespace:AudioHeaven.Components"
              x:Class="AudioHeaven.MainPage"
              Padding="0,40,0,0"
              Shell.NavBarIsVisible="False"
@@ -85,6 +86,12 @@
         >
             </Button>
         </VerticalStackLayout>
+
+        <comp:LoadingOverlay Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         VerticalOptions="Fill" 
+                         HorizontalOptions="Fill" 
+                         Margin="-30" IsVisible="{Binding IsBusy}"/>
     </Grid>
 
 </ContentPage>

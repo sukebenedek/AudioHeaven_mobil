@@ -96,6 +96,9 @@
 	  <MauiXaml Update="Components\FloatingPlayer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Components\LoadingOverlay.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Components\LogoutSheetContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
