@@ -17,15 +17,19 @@ namespace AudioHeaven.ViewModels
         private ObservableCollection<Song> songs = new();
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(DoesNotHaveSongs))] // Tells UI to refresh the "NOT" property too
+        [NotifyPropertyChangedFor(nameof(DoesNotHaveSongs))] 
         private bool hasSongs;
         public bool DoesNotHaveSongs => !HasSongs;
+
+        [ObservableProperty]
+        private bool isBusy = true;
 
         public async Task LoadSongsAsync()
         {
             Songs = new ObservableCollection<Song>(await API.GetUserSongsAsync()).OrderBy(s => s.Plays).Take(5).ToObservableCollection();
             HasSongs = Songs.Any();
             UserData.Songs = Songs.ToList();
+            IsBusy = false;
         }
     }
 }

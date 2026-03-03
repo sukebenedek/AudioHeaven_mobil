@@ -36,11 +36,17 @@ public partial class MySongsPage : ContentPage
         LogoutMenu.Open();
     }
 
+    private bool _isFirstTime = true;
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        await _vm.LoadSongsAsync();
+        if (_isFirstTime)
+        {
+            _isFirstTime = false; 
+            await _vm.LoadSongsAsync();
+        }
     }
 
     private async void OnSongsHeaderClicked(object sender, EventArgs e)

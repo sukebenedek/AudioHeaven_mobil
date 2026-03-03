@@ -16,20 +16,38 @@ public partial class AllSongsPage : ContentPage
         BindingContext = this;
     }
 
+    private bool _isBusy = true;
+    public bool IsBusy
+    {
+        get => _isBusy;
+        set { _isBusy = value; OnPropertyChanged(); }
+    }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        var result = await API.GetUserSongsAsync();
+        IsBusy = true;
 
-        if (result != null)
+        await Task.Delay(3);
+
+        try
         {
-            Songs.Clear();
-            foreach (var song in result)
+            var result = await API.GetUserSongsAsync();
+
+            if (result != null)
             {
-                Songs.Add(song);
+                Songs.Clear();
+                foreach (var song in result)
+                {
+                    Songs.Add(song);
+                }
             }
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
+
 }

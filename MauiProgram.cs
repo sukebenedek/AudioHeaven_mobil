@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using AudioHeaven.ViewModels;
 using AudioHeaven.Pages;
 using Plugin.Maui.BottomSheet.Hosting;
+using AudioHeaven.Services;
 
 namespace AudioHeaven
 {
@@ -23,18 +24,22 @@ namespace AudioHeaven
                 });
 
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainViewModel>();
-            builder.Services.AddSingleton<RegisterPage>();
-            builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<HomePage>();
-            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<RegisterPage>();
             builder.Services.AddSingleton<SearchPage>();
-            builder.Services.AddSingleton<SearchViewModel>();
             builder.Services.AddSingleton<LibraryPage>();
-            builder.Services.AddSingleton<LibraryViewModel>();
             builder.Services.AddSingleton<MySongsPage>();
-            builder.Services.AddSingleton<MySongsViewModel>();
             builder.Services.AddSingleton<AllSongsPage>();
+
+            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<RegisterViewModel>();
+            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<SearchViewModel>();
+            builder.Services.AddSingleton<LibraryViewModel>();
+            builder.Services.AddSingleton<MySongsViewModel>();
+            builder.Services.AddSingleton<FloatingPlayerViewModel>();
+
+            builder.Services.AddSingleton<MusicService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

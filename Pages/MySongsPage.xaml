@@ -12,6 +12,8 @@
         </Grid>
     </Shell.TitleView>
 
+    <Grid>
+        
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
 
@@ -86,8 +88,15 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <comp:LogoutSheetContent x:Name="LogoutMenu"/>
 
         </VerticalStackLayout>
     </ScrollView>
+        <comp:FloatingPlayer VerticalOptions="End" 
+                 Margin="5,0,5,10" />
+            <comp:LogoutSheetContent x:Name="LogoutMenu"/>
+        <comp:LoadingOverlay Grid.Row="0" 
+                 VerticalOptions="Fill" 
+                 HorizontalOptions="Fill" 
+                 Margin="-30" IsVisible="{Binding IsBusy}"/>
+    </Grid>
 </ContentPage>

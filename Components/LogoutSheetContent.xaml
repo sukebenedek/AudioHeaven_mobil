@@ -11,7 +11,7 @@
                  IsModal="True"
                  States="Peek"
                  CurrentState="Peek"
-                         PeekHeight="145">
+                         PeekHeight="155">
         <bottomsheet:BottomSheet.Content>
             <bottomsheet:BottomSheetContent>
                    <VerticalStackLayout Padding="20,10,20,30" Spacing="5">

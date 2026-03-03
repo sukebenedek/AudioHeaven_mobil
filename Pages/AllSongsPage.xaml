@@ -7,7 +7,9 @@
              Shell.TabBarIsVisible="False"
              >
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <Grid>
+
+            <VerticalStackLayout Padding="20" Grid.Row="0"  Spacing="10">
             <CollectionView ItemsSource="{Binding Songs}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -16,5 +18,11 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
+
+        <comp:LoadingOverlay Grid.Row="0" 
+                 VerticalOptions="Fill" 
+                 HorizontalOptions="Fill" 
+                 Margin="-30" IsVisible="{Binding IsBusy}"/>
+        </Grid>
     </ScrollView>
 </ContentPage>

@@ -4,9 +4,6 @@
              xmlns:vm="clr-namespace:AudioHeaven.ViewModels"
              x:Class="AudioHeaven.Components.FloatingPlayer">
 
-    <ContentView.BindingContext>
-        <vm:FloatingPlayerViewModel />
-    </ContentView.BindingContext>
 
     <Border StrokeShape="RoundRectangle 20" 
             BackgroundColor="{x:DynamicResource DarkGray}" 
@@ -23,11 +20,11 @@
                                   IsVisible="False" />
 
             <Border Grid.Column="0" StrokeShape="RoundRectangle 10" HeightRequest="55" WidthRequest="55">
-                <Image Source="{Binding CurrentSong.FullCoverUrl}" Aspect="AspectFill" />
+                <Image Source="{Binding MusicService.CurrentSong.FullCoverUrl}" Aspect="AspectFill" />
             </Border>
 
             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="15,0">
-                <Label Text="{Binding CurrentSong.Title}" FontAttributes="Bold" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding MusicService.CurrentSong.Title}" FontAttributes="Bold" TextColor="White" FontSize="16"/>
                 <Label Text="Foo Fighters" TextColor="{x:DynamicResource LightGray}" FontSize="12"/>
             </VerticalStackLayout>
 
@@ -44,14 +41,14 @@
 
                     <ImageButton.Triggers>
                         <DataTrigger TargetType="ImageButton" 
-                     Binding="{Binding IsPlaying}" 
+                     Binding="{Binding MusicService.IsPlaying}" 
                      Value="True">
                             <Setter Property="Source" Value="playing.png" />
                         </DataTrigger>
                         <DataTrigger TargetType="ImageButton" 
-                     Binding="{Binding IsPlaying}" 
+                     Binding="{Binding MusicService.IsPlaying}" 
                      Value="False">
-                            <Setter Property="Source" Value="paused.png" />
+                            <Setter Property="Source" Value="paused" />
                         </DataTrigger>
                     </ImageButton.Triggers>
                 </ImageButton>

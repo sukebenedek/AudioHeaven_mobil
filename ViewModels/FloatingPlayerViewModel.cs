@@ -3,46 +3,36 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using AudioHeaven.Classes;
+using AudioHeaven.Services;
 
 namespace AudioHeaven.ViewModels
 {
     public partial class FloatingPlayerViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Song currentSong;
+        private MusicService musicService;
 
-        [ObservableProperty]
-        private bool isPlaying;
+        public string StreamUrl => $"{API.BaseUrl}/play/1";
 
-        public string StreamUrl => $"{API.BaseUrl}/play/{CurrentSong?.Id ?? 1}";
-
-
-        public FloatingPlayerViewModel()
+        public FloatingPlayerViewModel(MusicService musicService)
         {
-            // Dummy Data initialization
-            CurrentSong = new Song
+            MusicService = musicService;
+
+            // Initialize dummy data in the service if empty
+            if (MusicService.CurrentSong == null)
             {
-                Id = 1,
-                Title = "Everlong",
-                Cover = "storage/covers/KJG4VnftVpFh3izGC0tYVQQSaQ4NLwhh2bXXlyxB.jpg"
-            };
+                MusicService.CurrentSong = new Song { Id = 1, Title = "Song Title" , Cover= $"storage/covers/KJG4VnftVpFh3izGC0tYVQQSaQ4NLwhh2bXXlyxB.jpg" };
+            }
         }
 
         [RelayCommand]
         private void TogglePlay(MediaElement player)
         {
-            if (player == null) return;
+            // Link the UI player to the service instance
+            if (MusicService.InternalPlayer == null)
+                MusicService.InternalPlayer = player;
 
-            if (player.CurrentState == CommunityToolkit.Maui.Core.Primitives.MediaElementState.Playing)
-            {
-                player.Pause();
-                IsPlaying = false;
-            }
-            else
-            {
-                player.Play();
-                IsPlaying = true;
-            }
+            MusicService.Toggle();
         }
     }
 }
