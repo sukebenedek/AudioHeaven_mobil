@@ -13,5 +13,29 @@ namespace AudioHeaven.Classes
         public static string? Token { get; set; }
         public static List<Song>? Songs { get; set; }
 
+        public static async Task<bool> SaveTokenStorage()
+        {
+            try
+            {
+                await SecureStorage.Default.SetAsync("auth_token", Token);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static async Task<string> GetTokenStorage()
+        {
+            return await SecureStorage.Default.GetAsync("auth_token");
+        }
+
+        public static async void DeleteTokenStorage()
+        {
+            SecureStorage.Default.Remove("auth_token");
+            Token = null;
+            User = null;
+        }
     }
 }

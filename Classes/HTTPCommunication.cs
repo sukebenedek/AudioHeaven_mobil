@@ -14,19 +14,20 @@ namespace AudioHeaven.Classes
                 PropertyNameCaseInsensitive = true
             };
 
-            private static readonly HttpClient _client = new()
-            {
-                Timeout = TimeSpan.FromSeconds(5)
-            };
+        private static readonly HttpClient _client = new()
+        {
+            Timeout = TimeSpan.FromSeconds(5)
+        };
 
-            public async static Task<T?> Get(string url)
+        public async static Task<T?> Get(string url)
             {
-                _client.DefaultRequestHeaders.Add("Accept", "application/json");
+                _client.DefaultRequestHeaders.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrEmpty(UserData.Token))
                 {
                     _client.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
                 }
 
                 using var response = await _client.GetAsync(url).ConfigureAwait(false);
@@ -34,12 +35,12 @@ namespace AudioHeaven.Classes
                 if (response != null)
                 {
                     string resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonSerializer.Deserialize<T>(resultString, _options); 
+                    return JsonSerializer.Deserialize<T>(resultString, _options);
                 }
-                return null;
-            }
+            return null;
+        }
 
-            public async static Task<T?> Post(string url, object data)
+        public async static Task<T?> Post(string url, object data)
             {
                 _client.DefaultRequestHeaders.Add("Accept", "application/json");
 

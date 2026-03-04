@@ -16,8 +16,6 @@ public partial class LogoutSheetContent : ContentView
     {
         if (await API.LogoutAsync())
         {
-            UserData.User = null;
-            UserData.Token = null;
             await Shell.Current.GoToAsync("//MainPage");
         }
         else

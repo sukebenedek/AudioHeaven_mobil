@@ -34,6 +34,31 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<AuthResponse?> LoginAsyncToken()
+        {
+            try
+            {
+                // We call the /me endpoint which returns the current user's data
+                var user = await HTTPCommunication<User>.Get($"{BaseUrl}/me");
+
+                if (user != null)
+                {
+                    // We wrap it in an AuthResponse to match your existing app logic
+                    return new AuthResponse
+                    {
+                        User = user,
+                        Token = UserData.Token // Keep using the token we already have
+                    };
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Token Login Error: {ex.Message}");
+                return null;
+            }
+        }
+
         public static async Task<AuthResponse?> RegisterAsync(string name, string email, string password)
         {
             using var client = new HttpClient();
@@ -83,6 +108,9 @@ namespace AudioHeaven.Classes
                 if (response != null && response.ContainsKey("message") &&
                     response["message"].Contains("succesfully"))
                 {
+                    UserData.User = null;
+                    UserData.Token = null;
+                    UserData.DeleteTokenStorage();
                     return true;
                 }
             }
