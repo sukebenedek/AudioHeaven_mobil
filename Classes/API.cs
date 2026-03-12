@@ -140,5 +140,24 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<Song>();
             }
         }
+
+        public static async Task<ObservableCollection<Album>?> GetUserAlbumsAsync()
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/users/{UserData.User.Id}/albums";
+
+                var response = await HTTPCommunication<List<Album>>.Get(url);
+
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Album>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Album FETCH HIBA: {ex.Message}");
+                return new ObservableCollection<Album>();
+            }
+        }
     }
 }

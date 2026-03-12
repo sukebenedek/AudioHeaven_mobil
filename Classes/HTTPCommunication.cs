@@ -11,7 +11,8 @@ namespace AudioHeaven.Classes
     {
             private static readonly JsonSerializerOptions _options = new()
             {
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
             };
 
         private static readonly HttpClient _client = new()

@@ -31,5 +31,21 @@ namespace AudioHeaven.ViewModels
             UserData.Songs = Songs.ToList();
             IsBusy = false;
         }
+
+        [ObservableProperty]
+        private ObservableCollection<Album> albums = new();
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DoesNotHaveAlbums))]
+        private bool hasAlbums;
+        public bool DoesNotHaveAlbums => !HasAlbums;
+
+        public async Task LoadAlbumsAsync()
+        {
+            Albums = new ObservableCollection<Album>(await API.GetUserAlbumsAsync()).OrderByDescending(s => s.CreatedAt).Take(5).ToObservableCollection();
+            HasAlbums = Albums.Any();
+            UserData.Albums = Albums.ToList();
+            IsBusy = false;
+        }
     }
 }

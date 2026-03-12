@@ -30,7 +30,7 @@
         Icon="search.png"
         ContentTemplate="{DataTemplate localPages:SearchPage}" />
         <ShellContent
-        Title="My Songs"
+        Title="My Music"
         Icon="note.png"
         ContentTemplate="{DataTemplate localPages:MySongsPage}" />
         <ShellContent
