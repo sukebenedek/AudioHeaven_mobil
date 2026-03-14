@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AudioHeaven.Pages.SearchPage"
+             xmlns:comp="clr-namespace:AudioHeaven.Components"
              Title="Search">
     <Shell.TitleView>
         <Grid ColumnDefinitions="*, Auto" 
@@ -23,7 +24,6 @@
                            FontSize="14"
                            HeightRequest="40"
                            CancelButtonColor="White"
-                           SearchCommand="{Binding SearchCommand}"
                            Text="{Binding SearchText}" />
             </Border>
         </Grid>
@@ -33,6 +33,55 @@
         <Label Text="Start typing to find music..." 
                HorizontalOptions="Center" 
                VerticalOptions="Center" 
-               TextColor="Gray" />
+               TextColor="Gray" IsVisible="{Binding IsStartVisible}" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="10">
+
+                <VerticalStackLayout IsVisible="{Binding HasAlbums}" Spacing="10">
+
+                    <VerticalStackLayout Spacing="0">
+                        <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
+                            <Label Grid.Column="0"
+                       Text="Albums" 
+                       FontSize="25" 
+                       TextColor="{x:DynamicResource LightBlue}" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+
+                            <ImageButton Grid.Column="1"
+                             Source="arrowr.png" 
+                             BackgroundColor="Transparent"
+                             VerticalOptions="Center"
+                             HeightRequest="30"
+                             WidthRequest="30"
+                             Clicked="OnAlbumsHeaderClicked" />
+                        </Grid>
+
+                        <BoxView HeightRequest="2" 
+                     Color="{x:DynamicResource LightBlue}" 
+                     HorizontalOptions="Fill" 
+                     Margin="14,0,11,10"/>
+
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAlbumsHeaderClicked" />
+                        </VerticalStackLayout.GestureRecognizers>
+                    </VerticalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Albums}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <comp:AlbumItemRow />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <comp:FloatingPlayer VerticalOptions="End" 
+         Margin="5,0,5,10" />
     </Grid>
 </ContentPage>

@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui;
 using AudioHeaven.ViewModels;
 using AudioHeaven.Pages;
+using AudioHeaven.Views;
 using Plugin.Maui.BottomSheet.Hosting;
 using AudioHeaven.Services;
 
@@ -40,6 +41,11 @@ namespace AudioHeaven
             builder.Services.AddSingleton<FloatingPlayerViewModel>();
 
             builder.Services.AddSingleton<MusicService>();
+
+            builder.Services.AddSingleton<AllSongsPage>();
+            builder.Services.AddSingleton<SearchedAlbumsPage>();
+            builder.Services.AddSingleton<SearchedSongsPage>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

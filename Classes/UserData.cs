@@ -13,6 +13,7 @@ namespace AudioHeaven.Classes
         public static string? Token { get; set; }
         public static List<Song>? Songs { get; set; }
         public static List<Album>? Albums { get; set; }
+        public static string? SearchTerm { get; set; } = "";
 
         public static async Task<bool> SaveTokenStorage()
         {

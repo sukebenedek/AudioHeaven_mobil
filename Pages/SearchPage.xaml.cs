@@ -28,4 +28,9 @@ public partial class SearchPage : ContentPage
 
         return true;
     }
+
+    private async void OnAlbumsHeaderClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("SeachedAlbumsPage");
+    }
 }

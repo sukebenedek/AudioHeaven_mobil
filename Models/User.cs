@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AudioHeaven.Classes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace AudioHeaven.Models
 
         [ObservableProperty]
         private string profile_picture;
+
+        public string FullProfilePicUrl => $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
     }
 }

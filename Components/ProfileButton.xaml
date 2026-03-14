@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AudioHeaven.Components.ProfileButton">
     <ImageButton x:Name="ProfileImage"
-                 Source="user.png"
+                 Source="{Binding FullProfilePicUrl}"
                  WidthRequest="45"
                  HeightRequest="45"
                  Aspect="AspectFill"

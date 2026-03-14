@@ -1,3 +1,6 @@
+
+using AudioHeaven.Classes;
+
 namespace AudioHeaven.Components;
 
 public partial class ProfileButton : ContentView
@@ -7,6 +10,7 @@ public partial class ProfileButton : ContentView
     public ProfileButton()
     {
         InitializeComponent();
+        ProfileImage.BindingContext = UserData.User;
     }
 
     private void OnButtonClicked(object sender, EventArgs e)
