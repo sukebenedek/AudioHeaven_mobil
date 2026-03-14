@@ -103,10 +103,9 @@ namespace AudioHeaven.Classes
         {
             try
             {
-                var response = await HTTPCommunication<Dictionary<string, string>>.Post($"{BaseUrl}/logout", new { });
+                var response = await HTTPCommunication<AuthResponse>.Post($"{BaseUrl}/logout", new { });
 
-                if (response != null && response.ContainsKey("message") &&
-                    response["message"].Contains("succesfully"))
+                if (response != null && response.StatusCode == 200)
                 {
                     UserData.User = null;
                     UserData.Token = null;

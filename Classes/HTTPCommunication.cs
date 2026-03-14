@@ -60,8 +60,21 @@ namespace AudioHeaven.Classes
                 if (response != null)
                 {
                     string resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonSerializer.Deserialize<T>(resultString, _options); 
-                }
+                    var res = JsonSerializer.Deserialize<T>(resultString, _options);
+
+                    // --- NEW LOGIC TO INJECT STATUS CODE ---
+                    if (res != null)
+                    {
+                        // Check if the class T has a property named "StatusCode"
+                        var prop = typeof(T).GetProperty("StatusCode");
+                        if (prop != null && prop.CanWrite)
+                        {
+                            // Set it to the actual HTTP status code (e.g., 200, 401, 404)
+                            prop.SetValue(res, (int)response.StatusCode);
+                        }
+                    }
+                    return res;
+            }
                 return null;
             }
     }
