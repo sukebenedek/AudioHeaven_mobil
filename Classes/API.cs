@@ -202,5 +202,27 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<Song>();
             }
         }
+
+        public static async Task<ObservableCollection<User>?> GetUsersSearchAsync(string query, int? take = null)
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/users?search={query}";
+
+                var response = await HTTPCommunication<List<User>>.Get(url);
+
+                if (take != null)
+                    return response != null ? response.Take(take.Value).ToObservableCollection() : new ObservableCollection<User>();
+                else
+                    return response != null ? response.ToObservableCollection() : new ObservableCollection<User>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"User FETCH HIBA: {ex.Message}");
+                return new ObservableCollection<User>();
+            }
+        }
     }
 }

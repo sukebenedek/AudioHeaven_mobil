@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:AudioHeaven.Models"
-             x:DataType="models:Song"
-             xmlns:comp="clr-namespace:AudioHeaven.Components"
-             x:Class="AudioHeaven.Components.SongItemRow">
-    <Grid ColumnDefinitions="Auto, *, Auto" Padding="10,7" Margin="0" ColumnSpacing="15">
+<ContentView
+    x:Class="AudioHeaven.Components.SongItemRow"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    xmlns:models="clr-namespace:AudioHeaven.Models"
+    x:DataType="models:Song">
+    <Grid
+        Margin="0"
+        Padding="10,7"
+        ColumnDefinitions="Auto, *, Auto"
+        ColumnSpacing="15">
 
-        <Border Grid.Column="0" StrokeShape="RoundRectangle 10" HeightRequest="60" WidthRequest="60">
-            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}"/>
+        <Border
+            Grid.Column="0"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 10"
+            WidthRequest="60">
+            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
         </Border>
 
         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-            <Label Text="{Binding Title}" 
-                   TextColor="White" 
-                   FontSize="18" 
-                   FontAttributes="Bold" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="{Binding Title}"
+                TextColor="White" />
 
-            <Label Text="{Binding Plays, StringFormat='{0} plays'}"
-       IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
-       TextColor="Gray" />
+            <Label
+                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
+                Text="{Binding Plays, StringFormat='{0} plays'}"
+                TextColor="Gray" />
 
-            <Label Text="{Binding User.Name}"
-       IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
-       TextColor="Gray" />
+            <Label
+                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
+                Text="{Binding User.Name}"
+                TextColor="Gray" />
         </VerticalStackLayout>
 
-        <ImageButton Grid.Column="2" 
-                     Source="meatballs.png" 
-                     BackgroundColor="Transparent"
-                     VerticalOptions="Center"
-                     HeightRequest="30"
-                     WidthRequest="30"/>
+        <ImageButton
+            Grid.Column="2"
+            Margin="0,-3,0,0"
+            BackgroundColor="Transparent"
+            HeightRequest="26"
+            Source="meatballs.png"
+            VerticalOptions="Center"
+            WidthRequest="26" />
     </Grid>
 </ContentView>

@@ -12,47 +12,53 @@ namespace AudioHeaven.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
-            [ObservableProperty]
-            private string _searchText;
+        [ObservableProperty]
+        private string _searchText;
 
-            [ObservableProperty]
-            private ObservableCollection<Album> albums = new();
+        [ObservableProperty]
+        private ObservableCollection<Album> albums = new();
 
-            [ObservableProperty]
-            private ObservableCollection<Song> songs = new();
+        [ObservableProperty]
+        private ObservableCollection<Song> songs = new();
 
-            [ObservableProperty]
-            [NotifyPropertyChangedFor(nameof(IsStartVisible))]
-            private bool hasAlbums = false;
+        [ObservableProperty]
+        private ObservableCollection<User> users = new();
 
-            [ObservableProperty]
-            [NotifyPropertyChangedFor(nameof(IsStartVisible))]
-            private bool hasSongs = false;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsStartVisible))]
+        private bool hasAlbums = false;
 
-            [ObservableProperty]
-            [NotifyPropertyChangedFor(nameof(IsStartVisible))]
-            private bool hasUsers = false;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsStartVisible))]
+        private bool hasSongs = false;
 
-            public bool IsStartVisible => !HasAlbums && !HasSongs && !HasUsers;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsStartVisible))]
+        private bool hasUsers = false;
+
+        public bool IsStartVisible => !HasAlbums && !HasSongs && !HasUsers;
 
 
-            // This method is automatically called by the Toolkit when SearchText changes
-            partial void OnSearchTextChanged(string value)
+        // This method is automatically called by the Toolkit when SearchText changes
+        partial void OnSearchTextChanged(string value)
+        {
+            HasAlbums = Albums.Count() != 0;
+            HasSongs = Songs.Count() != 0;
+            HasUsers = Users.Count() != 0;
+
+            if (string.IsNullOrWhiteSpace(value))
             {
-                HasAlbums = Albums.Count() != 0;
-                HasSongs = Songs.Count() != 0;
+                Albums.Clear();
+                HasAlbums = false;
+                Songs.Clear();
+                HasSongs = false;
+                Users.Clear();
+                HasUsers = false;
+                return;
+            }
 
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    Albums.Clear();
-                    HasAlbums = false;
-                    Songs.Clear();
-                    HasSongs = false;
-                    return;
-                }
-
-                // Trigger the async search
-                _ = SearchAsync(value);
+            // Trigger the async search
+            _ = SearchAsync(value);
 
         }
 
@@ -66,6 +72,8 @@ namespace AudioHeaven.ViewModels
             UserData.SearchTerm = query;
             var albumResults = await API.GetAlbumsSearchAsync(query, 5);
             var songResults = await API.GetSongsSearchAsync(query, 5);
+            var userResults = await API.GetUsersSearchAsync(query, 12);
+            HasUsers = userResults.Count() != 0;
             HasAlbums = albumResults.Count() != 0;
             HasSongs = songResults.Count() != 0;
 
@@ -84,6 +92,15 @@ namespace AudioHeaven.ViewModels
                 foreach (var s in songResults)
                 {
                     Songs.Add(s);
+                }
+            }
+
+            if (userResults != null)
+            {
+                Users.Clear();
+                foreach (var u in userResults)
+                {
+                    Users.Add(u);
                 }
             }
         }

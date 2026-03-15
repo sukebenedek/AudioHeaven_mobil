@@ -8,20 +8,13 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.Models
 {
-    public partial class User : ObservableObject
-    {
-        [ObservableProperty]
-        private int id;
+        public class User
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } 
+            public string? Email { get; set; }
+            public string profile_picture { get; set; } 
 
-        [ObservableProperty]
-        private string name;
-
-        [ObservableProperty]
-        private string email;
-
-        [ObservableProperty]
-        private string profile_picture;
-
-        public string FullProfilePicUrl => $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
-    }
+            public string FullProfilePicUrl => $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
+        }
 }

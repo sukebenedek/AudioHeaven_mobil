@@ -1,71 +1,88 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AudioHeaven.Pages.SearchPage"
-             xmlns:comp="clr-namespace:AudioHeaven.Components"
-             Title="Search"
-             Shell.NavBarIsVisible="False">
+<ContentPage
+    x:Class="AudioHeaven.Pages.SearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    xmlns:models="clr-namespace:AudioHeaven.Models"
+    Title="Search"
+    Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="Auto, *" >
-        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" 
-              Padding="0,0,10,0" VerticalOptions="Start" HorizontalOptions="Center" ZIndex="100" Margin="0,10,0,0"
-              >
+    <Grid RowDefinitions="Auto, *">
+        <Grid
+            Grid.Row="0"
+            Margin="0,10,0,0"
+            Padding="0,0,10,0"
+            ColumnDefinitions="*, Auto"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            ZIndex="100">
 
-            <Border StrokeShape="RoundRectangle 15"
+            <Border
+                Margin="0,10,5,0"
+                BackgroundColor="{x:DynamicResource DarkGray}"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Stroke="{x:DynamicResource LightGray}"
+                StrokeShape="RoundRectangle 15"
+                StrokeThickness="0">
+
+                <SearchBar
+                    x:Name="MainSearchBar"
                     BackgroundColor="{x:DynamicResource DarkGray}"
-                    Stroke="{x:DynamicResource LightGray}"
-                    HeightRequest="60"
-                    Margin="0,10,5,0"
-                    StrokeThickness="0"
-                    HorizontalOptions="Center"
-                    >
-
-                <SearchBar x:Name="MainSearchBar"
-                           Placeholder="Type here to search..."
-                           PlaceholderColor="Gray"
-                           BackgroundColor="{x:DynamicResource DarkGray}"
-                           TextColor="White"
-                           FontSize="17"
-                           HorizontalOptions="Fill"
-                           FontAttributes="Bold"
-                           HeightRequest="50"
-                           CancelButtonColor="White"
-                           Text="{Binding SearchText}"/>
+                    CancelButtonColor="White"
+                    FontAttributes="Bold"
+                    FontSize="17"
+                    HeightRequest="50"
+                    HorizontalOptions="Fill"
+                    Placeholder="Type here to search..."
+                    PlaceholderColor="Gray"
+                    Text="{Binding SearchText}"
+                    TextColor="White" />
             </Border>
         </Grid>
 
-        <Label Grid.Row="1" Text="Search songs, albums or even users" 
-               HorizontalOptions="Center" 
-               VerticalOptions="Center" 
-               TextColor="Gray" IsVisible="{Binding IsStartVisible}" />
+        <Label
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsStartVisible}"
+            Text="Search songs, albums or even users"
+            TextColor="Gray"
+            VerticalOptions="Center" />
 
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="10" Spacing="10" Margin="0,10,0,0">
+            <VerticalStackLayout
+                Margin="0,10,0,0"
+                Padding="10"
+                Spacing="10">
 
                 <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
 
                     <VerticalStackLayout Spacing="0">
-                        <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
-                            <Label Grid.Column="0"
-       Text="Songs" 
-       FontSize="25" 
-       TextColor="{x:DynamicResource LightBlue}" 
-       FontAttributes="Bold"
-       VerticalOptions="Center" />
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Songs"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
 
-                            <ImageButton Grid.Column="1"
-             Source="arrowr.png" 
-             BackgroundColor="Transparent"
-             VerticalOptions="Center"
-             HeightRequest="30"
-             WidthRequest="30"
-             Clicked="OnSongsHeaderClicked" />
+                            <ImageButton
+                                Grid.Column="1"
+                                BackgroundColor="Transparent"
+                                Clicked="OnSongsHeaderClicked"
+                                HeightRequest="30"
+                                Source="arrowr.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
                         </Grid>
 
-                        <BoxView HeightRequest="2" 
-     Color="{x:DynamicResource LightBlue}" 
-     HorizontalOptions="Fill" 
-     Margin="14,0,11,10"/>
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
 
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
@@ -85,27 +102,30 @@
                 <VerticalStackLayout IsVisible="{Binding HasAlbums}" Spacing="10">
 
                     <VerticalStackLayout Spacing="0">
-                        <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
-                            <Label Grid.Column="0"
-       Text="Albums" 
-       FontSize="25" 
-       TextColor="{x:DynamicResource LightBlue}" 
-       FontAttributes="Bold"
-       VerticalOptions="Center" />
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Albums"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
 
-                            <ImageButton Grid.Column="1"
-             Source="arrowr.png" 
-             BackgroundColor="Transparent"
-             VerticalOptions="Center"
-             HeightRequest="30"
-             WidthRequest="30"
-             Clicked="OnAlbumsHeaderClicked" />
+                            <ImageButton
+                                Grid.Column="1"
+                                BackgroundColor="Transparent"
+                                Clicked="OnAlbumsHeaderClicked"
+                                HeightRequest="30"
+                                Source="arrowr.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
                         </Grid>
 
-                        <BoxView HeightRequest="2" 
-     Color="{x:DynamicResource LightBlue}" 
-     HorizontalOptions="Fill" 
-     Margin="14,0,11,10"/>
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
 
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAlbumsHeaderClicked" />
@@ -121,10 +141,52 @@
                     </CollectionView>
 
                 </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Padding="0,5,0,115"
+                    IsVisible="{Binding HasUsers}"
+                    Spacing="10">
+
+                    <VerticalStackLayout Spacing="0">
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Users"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
+
+                    </VerticalStackLayout>
+
+                    <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding Users}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:User">
+                                <!--<Label
+                                    Margin="10"
+                                    Text="{Binding Name, FallbackValue='Path Invalid', TargetNullValue='Name is Null'}"
+                                    TextColor="White" />-->
+                                <comp:UserItemCard Margin="10,0" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
             </VerticalStackLayout>
         </ScrollView>
 
-        <comp:FloatingPlayer VerticalOptions="End"  Grid.Row="1"
-         Margin="5,0,5,10" />
+        <comp:FloatingPlayer
+            Grid.Row="1"
+            Margin="5,0,5,10"
+            VerticalOptions="End" />
     </Grid>
 </ContentPage>

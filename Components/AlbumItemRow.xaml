@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:AudioHeaven.Models"
-             x:DataType="models:Album"
-             x:Class="AudioHeaven.Components.AlbumItemRow">
+<ContentView
+    x:Class="AudioHeaven.Components.AlbumItemRow"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:AudioHeaven.Models"
+    x:DataType="models:Album">
 
-    <Grid ColumnDefinitions="Auto, *, Auto" 
-          Padding="10,7" 
-          Margin="0" 
-          ColumnSpacing="15">
+    <Grid
+        Margin="0"
+        Padding="10,7"
+        ColumnDefinitions="Auto, *, Auto"
+        ColumnSpacing="15">
 
-        <Border Grid.Column="0" 
-                StrokeShape="RoundRectangle 10" 
-                HeightRequest="60" 
-                WidthRequest="60"
-                StrokeThickness="0">
-            <Image Aspect="AspectFill" 
-                   Source="{Binding FullCoverUrl}"/>
+        <Border
+            Grid.Column="0"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="0"
+            WidthRequest="60">
+            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
         </Border>
 
-        <VerticalStackLayout Grid.Column="1" 
-                             VerticalOptions="Center">
-            <Label Text="{Binding Title}" 
-                   TextColor="White" 
-                   FontSize="18" 
-                   FontAttributes="Bold" 
-                   LineBreakMode="TailTruncation" />
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                LineBreakMode="TailTruncation"
+                Text="{Binding Title}"
+                TextColor="White" />
 
-            <Label Text="{Binding User.Name}" 
-                   TextColor="Gray" 
-                   FontSize="14" />
+            <Label
+                FontSize="14"
+                Text="{Binding User.Name}"
+                TextColor="Gray" />
         </VerticalStackLayout>
 
-        <ImageButton Grid.Column="2" 
-                     Source="meatballs.png" 
+        <!--<ImageButton Grid.Column="2"
+                     Source="meatballs.png"
                      BackgroundColor="Transparent"
                      VerticalOptions="Center"
                      HeightRequest="30"
-                     WidthRequest="30"/>
+                     WidthRequest="30"/>-->
     </Grid>
 </ContentView>
