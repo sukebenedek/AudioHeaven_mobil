@@ -33,4 +33,9 @@ public partial class SearchPage : ContentPage
     {
         await Shell.Current.GoToAsync("SeachedAlbumsPage");
     }
+
+    private async void OnSongsHeaderClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("SeachedSongsPage");
+    }
 }

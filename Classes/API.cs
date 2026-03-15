@@ -12,8 +12,8 @@ namespace AudioHeaven.Classes
 {
     public static class API
     {
-        public static readonly string BaseUrl = "http://10.0.2.2:8000/api";
-        //public static readonly string BaseUrl = "http://192.168.1.10:8000/api";
+        //public static readonly string BaseUrl = "http://10.0.2.2:8000/api";
+        public static readonly string BaseUrl = "http://192.168.1.10:8000/api";
 
         public static async Task<AuthResponse?> LoginAsync(string email, string password)
         {
@@ -178,6 +178,28 @@ namespace AudioHeaven.Classes
             {
                 System.Diagnostics.Debug.WriteLine($"Album FETCH HIBA: {ex.Message}");
                 return new ObservableCollection<Album>();
+            }
+        }
+
+        public static async Task<ObservableCollection<Song>?> GetSongsSearchAsync(string query, int? take = null)
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/songs?search={query}";
+
+                var response = await HTTPCommunication<List<Song>>.Get(url);
+
+                if (take != null)
+                    return response != null ? response.Take(take.Value).ToObservableCollection() : new ObservableCollection<Song>();
+                else
+                    return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Song FETCH HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
             }
         }
     }

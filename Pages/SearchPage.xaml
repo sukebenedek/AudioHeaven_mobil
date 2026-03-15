@@ -3,65 +3,109 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AudioHeaven.Pages.SearchPage"
              xmlns:comp="clr-namespace:AudioHeaven.Components"
-             Title="Search">
-    <Shell.TitleView>
-        <Grid ColumnDefinitions="*, Auto" 
-              Padding="0,0,10,0" 
-              VerticalOptions="Center"
-              HorizontalOptions="Fill">
+             Title="Search"
+             Shell.NavBarIsVisible="False">
 
-            <Border StrokeShape="RoundRectangle 10"
+    <Grid RowDefinitions="Auto, *" >
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" 
+              Padding="0,0,10,0" VerticalOptions="Start" HorizontalOptions="Center" ZIndex="100" Margin="0,10,0,0"
+              >
+
+            <Border StrokeShape="RoundRectangle 15"
                     BackgroundColor="{x:DynamicResource DarkGray}"
-                    HeightRequest="50"
-                    Margin="5,0"
-                    StrokeThickness="0">
+                    Stroke="{x:DynamicResource LightGray}"
+                    HeightRequest="60"
+                    Margin="0,10,5,0"
+                    StrokeThickness="0"
+                    HorizontalOptions="Center"
+                    >
 
                 <SearchBar x:Name="MainSearchBar"
-                           Placeholder="Search songs, albums or even users"
+                           Placeholder="Type here to search..."
                            PlaceholderColor="Gray"
                            BackgroundColor="{x:DynamicResource DarkGray}"
                            TextColor="White"
-                           FontSize="14"
-                           HeightRequest="40"
+                           FontSize="17"
+                           HorizontalOptions="Fill"
+                           FontAttributes="Bold"
+                           HeightRequest="50"
                            CancelButtonColor="White"
-                           Text="{Binding SearchText}" />
+                           Text="{Binding SearchText}"/>
             </Border>
         </Grid>
-    </Shell.TitleView>
 
-    <Grid>
-        <Label Text="Start typing to find music..." 
+        <Label Grid.Row="1" Text="Search songs, albums or even users" 
                HorizontalOptions="Center" 
                VerticalOptions="Center" 
                TextColor="Gray" IsVisible="{Binding IsStartVisible}" />
 
-        <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="10">
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="10" Spacing="10" Margin="0,10,0,0">
+
+                <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
+
+                    <VerticalStackLayout Spacing="0">
+                        <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
+                            <Label Grid.Column="0"
+       Text="Songs" 
+       FontSize="25" 
+       TextColor="{x:DynamicResource LightBlue}" 
+       FontAttributes="Bold"
+       VerticalOptions="Center" />
+
+                            <ImageButton Grid.Column="1"
+             Source="arrowr.png" 
+             BackgroundColor="Transparent"
+             VerticalOptions="Center"
+             HeightRequest="30"
+             WidthRequest="30"
+             Clicked="OnSongsHeaderClicked" />
+                        </Grid>
+
+                        <BoxView HeightRequest="2" 
+     Color="{x:DynamicResource LightBlue}" 
+     HorizontalOptions="Fill" 
+     Margin="14,0,11,10"/>
+
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
+                        </VerticalStackLayout.GestureRecognizers>
+                    </VerticalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Songs}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <comp:SongItemRow Format="username" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
 
                 <VerticalStackLayout IsVisible="{Binding HasAlbums}" Spacing="10">
 
                     <VerticalStackLayout Spacing="0">
                         <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
                             <Label Grid.Column="0"
-                       Text="Albums" 
-                       FontSize="25" 
-                       TextColor="{x:DynamicResource LightBlue}" 
-                       FontAttributes="Bold"
-                       VerticalOptions="Center" />
+       Text="Albums" 
+       FontSize="25" 
+       TextColor="{x:DynamicResource LightBlue}" 
+       FontAttributes="Bold"
+       VerticalOptions="Center" />
 
                             <ImageButton Grid.Column="1"
-                             Source="arrowr.png" 
-                             BackgroundColor="Transparent"
-                             VerticalOptions="Center"
-                             HeightRequest="30"
-                             WidthRequest="30"
-                             Clicked="OnAlbumsHeaderClicked" />
+             Source="arrowr.png" 
+             BackgroundColor="Transparent"
+             VerticalOptions="Center"
+             HeightRequest="30"
+             WidthRequest="30"
+             Clicked="OnAlbumsHeaderClicked" />
                         </Grid>
 
                         <BoxView HeightRequest="2" 
-                     Color="{x:DynamicResource LightBlue}" 
-                     HorizontalOptions="Fill" 
-                     Margin="14,0,11,10"/>
+     Color="{x:DynamicResource LightBlue}" 
+     HorizontalOptions="Fill" 
+     Margin="14,0,11,10"/>
 
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAlbumsHeaderClicked" />
@@ -77,11 +121,10 @@
                     </CollectionView>
 
                 </VerticalStackLayout>
-
             </VerticalStackLayout>
         </ScrollView>
 
-        <comp:FloatingPlayer VerticalOptions="End" 
+        <comp:FloatingPlayer VerticalOptions="End"  Grid.Row="1"
          Margin="5,0,5,10" />
     </Grid>
 </ContentPage>

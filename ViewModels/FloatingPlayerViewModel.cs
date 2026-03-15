@@ -12,7 +12,7 @@ namespace AudioHeaven.ViewModels
         [ObservableProperty]
         private MusicService musicService;
 
-        public string StreamUrl => $"{API.BaseUrl}/play/1";
+        public string StreamUrl => $"{API.BaseUrl}/play/7";
 
         public FloatingPlayerViewModel(MusicService musicService)
         {

@@ -13,7 +13,7 @@
             <CollectionView ItemsSource="{Binding Songs}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <comp:SongItemRow />
+                        <comp:SongItemRow Format="plays"  />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

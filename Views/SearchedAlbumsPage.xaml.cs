@@ -27,10 +27,10 @@ public partial class SearchedAlbumsPage : ContentPage
             if (result != null)
             {
                 Albums.Clear();
-                foreach (var song in result)
+                foreach (var a in result)
                 {
                     //await Shell.Current.DisplayAlert(song.Title, UserData.SearchTerm, "Ok");
-                    Albums.Add(song);
+                    Albums.Add(a);
                 }
             }
         }

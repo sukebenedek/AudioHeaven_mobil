@@ -19,6 +19,9 @@ namespace AudioHeaven.ViewModels
             private ObservableCollection<Album> albums = new();
 
             [ObservableProperty]
+            private ObservableCollection<Song> songs = new();
+
+            [ObservableProperty]
             [NotifyPropertyChangedFor(nameof(IsStartVisible))]
             private bool hasAlbums = false;
 
@@ -33,42 +36,56 @@ namespace AudioHeaven.ViewModels
             public bool IsStartVisible => !HasAlbums && !HasSongs && !HasUsers;
 
 
-        // This method is automatically called by the Toolkit when SearchText changes
-        partial void OnSearchTextChanged(string value)
+            // This method is automatically called by the Toolkit when SearchText changes
+            partial void OnSearchTextChanged(string value)
             {
                 HasAlbums = Albums.Count() != 0;
+                HasSongs = Songs.Count() != 0;
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Albums.Clear();
                     HasAlbums = false;
+                    Songs.Clear();
+                    HasSongs = false;
                     return;
                 }
 
                 // Trigger the async search
-                _ = SearchAlbumsAsync(value);
-                
+                _ = SearchAsync(value);
+
+        }
+
+        private async Task SearchAsync(string query)
+        {
+            // Optional: Add a small delay (300ms) to wait for the user to stop typing
+            await Task.Delay(300);
+            if (query != SearchText) return; // If text changed again, cancel this run
+             //await Shell.Current.DisplayAlert("Error", query, "Ok");
+
+            UserData.SearchTerm = query;
+            var albumResults = await API.GetAlbumsSearchAsync(query, 5);
+            var songResults = await API.GetSongsSearchAsync(query, 5);
+            HasAlbums = albumResults.Count() != 0;
+            HasSongs = songResults.Count() != 0;
+
+            if (albumResults != null)
+            {
+                Albums.Clear();
+                foreach (var a in albumResults)
+                {
+                    Albums.Add(a);
+                }
             }
 
-            private async Task SearchAlbumsAsync(string query)
+            if (songResults != null)
             {
-                // Optional: Add a small delay (300ms) to wait for the user to stop typing
-                await Task.Delay(300);
-                if (query != SearchText) return; // If text changed again, cancel this run
-                 //await Shell.Current.DisplayAlert("Error", query, "Ok");
-
-                UserData.SearchTerm = query;
-                var results = await API.GetAlbumsSearchAsync(query, 5);
-                HasAlbums = results.Count() != 0;
-
-                if (results != null)
+                Songs.Clear();
+                foreach (var s in songResults)
                 {
-                    Albums.Clear();
-                    foreach (var album in results)
-                    {
-                        Albums.Add(album);
-                    }
+                    Songs.Add(s);
                 }
+            }
         }
     }
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:AudioHeaven.Models"
              x:DataType="models:Song"
+             xmlns:comp="clr-namespace:AudioHeaven.Components"
              x:Class="AudioHeaven.Components.SongItemRow">
     <Grid ColumnDefinitions="Auto, *, Auto" Padding="10,7" Margin="0" ColumnSpacing="15">
 
@@ -15,9 +16,14 @@
                    TextColor="White" 
                    FontSize="18" 
                    FontAttributes="Bold" />
-            <Label Text="{Binding Plays, StringFormat='{0} plays'}" 
-                   TextColor="Gray" 
-                   FontSize="14" />
+
+            <Label Text="{Binding Plays, StringFormat='{0} plays'}"
+       IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
+       TextColor="Gray" />
+
+            <Label Text="{Binding User.Name}"
+       IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
+       TextColor="Gray" />
         </VerticalStackLayout>
 
         <ImageButton Grid.Column="2" 

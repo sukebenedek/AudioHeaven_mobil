@@ -15,7 +15,7 @@
 
     <Grid>
         <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="10">
+            <VerticalStackLayout Padding="10" Spacing="10">
 
                 <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
 
@@ -50,7 +50,7 @@
                     <CollectionView ItemsSource="{Binding Songs}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <comp:SongItemRow />
+                                <comp:SongItemRow Format="plays" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
