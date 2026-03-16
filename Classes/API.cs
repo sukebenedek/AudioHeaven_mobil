@@ -121,17 +121,22 @@ namespace AudioHeaven.Classes
             return false;
         }
 
-        public static async Task<ObservableCollection<Song>?> GetUserSongsAsync()
+        public static async Task<ObservableCollection<Song>> GetUserSongsAsync(int? id = null)
         {
             try
             {
-                if (UserData.User == null) throw new Exception("There is no user");
+                if (UserData.User == null)
+                    throw new Exception("There is no user");
 
-                string url = $"{BaseUrl}/users/{UserData.User.Id}/songs";
+                int userId = id ?? UserData.User.Id;
+
+                string url = $"{BaseUrl}/users/{userId}/songs";
 
                 var response = await HTTPCommunication<List<Song>>.Get(url);
 
-                return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
+                return response != null
+                    ? response.ToObservableCollection()
+                    : new ObservableCollection<Song>();
             }
             catch (Exception ex)
             {

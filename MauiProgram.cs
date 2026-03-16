@@ -42,10 +42,12 @@ namespace AudioHeaven
 
             builder.Services.AddSingleton<MusicService>();
 
-            builder.Services.AddSingleton<AllSongsPage>();
             builder.Services.AddSingleton<SearchedAlbumsPage>();
             builder.Services.AddSingleton<SearchedSongsPage>();
 
+            //builder.Services.AddSingleton<UserPage>();
+            //builder.Services.AddSingleton<AlbumPage>();
+            //builder.Services.AddSingleton<SongPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -1,3 +1,4 @@
+using AudioHeaven.Classes;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Alerts;
 
@@ -51,6 +52,7 @@ public partial class MySongsPage : ContentPage
 
     private async void OnSongsHeaderClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("AllSongsPage");
+        await Shell.Current.GoToAsync($"AllSongsPage?id={UserData.User.Id}");
+        
     }
 }

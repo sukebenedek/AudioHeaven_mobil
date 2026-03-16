@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AudioHeaven.Views.UserPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    Title="UserPage">
+    <Grid>
+
+        <ScrollView>
+            <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+
+                <Image
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    Source="{Binding TargetUser.FullProfilePicUrl}"
+                    VerticalOptions="Fill" />
+
+                <Label
+                    Margin="0,0,0,20"
+                    FontAttributes="Bold"
+                    FontSize="32"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding TargetUser.Name}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+
+                <VerticalStackLayout Margin="12,0,12,100">
+
+
+                    <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
+
+                        <VerticalStackLayout Spacing="0">
+                            <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                                <Label
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    FontSize="25"
+                                    Text="Songs"
+                                    TextColor="{x:DynamicResource LightBlue}"
+                                    VerticalOptions="Center" />
+
+                                <ImageButton
+                                    Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Clicked="OnSongsHeaderClicked"
+                                    HeightRequest="30"
+                                    Source="arrowr.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30" />
+                            </Grid>
+
+                            <BoxView
+                                Margin="14,0,11,10"
+                                HeightRequest="2"
+                                HorizontalOptions="Fill"
+                                Color="{x:DynamicResource LightBlue}" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                        <CollectionView ItemsSource="{Binding Songs}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <comp:SongItemRow Format="plays" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </VerticalStackLayout>
+
+                    <Label
+                        Margin="14,20"
+                        Padding="30"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        IsVisible="{Binding DoesNotHaveSongs}"
+                        Text="This user has no music uploaded yet"
+                        TextColor="{x:DynamicResource White}" />
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+
+    </Grid>
+</ContentPage>

@@ -5,9 +5,21 @@ using System.Collections.ObjectModel;
 
 namespace AudioHeaven.Pages;
 
+[QueryProperty(nameof(UserIdString), "id")]
 public partial class AllSongsPage : ContentPage
 {
     public ObservableCollection<Song> Songs { get; set; } = new();
+
+    private int? _userId;
+
+    public string UserIdString
+    {
+        set
+        {
+            if (int.TryParse(value, out int id))
+                _userId = id;
+        }
+    }
 
     public AllSongsPage()
     {
@@ -29,19 +41,17 @@ public partial class AllSongsPage : ContentPage
 
         IsBusy = true;
 
-        await Task.Delay(3);
-
         try
         {
-            var result = await API.GetUserSongsAsync();
+            int id = _userId ?? UserData.User.Id;
+
+            var result = await API.GetUserSongsAsync(id);
 
             if (result != null)
             {
                 Songs.Clear();
                 foreach (var song in result)
-                {
                     Songs.Add(song);
-                }
             }
         }
         finally

@@ -26,7 +26,7 @@ namespace AudioHeaven.ViewModels
 
         public async Task LoadSongsAsync()
         {
-            Songs = new ObservableCollection<Song>(await API.GetUserSongsAsync()).OrderBy(s => s.Plays).Take(5).ToObservableCollection();
+            Songs = new ObservableCollection<Song>(await API.GetUserSongsAsync()).OrderByDescending(s => s.Plays).Take(5).ToObservableCollection();
             HasSongs = Songs.Any();
             UserData.Songs = Songs.ToList();
             IsBusy = false;
@@ -42,7 +42,7 @@ namespace AudioHeaven.ViewModels
 
         //public async Task LoadAlbumsAsync()
         //{
-        //    Albums = new ObservableCollection<Album>(await API.GetUserAlbumsAsync()).OrderByDescending(s => s.CreatedAt).Take(5).ToObservableCollection();
+        //    Albums = new ObservableCollection<Album>(await API.GetUserAlbumsAsync()).OrderBy(s => s.CreatedAt).Take(5).ToObservableCollection();
         //    HasAlbums = Albums.Any();
         //    UserData.Albums = Albums.ToList();
         //    IsBusy = false;

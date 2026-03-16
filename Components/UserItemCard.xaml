@@ -11,6 +11,10 @@
         Spacing="8"
         WidthRequest="100">
 
+        <VerticalStackLayout.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnUserClicked" />
+        </VerticalStackLayout.GestureRecognizers>
+
         <Border
             HeightRequest="90"
             HorizontalOptions="Center"
