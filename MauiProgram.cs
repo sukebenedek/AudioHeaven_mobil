@@ -5,6 +5,7 @@ using AudioHeaven.Pages;
 using AudioHeaven.Views;
 using Plugin.Maui.BottomSheet.Hosting;
 using AudioHeaven.Services;
+using AudioHeaven.Components;
 
 namespace AudioHeaven
 {
@@ -24,6 +25,7 @@ namespace AudioHeaven
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //pages
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<RegisterPage>();
@@ -31,7 +33,7 @@ namespace AudioHeaven
             builder.Services.AddSingleton<LibraryPage>();
             builder.Services.AddSingleton<MySongsPage>();
             builder.Services.AddSingleton<AllSongsPage>();
-
+            //viewmodels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<HomeViewModel>();
@@ -39,11 +41,16 @@ namespace AudioHeaven
             builder.Services.AddSingleton<LibraryViewModel>();
             builder.Services.AddSingleton<MySongsViewModel>();
             builder.Services.AddSingleton<FloatingPlayerViewModel>();
-
+            //services
             builder.Services.AddSingleton<MusicService>();
-
+            //views
             builder.Services.AddSingleton<SearchedAlbumsPage>();
             builder.Services.AddSingleton<SearchedSongsPage>();
+            //components
+            builder.Services.AddSingleton<FloatingPlayer>();
+
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddSingleton<App>();
 
             //builder.Services.AddSingleton<UserPage>();
             //builder.Services.AddSingleton<AlbumPage>();

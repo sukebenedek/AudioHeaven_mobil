@@ -13,7 +13,7 @@ namespace AudioHeaven.Services
         private bool isPlaying;
 
         [ObservableProperty]
-        private bool isPlayerVisible;
+        private bool isPlayerVisible = false;
 
         public MediaElement InternalPlayer { get; set; }
 
@@ -21,13 +21,26 @@ namespace AudioHeaven.Services
         {
             if (InternalPlayer == null) return;
 
-            if (InternalPlayer.CurrentState == CommunityToolkit.Maui.Core.Primitives.MediaElementState.Playing)
+            if (IsPlaying)
             {
                 InternalPlayer.Pause();
-                IsPlaying = false;
             }
             else
             {
+                InternalPlayer.Play();
+            }
+            IsPlaying = !IsPlaying; // This triggers the UI to change the icon
+        }
+
+        public void PlaySong(Song song)
+        {
+            CurrentSong = song;
+            IsPlayerVisible = true;
+
+            // Check if the player has been linked yet
+            if (InternalPlayer != null)
+            {
+                InternalPlayer.Source = MediaSource.FromUri(song.FullAudioUrl);
                 InternalPlayer.Play();
                 IsPlaying = true;
             }

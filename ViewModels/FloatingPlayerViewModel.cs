@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using AudioHeaven.Classes;
-using AudioHeaven.Services;
+using AudioHeaven.Services; 
 
 namespace AudioHeaven.ViewModels
 {
@@ -12,17 +12,9 @@ namespace AudioHeaven.ViewModels
         [ObservableProperty]
         private MusicService musicService;
 
-        public string StreamUrl => $"{API.BaseUrl}/play/7";
-
         public FloatingPlayerViewModel(MusicService musicService)
         {
             MusicService = musicService;
-
-            // Initialize dummy data in the service if empty
-            if (MusicService.CurrentSong == null)
-            {
-                MusicService.CurrentSong = new Song { Id = 1, Title = "Song Title" , Cover= $"storage/covers/KJG4VnftVpFh3izGC0tYVQQSaQ4NLwhh2bXXlyxB.jpg" };
-            }
         }
 
         [RelayCommand]

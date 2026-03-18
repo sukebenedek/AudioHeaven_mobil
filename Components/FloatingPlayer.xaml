@@ -1,59 +1,94 @@
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:vm="clr-namespace:AudioHeaven.ViewModels"
-             x:Class="AudioHeaven.Components.FloatingPlayer">
+<ContentView
+    x:Class="AudioHeaven.Components.FloatingPlayer"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:AudioHeaven.ViewModels">
 
 
-    <Border StrokeShape="RoundRectangle 20" 
-            BackgroundColor="{x:DynamicResource DarkGray}" 
-            Margin="15,0,15,10" 
-            Padding="7"
-            HeightRequest="70"
-            VerticalOptions="End">
+    <Border
+        Margin="15,0,15,10"
+        Padding="7"
+        BackgroundColor="{x:DynamicResource DarkGray}"
+        HeightRequest="70"
+        IsVisible="{Binding MusicService.IsPlayerVisible}"
+        StrokeShape="RoundRectangle 20"
+        VerticalOptions="End">
 
         <Grid ColumnDefinitions="Auto, *, Auto">
 
-            <toolkit:MediaElement x:Name="musicPlayer" 
-                                  Source="{Binding StreamUrl}"
-                                  ShouldAutoPlay="False"
-                                  IsVisible="False" />
+            <toolkit:MediaElement
+                x:Name="musicPlayer"
+                IsVisible="False"
+                Loaded="musicPlayer_Loaded"
+                ShouldAutoPlay="False" />
 
-            <Border Grid.Column="0" StrokeShape="RoundRectangle 10" HeightRequest="55" WidthRequest="55">
-                <Image Source="{Binding MusicService.CurrentSong.FullCoverUrl}" Aspect="AspectFill" />
+            <Border
+                Grid.Column="0"
+                HeightRequest="55"
+                StrokeShape="RoundRectangle 10"
+                WidthRequest="55">
+                <Image Aspect="AspectFill" Source="{Binding MusicService.CurrentSong.FullCoverUrl}" />
             </Border>
 
-            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="15,0">
-                <Label Text="{Binding MusicService.CurrentSong.Title}" FontAttributes="Bold" TextColor="White" FontSize="16"/>
-                <Label Text="Foo Fighters" TextColor="{x:DynamicResource LightGray}" FontSize="12"/>
+            <VerticalStackLayout
+                Grid.Column="1"
+                Margin="15,0"
+                VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding MusicService.CurrentSong.Title}"
+                    TextColor="White" />
+                <Label
+                    FontSize="12"
+                    Text="{Binding MusicService.CurrentSong.User.Name}"
+                    TextColor="{x:DynamicResource LightGray}" />
             </VerticalStackLayout>
 
-            <HorizontalStackLayout Grid.Column="2" Spacing="15" VerticalOptions="Center" Margin="0,0,10,0">
-                <ImageButton Source="backward"  HeightRequest="24" WidthRequest="24" BackgroundColor="Transparent"/>
+            <HorizontalStackLayout
+                Grid.Column="2"
+                Margin="0,0,10,0"
+                Spacing="15"
+                VerticalOptions="Center">
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    HeightRequest="24"
+                    Source="backward"
+                    WidthRequest="24" />
 
-                <ImageButton Command="{Binding TogglePlayCommand}" 
-             CommandParameter="{x:Reference musicPlayer}"
-              HeightRequest="32" WidthRequest="32"
-             BackgroundColor="Transparent">
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Command="{Binding TogglePlayCommand}"
+                    CommandParameter="{x:Reference musicPlayer}"
+                    HeightRequest="32"
+                    WidthRequest="32">
                     <ImageButton.Source>
                         <FileImageSource x:Name="PlayPauseImage" File="paused.png" />
                     </ImageButton.Source>
 
                     <ImageButton.Triggers>
-                        <DataTrigger TargetType="ImageButton" 
-                     Binding="{Binding MusicService.IsPlaying}" 
-                     Value="True">
+                        <DataTrigger
+                            Binding="{Binding MusicService.IsPlaying}"
+                            TargetType="ImageButton"
+                            Value="True">
                             <Setter Property="Source" Value="playing.png" />
                         </DataTrigger>
-                        <DataTrigger TargetType="ImageButton" 
-                     Binding="{Binding MusicService.IsPlaying}" 
-                     Value="False">
+                        <DataTrigger
+                            Binding="{Binding MusicService.IsPlaying}"
+                            TargetType="ImageButton"
+                            Value="False">
                             <Setter Property="Source" Value="paused" />
                         </DataTrigger>
                     </ImageButton.Triggers>
                 </ImageButton>
 
-                <ImageButton Source="forward.png" HeightRequest="24" WidthRequest="24" BackgroundColor="Transparent"/>
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    HeightRequest="24"
+                    Source="forward.png"
+                    WidthRequest="24" />
             </HorizontalStackLayout>
         </Grid>
     </Border>

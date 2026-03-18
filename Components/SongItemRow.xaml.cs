@@ -1,3 +1,6 @@
+using AudioHeaven.Models;
+using AudioHeaven.Services;
+
 namespace AudioHeaven.Components;
 
 public partial class SongItemRow : ContentView
@@ -35,5 +38,37 @@ public partial class SongItemRow : ContentView
 
         control.OnPropertyChanged(nameof(ShowPlays));
         control.OnPropertyChanged(nameof(ShowUsername));
+    }
+
+    // 1. CLICKED THE WHOLE ROW: Play Song
+    private void OnPlaySongClicked(object sender, EventArgs e)
+    {
+        if (BindingContext is Song song)
+        {
+            var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
+
+            // Just call the service method!
+            musicService?.PlaySong(song);
+        }
+    }
+
+    // 2. CLICKED TITLE: Go to SongPage
+    private async void OnGoToSongPageClicked(object sender, EventArgs e)
+    {
+        if (BindingContext is Song song)
+        {
+            var navParam = new Dictionary<string, object> { { "SelectedSong", song } };
+            await Shell.Current.GoToAsync("SongPage", navParam);
+        }
+    }
+
+    // 3. CLICKED USERNAME: Go to UserPage
+    private async void OnGoToUserPageClicked(object sender, EventArgs e)
+    {
+        if (BindingContext is Song song && song.User != null)
+        {
+            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
+            //await Shell.Current.GoToAsync("UserPage", navParam);
+        }
     }
 }

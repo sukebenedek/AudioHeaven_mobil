@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     x:Class="AudioHeaven.Components.SongItemRow"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,11 +5,14 @@
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     xmlns:models="clr-namespace:AudioHeaven.Models"
     x:DataType="models:Song">
+
     <Grid
-        Margin="0"
         Padding="10,7"
         ColumnDefinitions="Auto, *, Auto"
         ColumnSpacing="15">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnPlaySongClicked" />
+        </Grid.GestureRecognizers>
 
         <Border
             Grid.Column="0"
@@ -25,7 +27,11 @@
                 FontAttributes="Bold"
                 FontSize="18"
                 Text="{Binding Title}"
-                TextColor="White" />
+                TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoToSongPageClicked" />
+                </Label.GestureRecognizers>
+            </Label>
 
             <Label
                 IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
@@ -35,16 +41,18 @@
             <Label
                 IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
                 Text="{Binding User.Name}"
-                TextColor="Gray" />
+                TextColor="Gray">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
+                </Label.GestureRecognizers>
+            </Label>
         </VerticalStackLayout>
 
         <ImageButton
             Grid.Column="2"
-            Margin="0,-3,0,0"
             BackgroundColor="Transparent"
             HeightRequest="26"
             Source="meatballs.png"
-            VerticalOptions="Center"
             WidthRequest="26" />
     </Grid>
 </ContentView>

@@ -134,9 +134,30 @@ namespace AudioHeaven.Classes
 
                 var response = await HTTPCommunication<List<Song>>.Get(url);
 
-                return response != null
-                    ? response.ToObservableCollection()
-                    : new ObservableCollection<Song>();
+                 if(response != null)
+                 {
+                    if (UserData.User != null && userId == UserData.User.Id)
+                    {
+                        // Create the ShortUser once to avoid repeating it in the loop
+                        var currentUser = new ShortUser
+                        {
+                            Id = UserData.User.Id,
+                            Name = UserData.User.Name
+                        };
+
+                        foreach (var song in response)
+                        {
+                            // Inject the missing user info
+                            song.User = currentUser;
+                        }
+                    }
+
+                    return response.ToObservableCollection();
+
+                } else
+                 {
+                     return new ObservableCollection<Song>();
+                 }
             }
             catch (Exception ex)
             {

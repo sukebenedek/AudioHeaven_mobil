@@ -25,6 +25,7 @@ namespace AudioHeaven.Models
         public ShortAlbum? Album { get; set; }
 
         public string FullCoverUrl => $"{API.BaseUrl.Replace("/api", "")}/{Cover}";
+        public string FullAudioUrl => $"{API.BaseUrl}/play/{Id}";
         //public string FullCoverUrl => $"http://10.0.2.2:8000/storage/covers/BZn7MoFnKOgsOY30zpxVsohitmnn1MJbE7uxDu1f.jpg";
 
     }
