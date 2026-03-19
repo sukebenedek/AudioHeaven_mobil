@@ -18,12 +18,8 @@ namespace AudioHeaven.ViewModels
         }
 
         [RelayCommand]
-        private void TogglePlay(MediaElement player)
+        private void TogglePlay()
         {
-            // Link the UI player to the service instance
-            if (MusicService.InternalPlayer == null)
-                MusicService.InternalPlayer = player;
-
             MusicService.Toggle();
         }
     }

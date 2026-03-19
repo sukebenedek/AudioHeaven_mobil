@@ -15,21 +15,36 @@ namespace AudioHeaven.Services
         [ObservableProperty]
         private bool isPlayerVisible = false;
 
-        public MediaElement InternalPlayer { get; set; }
+        private MediaElement _player;
+        private Song _pendingSong;
+
+        // Called once when HomePage loads
+        public void SetPlayer(MediaElement player)
+        {
+            _player = player;
+
+            // If user already selected a song before player was ready
+            if (_pendingSong != null)
+            {
+                PlayInternal(_pendingSong);
+                _pendingSong = null;
+            }
+        }
 
         public void Toggle()
         {
-            if (InternalPlayer == null) return;
+            if (_player == null) return;
 
             if (IsPlaying)
             {
-                InternalPlayer.Pause();
+                _player.Pause();
+                IsPlaying = false;
             }
             else
             {
-                InternalPlayer.Play();
+                _player.Play();
+                IsPlaying = true;
             }
-            IsPlaying = !IsPlaying; // This triggers the UI to change the icon
         }
 
         public void PlaySong(Song song)
@@ -37,13 +52,23 @@ namespace AudioHeaven.Services
             CurrentSong = song;
             IsPlayerVisible = true;
 
-            // Check if the player has been linked yet
-            if (InternalPlayer != null)
+            // Player not ready yet → store it
+            if (_player == null)
             {
-                InternalPlayer.Source = MediaSource.FromUri(song.FullAudioUrl);
-                InternalPlayer.Play();
-                IsPlaying = true;
+                _pendingSong = song;
+                return;
             }
+
+            PlayInternal(song);
+        }
+
+        private void PlayInternal(Song song)
+        {
+            if (_player == null) return;
+
+            _player.Source = MediaSource.FromUri(song.FullAudioUrl);
+            _player.Play();
+            IsPlaying = true;
         }
     }
 }

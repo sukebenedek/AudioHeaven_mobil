@@ -1,15 +1,13 @@
 using AudioHeaven.Classes;
+using AudioHeaven.Services;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 namespace AudioHeaven.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(HomeViewModel vm)
-	{
-		InitializeComponent();
-        this.BindingContext = vm;
-	}
+
 
     private bool _backPressedOnce = false;
 
@@ -31,6 +29,21 @@ public partial class HomePage : ContentPage
     private void OnProfileTapped(object sender, EventArgs e)
     {
         LogoutMenu.Open();
+    }
+
+    private readonly MusicService _musicService;
+
+    public HomePage(HomeViewModel viewModel, MusicService musicService)
+    {
+        InitializeComponent();
+
+        BindingContext = viewModel;
+        _musicService = musicService;
+    }
+
+    private void OnPlayerLoaded(object sender, EventArgs e)
+    {
+        _musicService.SetPlayer((MediaElement)sender);
     }
 
 }

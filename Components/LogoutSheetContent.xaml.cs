@@ -22,6 +22,7 @@ public partial class LogoutSheetContent : ContentView
         {
             UserData.DeleteTokenStorage();
             await App.Current!.MainPage!.DisplayAlert("Error", "Unexpexted error occured.", "Ok");
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
         LogoutSheet.IsOpen = false;

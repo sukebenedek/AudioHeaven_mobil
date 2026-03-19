@@ -17,11 +17,7 @@
 
         <Grid ColumnDefinitions="Auto, *, Auto">
 
-            <toolkit:MediaElement
-                x:Name="musicPlayer"
-                IsVisible="False"
-                Loaded="musicPlayer_Loaded"
-                ShouldAutoPlay="False" />
+
 
             <Border
                 Grid.Column="0"
@@ -61,7 +57,6 @@
                 <ImageButton
                     BackgroundColor="Transparent"
                     Command="{Binding TogglePlayCommand}"
-                    CommandParameter="{x:Reference musicPlayer}"
                     HeightRequest="32"
                     WidthRequest="32">
                     <ImageButton.Source>

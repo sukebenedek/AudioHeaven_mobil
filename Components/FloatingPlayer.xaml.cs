@@ -14,20 +14,5 @@ public partial class FloatingPlayer : ContentView
                          ?? App.Current.Handler.MauiContext.Services.GetService<FloatingPlayerViewModel>();
     }
 
-    private void musicPlayer_Loaded(object sender, EventArgs e)
-    {
-        //var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
-        //if (musicService != null)
-        //{
-        //    // Link the player
-        //    musicService.InternalPlayer = (MediaElement)sender;
-
-        //    // Check if a song was already picked while we were loading
-        //    if (musicService.CurrentSong != null && musicService.IsPlaying)
-        //    {
-        //        musicService.InternalPlayer.Source = MediaSource.FromUri(musicService.CurrentSong.FullAudioUrl);
-        //        musicService.InternalPlayer.Play();
-        //    }
-        //}
-    }
+    
 }
