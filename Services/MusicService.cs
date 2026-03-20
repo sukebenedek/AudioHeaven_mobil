@@ -1,6 +1,7 @@
 ﻿using AudioHeaven.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AudioHeaven.Services
 {
@@ -18,19 +19,24 @@ namespace AudioHeaven.Services
         private MediaElement _player;
         private Song _pendingSong;
 
-        // Called once when HomePage loads
         public void SetPlayer(MediaElement player)
         {
             _player = player;
 
-            // If user already selected a song before player was ready
+            _player.StateChanged += OnPlayerStateChanged;
+
             if (_pendingSong != null)
             {
                 PlayInternal(_pendingSong);
                 _pendingSong = null;
             }
         }
+        private void OnPlayerStateChanged(object sender, EventArgs e)
+        {
+            if (_player == null) return;
 
+            IsPlaying = _player.CurrentState == MediaElementState.Playing;
+        }
         public void Toggle()
         {
             if (_player == null) return;

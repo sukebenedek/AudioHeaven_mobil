@@ -27,8 +27,11 @@
             <VerticalStackLayout Padding="0,0,0,80">
                 <toolkit:MediaElement
                     x:Name="GlobalPlayer"
-                    IsVisible="True"
+                    IsVisible="False"
                     Loaded="OnPlayerLoaded"
+                    MetadataArtist="{Binding MusicService.CurrentSong.Title}"
+                    MetadataArtworkUrl="{Binding MusicService.CurrentSong.FullCoverUrl}"
+                    MetadataTitle="{Binding MusicService.CurrentSong.User.Name}"
                     ShouldAutoPlay="False" />
                 <Label
                     FontSize="150"
