@@ -1,3 +1,4 @@
+using AudioHeaven.Models;
 using AudioHeaven.Services;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Views;

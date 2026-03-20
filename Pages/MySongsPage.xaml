@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AudioHeaven.Pages.MySongsPage"
-             xmlns:models="clr-namespace:AudioHeaven.Models"
-             xmlns:comp="clr-namespace:AudioHeaven.Components"
-             >
-    
+<ContentPage
+    x:Class="AudioHeaven.Pages.MySongsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    xmlns:models="clr-namespace:AudioHeaven.Models">
+
     <Shell.TitleView>
-        <Grid ColumnDefinitions="*, Auto" Padding="10,0">
-            <Label Text="My music" FontSize="33" FontAttributes="Bold" VerticalOptions="Center" />
-            <comp:ProfileButton Grid.Column="1" Clicked="OnProfileTapped" VerticalOptions="Center"/>
+        <Grid Padding="10,0" ColumnDefinitions="*, Auto">
+            <Label
+                FontAttributes="Bold"
+                FontSize="33"
+                Text="My music"
+                VerticalOptions="Center" />
+            <comp:ProfileButton
+                Grid.Column="1"
+                Clicked="OnProfileTapped"
+                VerticalOptions="Center" />
         </Grid>
     </Shell.TitleView>
 
@@ -19,28 +26,31 @@
 
                 <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
 
-                    <VerticalStackLayout Spacing="0">
-                        <Grid ColumnDefinitions="*, Auto" Margin="14,0,11,10">
-                            <Label Grid.Column="0"
-                               Text="Songs" 
-                               FontSize="25" 
-                               TextColor="{x:DynamicResource LightBlue}" 
-                               FontAttributes="Bold"
-                               VerticalOptions="Center" />
+                    <VerticalStackLayout Margin="0,10,0,0" Spacing="0">
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Songs"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
 
-                            <ImageButton Grid.Column="1"
-                                     Source="arrowr.png" 
-                                     BackgroundColor="Transparent"
-                                     VerticalOptions="Center"
-                                     HeightRequest="30"
-                                     WidthRequest="30"
-                                     Clicked="OnSongsHeaderClicked" />
+                            <ImageButton
+                                Grid.Column="1"
+                                BackgroundColor="Transparent"
+                                Clicked="OnSongsHeaderClicked"
+                                HeightRequest="30"
+                                Source="arrowr.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
                         </Grid>
 
-                        <BoxView HeightRequest="2" 
-                             Color="{x:DynamicResource LightBlue}" 
-                             HorizontalOptions="Fill" 
-                             Margin="14,0,11,10"/>
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
 
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
@@ -55,49 +65,59 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <Label Text="Albums" 
-                       FontSize="25" 
-                       Margin="14,0"
-                       TextColor="{x:DynamicResource LightBlue}" 
-                       FontAttributes="Bold" />
+                    <Label
+                        Margin="14,0"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        Text="Albums"
+                        TextColor="{x:DynamicResource LightBlue}" />
 
-                    <BoxView HeightRequest="2" 
-                         Color="{x:DynamicResource LightBlue}" 
-                         HorizontalOptions="Fill" 
-                         Margin="14,0,11,10"/>
+                    <BoxView
+                        Margin="14,0,11,10"
+                        HeightRequest="2"
+                        HorizontalOptions="Fill"
+                        Color="{x:DynamicResource LightBlue}" />
                 </VerticalStackLayout>
 
-                <Frame IsVisible="{Binding DoesNotHaveSongs}"
-                   BackgroundColor="Transparent"
-                   BorderColor="{x:DynamicResource LightBlue}"
-                   HasShadow="False"
-                   CornerRadius="10"
-                   Margin="14,20"
-                   Padding="30">
-                    <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
-                        <Label Text="🎵"  TextColor="{x:DynamicResource LightBlue}" FontSize="40" HorizontalOptions="Center"/>
-                        <Label Text="Your music page is currently empty."
-                           FontSize="17"
-                           FontAttributes="Bold"
-                           TextColor="{x:DynamicResource LightBlue}"
-                           HorizontalTextAlignment="Center" />
-                        <Label Text="Upload tracks from your PC to see them here!"
-                           FontSize="13"
-                           TextColor="{x:DynamicResource LightGray}"
-                           HorizontalTextAlignment="Center" />
+                <Frame
+                    Margin="14,20"
+                    Padding="30"
+                    BackgroundColor="Transparent"
+                    BorderColor="{x:DynamicResource LightBlue}"
+                    CornerRadius="10"
+                    HasShadow="False"
+                    IsVisible="{Binding DoesNotHaveSongs}">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
+                        <Label
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="🎵"
+                            TextColor="{x:DynamicResource LightBlue}" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            HorizontalTextAlignment="Center"
+                            Text="Your music page is currently empty."
+                            TextColor="{x:DynamicResource LightBlue}" />
+                        <Label
+                            FontSize="13"
+                            HorizontalTextAlignment="Center"
+                            Text="Upload tracks from your PC to see them here!"
+                            TextColor="{x:DynamicResource LightGray}" />
                     </VerticalStackLayout>
                 </Frame>
 
 
             </VerticalStackLayout>
         </ScrollView>
-        
-        <comp:FloatingPlayer VerticalOptions="End" 
-                 Margin="5,0,5,10" />
-        <comp:LogoutSheetContent x:Name="LogoutMenu"/>
-        <comp:LoadingOverlay Grid.Row="0" 
-                 VerticalOptions="Fill" 
-                 HorizontalOptions="Fill" 
-                 Margin="-30" IsVisible="{Binding IsBusy}"/>
+
+        <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+        <comp:LogoutSheetContent x:Name="LogoutMenu" />
+        <comp:LoadingOverlay
+            Grid.Row="0"
+            Margin="-30"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Fill" />
     </Grid>
 </ContentPage>

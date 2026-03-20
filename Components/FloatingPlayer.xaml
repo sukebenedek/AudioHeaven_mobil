@@ -40,7 +40,11 @@
                 <Label
                     FontSize="12"
                     Text="{Binding MusicService.CurrentSong.User.Name}"
-                    TextColor="{x:DynamicResource LightGray}" />
+                    TextColor="{x:DynamicResource LightGray}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </VerticalStackLayout>
 
             <HorizontalStackLayout

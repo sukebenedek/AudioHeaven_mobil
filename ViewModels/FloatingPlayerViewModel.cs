@@ -22,5 +22,14 @@ namespace AudioHeaven.ViewModels
         {
             MusicService.Toggle();
         }
+
+        [RelayCommand]
+        private async Task GoToUserPage() // Renamed for convention and made Task
+        {
+            if (MusicService.CurrentSong?.User != null)
+            {
+                await Shell.Current.GoToAsync($"UserPage?id={MusicService.CurrentSong.User.Id}");
+            }
+        }
     }
 }

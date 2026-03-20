@@ -57,8 +57,7 @@ public partial class SongItemRow : ContentView
     {
         if (BindingContext is Song song)
         {
-            var navParam = new Dictionary<string, object> { { "SelectedSong", song } };
-            await Shell.Current.GoToAsync("SongPage", navParam);
+            await Shell.Current.GoToAsync($"SongPage?id={song.Id}");
         }
     }
 
@@ -69,6 +68,8 @@ public partial class SongItemRow : ContentView
         {
             //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
             //await Shell.Current.GoToAsync("UserPage", navParam);
+            // Navigation by ID
+            await Shell.Current.GoToAsync($"UserPage?id={song.User.Id}");
         }
     }
 }

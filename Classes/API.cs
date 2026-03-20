@@ -250,5 +250,40 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<User>();
             }
         }
+
+        public static async Task<User?> GetUserByIdAsync(int userId)
+        {
+            try
+            {
+                // Construct the URL using the specific userId
+                string url = $"{BaseUrl}/users/{userId}";
+
+                // Since your Laravel 'show' method likely returns a single User object 
+                // (not a list), we request <User> directly.
+                var response = await HTTPCommunication<User>.Get(url);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"User SINGLE FETCH HIBA: {ex.Message}");
+                return null;
+            }
+        }
+
+        public static async Task<Song?> GetSongByIdAsync(int songId)
+        {
+            try
+            {
+                string url = $"{BaseUrl}/songs/{songId}";
+                var response = await HTTPCommunication<Song>.Get(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Song FETCH ERROR: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

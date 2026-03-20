@@ -11,14 +11,7 @@ public partial class UserItemCard : ContentView
     {
         if (BindingContext is Models.User clickedUser)
         {
-            // We create a dictionary to pass the object
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { "SelectedUser", clickedUser }
-            };
-
-            // Navigate to your UserPage (make sure this route is registered in AppShell.xaml.cs)
-            await Shell.Current.GoToAsync("UserPage", navigationParameter);
+            await Shell.Current.GoToAsync($"UserPage?id={clickedUser.Id}");
         }
     }
 }
