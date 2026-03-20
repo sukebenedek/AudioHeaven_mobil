@@ -31,5 +31,14 @@ namespace AudioHeaven.ViewModels
                 await Shell.Current.GoToAsync($"UserPage?id={MusicService.CurrentSong.User.Id}");
             }
         }
+
+        [RelayCommand]
+        private async Task GoToSongPage() // Renamed for convention and made Task
+        {
+            if (MusicService.CurrentSong != null)
+            {
+                await Shell.Current.GoToAsync($"SongPage?id={MusicService.CurrentSong.Id}");
+            }
+        }
     }
 }

@@ -36,7 +36,11 @@
                     FontSize="16"
                     LineBreakMode="TailTruncation"
                     Text="{Binding MusicService.CurrentSong.Title}"
-                    TextColor="White" />
+                    TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label
                     FontSize="12"
                     Text="{Binding MusicService.CurrentSong.User.Name}"

@@ -65,13 +65,14 @@
                             <RoundRectangle CornerRadius="30" />
                         </Border.StrokeShape>
                         <ImageButton
+                            x:Name="PlayPauseImage"
                             Grid.Column="1"
                             Padding="15"
                             BackgroundColor="Transparent"
                             Clicked="OnPlayClicked"
                             HeightRequest="60"
                             HorizontalOptions="Center"
-                            Source="paused"
+                            Source="paused.png"
                             VerticalOptions="Center"
                             WidthRequest="60" />
                     </Border>
