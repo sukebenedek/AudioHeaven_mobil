@@ -24,7 +24,11 @@
         <ScrollView>
             <VerticalStackLayout Padding="10" Spacing="10">
 
-                <VerticalStackLayout IsVisible="{Binding HasSongs}" Spacing="10">
+                <VerticalStackLayout
+                    Margin="0,0,0,90"
+                    Padding="3"
+                    IsVisible="{Binding HasSongs}"
+                    Spacing="10">
 
                     <VerticalStackLayout Margin="0,10,0,0" Spacing="0">
                         <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
@@ -65,18 +69,48 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <Label
-                        Margin="14,0"
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        Text="Albums"
-                        TextColor="{x:DynamicResource LightBlue}" />
+                    <VerticalStackLayout IsVisible="{Binding HasAlbums}" Spacing="10">
 
-                    <BoxView
-                        Margin="14,0,11,10"
-                        HeightRequest="2"
-                        HorizontalOptions="Fill"
-                        Color="{x:DynamicResource LightBlue}" />
+                        <VerticalStackLayout Margin="0,10,0,0" Spacing="0">
+                            <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                                <Label
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    FontSize="25"
+                                    Text="Albums"
+                                    TextColor="{x:DynamicResource LightBlue}"
+                                    VerticalOptions="Center" />
+
+                                <ImageButton
+                                    Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    Clicked="OnAlbumsHeaderClicked"
+                                    HeightRequest="30"
+                                    Source="arrowr.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30" />
+                            </Grid>
+
+                            <BoxView
+                                Margin="14,0,11,10"
+                                HeightRequest="2"
+                                HorizontalOptions="Fill"
+                                Color="{x:DynamicResource LightBlue}" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAlbumsHeaderClicked" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                        <CollectionView ItemsSource="{Binding Albums}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <comp:AlbumItemRow />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
 
                 <Frame
@@ -106,6 +140,7 @@
                             TextColor="{x:DynamicResource LightGray}" />
                     </VerticalStackLayout>
                 </Frame>
+
 
 
             </VerticalStackLayout>

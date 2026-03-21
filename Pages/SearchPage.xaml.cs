@@ -1,3 +1,5 @@
+using AudioHeaven.Classes;
+using AudioHeaven.Models;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Alerts;
 
@@ -31,7 +33,14 @@ public partial class SearchPage : ContentPage
 
     private async void OnAlbumsHeaderClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("SeachedAlbumsPage");
+
+        var result = await API.GetAlbumsSearchAsync(UserData.SearchTerm);
+        var parameters = new Dictionary<string, object>
+        {
+            { "albums", result.ToList() } // List<Album>
+        };
+
+        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
     }
 
     private async void OnSongsHeaderClicked(object sender, EventArgs e)

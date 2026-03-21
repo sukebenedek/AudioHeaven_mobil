@@ -4,38 +4,33 @@ using System.Collections.ObjectModel;
 
 namespace AudioHeaven.Views;
 
-public partial class SearchedAlbumsPage : ContentPage
+public partial class SearchedAlbumsPage : ContentPage, IQueryAttributable
 {
     public ObservableCollection<Album> Albums { get; set; } = new();
 
-	public SearchedAlbumsPage()
-	{
-		InitializeComponent();
-
+    public SearchedAlbumsPage()
+    {
+        InitializeComponent();
         BindingContext = this;
     }
 
-    protected override async void OnAppearing()
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        base.OnAppearing();
-
-        this.Title = $"Albums containing: {UserData.SearchTerm}";
-        try
+        if (query.TryGetValue("albums", out var albumsObj))
         {
-            var result = await API.GetAlbumsSearchAsync(UserData.SearchTerm);
-            //await Shell.Current.DisplayAlert("Error", result.Count().ToString(), "Ok");
-            if (result != null)
+            if (albumsObj is List<Album> albums)
             {
                 Albums.Clear();
-                foreach (var a in result)
-                {
-                    //await Shell.Current.DisplayAlert(song.Title, UserData.SearchTerm, "Ok");
-                    Albums.Add(a);
-                }
+
+                foreach (var album in albums)
+                    Albums.Add(album);
             }
         }
-        catch (Exception ex) {
-            //await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-        }
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Title = $"Albums containing: {UserData.SearchTerm}";
     }
 }

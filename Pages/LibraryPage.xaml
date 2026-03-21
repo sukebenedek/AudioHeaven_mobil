@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:comp="clr-namespace:AudioHeaven.Components"
-             x:Class="AudioHeaven.Pages.LibraryPage"
-             >
+<ContentPage
+    x:Class="AudioHeaven.Pages.LibraryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components">
 
     <Shell.TitleView>
-        <Grid ColumnDefinitions="*, Auto" Padding="10,0">
-            <Label Text="Library" FontSize="33" FontAttributes="Bold" VerticalOptions="Center" />
-            <comp:ProfileButton Grid.Column="1" Clicked="OnProfileTapped" VerticalOptions="Center"/>
+        <Grid Padding="10,0" ColumnDefinitions="*, Auto">
+            <Label
+                FontAttributes="Bold"
+                FontSize="33"
+                Text="Library"
+                VerticalOptions="Center" />
+            <comp:ProfileButton
+                Grid.Column="1"
+                Clicked="OnProfileTapped"
+                VerticalOptions="Center" />
         </Grid>
     </Shell.TitleView>
 
     <Grid>
         <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="10">
+            <VerticalStackLayout Padding="10" Spacing="10">
 
                 <Frame
-                   BackgroundColor="Transparent"
-                   BorderColor="{x:DynamicResource LightBlue}"
-                   HasShadow="False"
-                   CornerRadius="10"
-                   Margin="14,20"
-                   Padding="30">
-                    <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
-                        <Label Text="🎵" TextColor="{x:DynamicResource LightBlue}" FontSize="40" HorizontalOptions="Center"/>
-                        <Label Text="Your library is currently empty."
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="{x:DynamicResource LightBlue}"
-                           HorizontalTextAlignment="Center" />
-                        <Label Text="Start adding tracks to see them here!"
-                           FontSize="14"
-                           TextColor="{x:DynamicResource LightGray}"
-                           HorizontalTextAlignment="Center" />
+                    Margin="14,20"
+                    Padding="30"
+                    BackgroundColor="Transparent"
+                    BorderColor="{x:DynamicResource LightBlue}"
+                    CornerRadius="10"
+                    HasShadow="False">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
+                        <Label
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="🎵"
+                            TextColor="{x:DynamicResource LightBlue}" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalTextAlignment="Center"
+                            Text="Your library is currently empty."
+                            TextColor="{x:DynamicResource LightBlue}" />
+                        <Label
+                            FontSize="14"
+                            HorizontalTextAlignment="Center"
+                            Text="Start adding tracks to see them here!"
+                            TextColor="{x:DynamicResource LightGray}" />
                     </VerticalStackLayout>
                 </Frame>
 
 
             </VerticalStackLayout>
         </ScrollView>
-        <comp:FloatingPlayer VerticalOptions="End" 
-                 Margin="5,0,5,10" />
-                <comp:LogoutSheetContent x:Name="LogoutMenu"/>
+        <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+        <comp:LogoutSheetContent x:Name="LogoutMenu" />
 
     </Grid>
 </ContentPage>

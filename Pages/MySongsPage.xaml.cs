@@ -46,7 +46,7 @@ public partial class MySongsPage : ContentPage
         if (_isFirstTime)
         {
             _isFirstTime = false; 
-            await _vm.LoadSongsAsync();
+            await _vm.LoadAsync();
         }
     }
 
@@ -54,5 +54,17 @@ public partial class MySongsPage : ContentPage
     {
         await Shell.Current.GoToAsync($"AllSongsPage?id={UserData.User.Id}");
         
+    }
+
+    private async void OnAlbumsHeaderClicked(object sender, EventArgs e)
+    {
+        var result = await API.GetUserAlbumsAsync(UserData.User.Id);
+        var parameters = new Dictionary<string, object>
+        {
+            { "albums", result.ToList() } // List<Album>
+        };
+
+        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
+
     }
 }

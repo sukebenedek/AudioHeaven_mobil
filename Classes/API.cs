@@ -166,24 +166,22 @@ namespace AudioHeaven.Classes
             }
         }
 
-        //public static async Task<ObservableCollection<Album>?> GetUserAlbumsAsync()
-        //{
-        //    try
-        //    {
-        //        if (UserData.User == null) throw new Exception("There is no user");
+        public static async Task<ObservableCollection<Album>?> GetUserAlbumsAsync(int userId)
+        {
+            try
+            {
+                string url = $"{BaseUrl}/users/{userId}/albums";
 
-        //        string url = $"{BaseUrl}/users/{UserData.User.Id}/albums";
+                var response = await HTTPCommunication<List<Album>>.Get(url);
 
-        //        var response = await HTTPCommunication<List<Album>>.Get(url);
-
-        //        return response != null ? response.ToObservableCollection() : new ObservableCollection<Album>();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"Album FETCH HIBA: {ex.Message}");
-        //        return new ObservableCollection<Album>();
-        //    }
-        //}
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Album>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetUserAlbumsAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Album>();
+            }
+        }
 
         public static async Task<ObservableCollection<Album>?> GetAlbumsSearchAsync(string query, int? take = null)
         {

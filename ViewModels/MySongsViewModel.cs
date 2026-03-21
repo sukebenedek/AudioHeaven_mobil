@@ -22,17 +22,6 @@ namespace AudioHeaven.ViewModels
         public bool DoesNotHaveSongs => !HasSongs;
 
         [ObservableProperty]
-        private bool isBusy = true;
-
-        public async Task LoadSongsAsync()
-        {
-            Songs = new ObservableCollection<Song>(await API.GetUserSongsAsync()).OrderByDescending(s => s.Plays).Take(5).ToObservableCollection();
-            HasSongs = Songs.Any();
-            UserData.Songs = Songs.ToList();
-            IsBusy = false;
-        }
-
-        [ObservableProperty]
         private ObservableCollection<Album> albums = new();
 
         [ObservableProperty]
@@ -40,12 +29,19 @@ namespace AudioHeaven.ViewModels
         private bool hasAlbums;
         public bool DoesNotHaveAlbums => !HasAlbums;
 
-        //public async Task LoadAlbumsAsync()
-        //{
-        //    Albums = new ObservableCollection<Album>(await API.GetUserAlbumsAsync()).OrderBy(s => s.CreatedAt).Take(5).ToObservableCollection();
-        //    HasAlbums = Albums.Any();
-        //    UserData.Albums = Albums.ToList();
-        //    IsBusy = false;
-        //}
+        [ObservableProperty]
+        private bool isBusy = true;
+
+        public async Task LoadAsync()
+        {
+            Songs = new ObservableCollection<Song>(await API.GetUserSongsAsync()).OrderByDescending(s => s.Plays).Take(5).ToObservableCollection();
+            HasSongs = Songs.Any();
+            UserData.Songs = Songs.ToList();
+            Albums = new ObservableCollection<Album>(await API.GetUserAlbumsAsync(UserData.User.Id)).OrderBy(s => s.CreatedAt).Take(5).ToObservableCollection();
+            HasAlbums = Albums.Any();
+            UserData.Albums = Albums.ToList();
+            IsBusy = false;
+        }
+
     }
 }

@@ -18,7 +18,9 @@ namespace AudioHeaven.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public ShortUser User { get; set; }
+        public ShortUser? User { get; set; }
+
+        public List<Song>? Songs { get; set; }
 
         public string FullCoverUrl => string.IsNullOrEmpty(AlbumCover)
             ? "default_cover.png"
