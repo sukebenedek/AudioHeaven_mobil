@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     Title="UserPage">
-    <Grid>
+    <Grid RowDefinitions="*">
 
-        <ScrollView>
+        <ScrollView Grid.Row="0">
             <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
 
                 <Image
@@ -131,6 +131,11 @@
         </ScrollView>
 
         <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
-
+        <comp:LoadingOverlay
+            Grid.Row="0"
+            Margin="-30"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Fill" />
     </Grid>
 </ContentPage>

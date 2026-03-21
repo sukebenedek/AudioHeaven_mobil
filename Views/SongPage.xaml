@@ -51,19 +51,19 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </VerticalStackLayout>
-                    <Border
-                        Grid.Column="1"
-                        Margin="0,0,20,0"
-                        BackgroundColor="{StaticResource LightBlue}"
-                        HeightRequest="60"
-                        HorizontalOptions="End"
-                        StrokeThickness="0"
-                        VerticalOptions="Center"
-                        WidthRequest="60">
+                </Grid>
+                <Border
+                    Grid.Column="1"
+                    Margin="0,0,20,0"
+                    BackgroundColor="{StaticResource DarkBlue}"
+                    StrokeThickness="0"
+                    VerticalOptions="Center"
+                    WidthRequest="140">
 
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="30" />
-                        </Border.StrokeShape>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="30" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout>
                         <ImageButton
                             x:Name="PlayPauseImage"
                             Grid.Column="1"
@@ -75,9 +75,24 @@
                             Source="paused.png"
                             VerticalOptions="Center"
                             WidthRequest="60" />
-                    </Border>
-                </Grid>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            HorizontalOptions="Center"
+                            Text="Play"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPlayClicked" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </Border>
 
+                <Label
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="{Binding CurrentSong.CreatedAt, StringFormat='Uploaded on: {0:yyyy.MM.dd}'}"
+                    TextColor="Gray" />
             </VerticalStackLayout>
         </ScrollView>
 
