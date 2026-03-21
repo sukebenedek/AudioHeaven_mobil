@@ -18,7 +18,6 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
         {
             _userId = value;
             OnPropertyChanged();
-            // We don't load here because it might be too fast for the lifecycle
         }
     }
 
@@ -54,6 +53,24 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
 
     public bool DoesNotHaveSongs => !HasSongs;
 
+    private ObservableCollection<Album> _albums = new();
+    public ObservableCollection<Album> Albums
+    {
+        get => _albums;
+        set
+        {
+            _albums = value;
+            OnPropertyChanged(); // CRITICAL: Tells XAML to refresh the list
+        }
+    }
+
+    private bool _hasAlbums;
+    public bool HasAlbums
+    {
+        get => _hasAlbums;
+        set { _hasAlbums = value; OnPropertyChanged();  }
+    }
+
     private bool _isBusy = true;
     public bool IsBusy
     {
@@ -77,13 +94,11 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
     {
         IsBusy = true;
 
-        // 1. Fetch the User details first
         var user = await API.GetUserByIdAsync(UserId);
         if (user != null)
         {
             TargetUser = user;
 
-            // 2. Fetch the songs for this specific ID
             var songs = await API.GetUserSongsAsync(UserId);
             if (songs != null)
             {
@@ -91,6 +106,16 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
                     songs.OrderByDescending(s => s.Plays).Take(5)
                 );
                 HasSongs = Songs.Any();
+
+            }
+
+            var albums = await API.GetUserAlbumsAsync(UserId);
+            if (albums != null)
+            {
+                Albums = new ObservableCollection<Album>(
+                    albums.OrderByDescending(a => a.CreatedAt)
+                );
+                HasAlbums = Albums.Any();
 
             }
         }
@@ -107,5 +132,17 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
     private async void OnSongsHeaderClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"AllSongsPage?id={UserId}");
+    }
+
+    private async void OnAlbumsHeaderClicked(object sender, EventArgs e)
+    {
+        var result = await API.GetUserAlbumsAsync(UserId);
+        var parameters = new Dictionary<string, object>
+        {
+            { "albums", result.ToList() } // List<Album>
+        };
+
+        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
+
     }
 }

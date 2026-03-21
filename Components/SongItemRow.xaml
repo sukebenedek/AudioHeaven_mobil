@@ -53,6 +53,12 @@
                 </Label>
             </VerticalStackLayout>
 
+            <ImageButton
+                Grid.Column="2"
+                BackgroundColor="Transparent"
+                HeightRequest="26"
+                Source="meatballs.png"
+                WidthRequest="26" />
         </Grid>
 
         <VerticalStackLayout

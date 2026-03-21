@@ -24,7 +24,6 @@ public partial class AllSongsPage : ContentPage
     public AllSongsPage()
     {
         InitializeComponent();
-
         BindingContext = this;
     }
 
@@ -38,7 +37,7 @@ public partial class AllSongsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        Title = $"{UserData.User.Name}'s Songs";
         IsBusy = true;
 
         try

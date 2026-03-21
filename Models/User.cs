@@ -11,7 +11,7 @@ namespace AudioHeaven.Models
         public class User
         {
             public int Id { get; set; }
-            public string Name { get; set; } 
+            public string Name { get; set; } = "Default Username";
             public string? Email { get; set; }
             public string profile_picture { get; set; } 
 

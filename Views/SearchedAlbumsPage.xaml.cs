@@ -31,6 +31,14 @@ public partial class SearchedAlbumsPage : ContentPage, IQueryAttributable
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        Title = $"Albums containing: {UserData.SearchTerm}";
+        if (Albums.Any(a => a.UserId != Albums[0].UserId))
+            Title = $"Albums containing: {UserData.SearchTerm}";
+        else
+        {
+            if(Albums[0].User != null)
+                Title = $"{Albums[0].User.Name}'s Albums";
+            else
+                Title = $"{UserData.User.Name}'s Albums";
+        }
     }
 }
