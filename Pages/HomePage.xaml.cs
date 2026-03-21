@@ -57,8 +57,10 @@ public partial class HomePage : ContentPage
         if (_isFirstTime)
         {
             _isFirstTime = false;
-            await _vm.LoadAsync();
+            await _vm.LoadOnceAsync();
         }
+        await _vm.LoadAlwaysAsync();
+
     }
 
 }

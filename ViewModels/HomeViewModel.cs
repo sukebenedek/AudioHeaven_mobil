@@ -52,11 +52,19 @@ namespace AudioHeaven.ViewModels
         [ObservableProperty]
         private bool isBusy = true;
 
-        public async Task LoadAsync()
+        public async Task LoadOnceAsync()
         {
             //History = new ObservableCollection<Song>(await API.GetUserHistoryAsync()).OrderByDescending(s => s.Plays).Take(10).ToObservableCollection();
             //HasHistory = History.Any();
             Reccomended = new ObservableCollection<Song>(await API.GetDiscoverAsync(7));
+            IsBusy = false;
+        }
+
+        public async Task LoadAlwaysAsync()
+        {
+            isBusy = true;
+            History = new ObservableCollection<Song>(await API.GetHistoryAsync(1));
+            HasHistory = History.Any();
             IsBusy = false;
         }
     }

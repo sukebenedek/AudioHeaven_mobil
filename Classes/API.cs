@@ -304,5 +304,34 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<Song>();
             }
         }
+
+        public static async Task<ObservableCollection<Song>> GetHistoryAsync(int page)
+        {
+            try
+            {
+                if (UserData.User == null)
+                    throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/history?page={page}";
+
+                var response = await HTTPCommunication<HistoryResponse>.Get(url);
+
+                if (response?.Data == null)
+                    return new ObservableCollection<Song>();
+
+                var songs = response.Data
+                    .Where(x => x.Song != null)
+                    .Select(x => x.Song)
+                    .DistinctBy(s => s.Id)
+                    .ToList();
+
+                return new ObservableCollection<Song>(songs);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetHistoryAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
+            }
+        }
     }
 }
