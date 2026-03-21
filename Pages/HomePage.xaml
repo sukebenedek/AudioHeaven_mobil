@@ -22,9 +22,9 @@
         </Grid>
     </Shell.TitleView>
 
-    <Grid>
+    <Grid RowDefinitions="*">
 
-        <ScrollView>
+        <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="0,0,0,80">
                 <toolkit:MediaElement
                     x:Name="GlobalPlayer"
@@ -85,14 +85,6 @@
                             TextColor="{x:DynamicResource LightBlue}"
                             VerticalOptions="Center" />
 
-                        <!--<ImageButton
-        Grid.Column="1"
-        BackgroundColor="Transparent"
-        Clicked="OnSongsHeaderClicked"
-        HeightRequest="30"
-        Source="arrowr.png"
-        VerticalOptions="Center"
-        WidthRequest="30" />-->
                     </Grid>
 
                     <BoxView
@@ -100,10 +92,6 @@
                         HeightRequest="2"
                         HorizontalOptions="Fill"
                         Color="{x:DynamicResource LightBlue}" />
-
-                    <!--<VerticalStackLayout.GestureRecognizers>
-    <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
-</VerticalStackLayout.GestureRecognizers>-->
 
                     <CollectionView
                         Margin="0,0,0,20"

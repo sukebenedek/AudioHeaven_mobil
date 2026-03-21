@@ -333,5 +333,28 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<Song>();
             }
         }
+
+        public static async Task<bool> LogPlayAsync(int songId, int? playlistId = null)
+        {
+            try
+            {
+                // Construct the URL: /api/songs/{id}/log-play
+                string url = $"{BaseUrl}/songs/{songId}/log-play";
+
+                // Create the body object (Laravel expects JSON)
+                var body = new { playlist_id = playlistId };
+
+                // Using your HTTPCommunication helper to send the POST request
+                // We don't necessarily need a return object, just a success check
+                var response = await HTTPCommunication<object>.Post(url, body);
+
+                return response != null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LogPlay ERROR: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AudioHeaven.Models;
+﻿using AudioHeaven.Classes;
+using AudioHeaven.Models;
 using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -53,12 +54,11 @@ namespace AudioHeaven.Services
             }
         }
 
-        public void PlaySong(Song song)
+        public async void PlaySong(Song song)
         {
             CurrentSong = song;
             IsPlayerVisible = true;
-
-            // Player not ready yet → store it
+            API.LogPlayAsync(CurrentSong.Id);
             if (_player == null)
             {
                 _pendingSong = song;

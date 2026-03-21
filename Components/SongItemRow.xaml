@@ -31,7 +31,11 @@
                     FontAttributes="Bold"
                     FontSize="18"
                     Text="{Binding Title}"
-                    TextColor="White" />
+                    TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGoToSongPageClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
 
                 <Label
                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
@@ -40,8 +44,13 @@
 
                 <Label
                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
+                    LineBreakMode="TailTruncation"
                     Text="{Binding User.Name}"
-                    TextColor="Gray" />
+                    TextColor="Gray">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
             </VerticalStackLayout>
 
         </Grid>
@@ -68,13 +77,21 @@
                 FontSize="14"
                 LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
-                TextColor="White" />
+                TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoToSongPageClicked" />
+                </Label.GestureRecognizers>
+            </Label>
 
             <Label
                 FontSize="12"
                 LineBreakMode="TailTruncation"
                 Text="{Binding User.Name}"
-                TextColor="Gray" />
+                TextColor="Gray">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
+                </Label.GestureRecognizers>
+            </Label>
 
         </VerticalStackLayout>
 

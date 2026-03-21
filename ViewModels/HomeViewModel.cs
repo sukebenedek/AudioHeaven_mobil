@@ -62,7 +62,7 @@ namespace AudioHeaven.ViewModels
 
         public async Task LoadAlwaysAsync()
         {
-            isBusy = true;
+            IsBusy = true;
             History = new ObservableCollection<Song>(await API.GetHistoryAsync(1));
             HasHistory = History.Any();
             IsBusy = false;
