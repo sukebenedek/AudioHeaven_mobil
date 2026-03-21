@@ -1,53 +1,95 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AudioHeaven.Components.LogoutSheetContent"
-             xmlns:bottomsheet="http://pluginmauibottomsheet.com">
-    
+<ContentView
+    x:Class="AudioHeaven.Components.LogoutSheetContent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com">
 
-    <bottomsheet:BottomSheet x:Name="LogoutSheet"
-                 HasHandle="True"
-                 CornerRadius="10"
-                 IsModal="True"
-                 States="Peek"
-                 CurrentState="Peek"
-                         PeekHeight="155">
+
+    <bottomsheet:BottomSheet
+        x:Name="LogoutSheet"
+        CornerRadius="10"
+        CurrentState="Peek"
+        HasHandle="True"
+        IsModal="True"
+        PeekHeight="310"
+        States="Peek">
         <bottomsheet:BottomSheet.Content>
             <bottomsheet:BottomSheetContent>
-                   <VerticalStackLayout Padding="20,10,20,30" Spacing="5">
+                <VerticalStackLayout Padding="20,10,20,30" Spacing="5">
 
-                    <Label Text="Account Actions" 
-                   TextColor="{x:DynamicResource White}" 
-                   FontSize="19" 
-                   HorizontalOptions="Center" />
-                       
-                    <Label Text="Logged in as: " 
-       TextColor="{x:DynamicResource White}" 
-       FontSize="13" 
-       HorizontalOptions="Center" 
-                           x:Name="lblName"/>
+                    <Label
+                        FontSize="19"
+                        HorizontalOptions="Center"
+                        Text="Account Actions"
+                        TextColor="{x:DynamicResource White}" />
 
+                    <Label
+                        x:Name="lblName"
+                        Margin="0,0,0,10"
+                        FontSize="13"
+                        HorizontalOptions="Center"
+                        Text="Logged in as: "
+                        TextColor="{x:DynamicResource White}" />
 
-                    <Border Stroke="#FF453A"
-            StrokeThickness="2"
-            StrokeShape="RoundRectangle 12"
-            BackgroundColor="Transparent"
-            HeightRequest="60" Margin="15"
-            >
+                    <Border
+                        Margin="15"
+                        BackgroundColor="Transparent"
+                        HeightRequest="60"
+                        Stroke="White"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="2">
 
-                <Button Text="Log Out" 
-                TextColor="#FF453A" 
-                FontAttributes="Bold"
-                FontSize="17" 
-                BackgroundColor="Transparent"
-                Clicked="OnLogoutClicked"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill" 
-                       
-                        />
-            </Border>
+                        <Button
+                            BackgroundColor="Transparent"
+                            Clicked="OnProfilePageClicked"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            HorizontalOptions="Fill"
+                            Text="Go to my artist page"
+                            TextColor="White"
+                            VerticalOptions="Fill" />
+                    </Border>
 
-        </VerticalStackLayout>
+                    <Border
+                        Margin="15,-5"
+                        BackgroundColor="Transparent"
+                        HeightRequest="60"
+                        Stroke="White"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="2">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            Clicked="OnProfilePicChangeClicked"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            HorizontalOptions="Fill"
+                            Text="Change profile picture"
+                            TextColor="White"
+                            VerticalOptions="Fill" />
+                    </Border>
+
+                    <Border
+                        Margin="15"
+                        BackgroundColor="Transparent"
+                        HeightRequest="60"
+                        Stroke="#FF453A"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="2">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            Clicked="OnLogoutClicked"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            HorizontalOptions="Fill"
+                            Text="Log Out"
+                            TextColor="#FF453A"
+                            VerticalOptions="Fill" />
+                    </Border>
+
+                </VerticalStackLayout>
             </bottomsheet:BottomSheetContent>
         </bottomsheet:BottomSheet.Content>
     </bottomsheet:BottomSheet>

@@ -28,6 +28,20 @@ public partial class LogoutSheetContent : ContentView
         LogoutSheet.IsOpen = false;
     }
 
+    private async void OnProfilePageClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"UserPage?id={UserData.User?.Id}");
+
+        LogoutSheet.IsOpen = false;
+    }
+
+    private async void OnProfilePicChangeClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"UserPage?id={UserData.User?.Id}");
+
+        LogoutSheet.IsOpen = false;
+    }
+
     public void Open()
     {
         LogoutSheet.IsOpen = true;
