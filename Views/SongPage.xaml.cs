@@ -38,7 +38,6 @@ public partial class SongPage : ContentPage, INotifyPropertyChanged
         InitializeComponent();
         BindingContext = this;
         GoToArtistCommand = new Command(async () => await Shell.Current.GoToAsync($"UserPage?id={CurrentSong.UserId}"));
-        PlayPauseImage.Source = "paused.png";
     }
 
     protected override async void OnAppearing()

@@ -6,53 +6,77 @@
     xmlns:models="clr-namespace:AudioHeaven.Models"
     x:DataType="models:Song">
 
-    <Grid
-        Padding="10,7"
-        ColumnDefinitions="Auto, *, Auto"
-        ColumnSpacing="15">
-        <Grid.GestureRecognizers>
-            <TapGestureRecognizer Tapped="OnPlaySongClicked" />
-        </Grid.GestureRecognizers>
+    <Grid>
 
-        <Border
-            Grid.Column="0"
-            HeightRequest="60"
-            StrokeShape="RoundRectangle 10"
-            WidthRequest="60">
-            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
-        </Border>
+        <Grid
+            Padding="10,7"
+            ColumnDefinitions="Auto, *, Auto"
+            ColumnSpacing="15"
+            IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=IsCard, Converter={StaticResource InverseBoolConverter}}">
 
-        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPlaySongClicked" />
+            </Grid.GestureRecognizers>
+
+            <Border
+                Grid.Column="0"
+                HeightRequest="60"
+                StrokeShape="RoundRectangle 10"
+                WidthRequest="60">
+                <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="{Binding Title}"
+                    TextColor="White" />
+
+                <Label
+                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
+                    Text="{Binding Plays, StringFormat='{0} plays'}"
+                    TextColor="Gray" />
+
+                <Label
+                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
+                    Text="{Binding User.Name}"
+                    TextColor="Gray" />
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <VerticalStackLayout
+            IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=IsCard}"
+            Spacing="6"
+            WidthRequest="140">
+
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPlaySongClicked" />
+            </VerticalStackLayout.GestureRecognizers>
+
+            <Border
+                HeightRequest="140"
+                StrokeShape="RoundRectangle 15"
+                WidthRequest="140">
+
+                <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
+            </Border>
+
             <Label
                 FontAttributes="Bold"
-                FontSize="18"
+                FontSize="14"
+                LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
-                TextColor="White">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnGoToSongPageClicked" />
-                </Label.GestureRecognizers>
-            </Label>
+                TextColor="White" />
 
             <Label
-                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowPlays}"
-                Text="{Binding Plays, StringFormat='{0} plays'}"
+                FontSize="12"
+                LineBreakMode="TailTruncation"
+                Text="{Binding User.Name}"
                 TextColor="Gray" />
 
-            <Label
-                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type comp:SongItemRow}}, Path=ShowUsername}"
-                Text="{Binding User.Name}"
-                TextColor="Gray">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
-                </Label.GestureRecognizers>
-            </Label>
         </VerticalStackLayout>
 
-        <ImageButton
-            Grid.Column="2"
-            BackgroundColor="Transparent"
-            HeightRequest="26"
-            Source="meatballs.png"
-            WidthRequest="26" />
     </Grid>
 </ContentView>

@@ -21,6 +21,7 @@ public partial class SongItemRow : ContentView
 
     public bool ShowPlays { get; set; }
     public bool ShowUsername { get; set; }
+    public bool IsCard { get; set; }
 
     public SongItemRow()
     {
@@ -35,9 +36,11 @@ public partial class SongItemRow : ContentView
 
         control.ShowPlays = format == "plays";
         control.ShowUsername = format == "username";
+        control.IsCard = format == "card";
 
         control.OnPropertyChanged(nameof(ShowPlays));
         control.OnPropertyChanged(nameof(ShowUsername));
+        control.OnPropertyChanged(nameof(IsCard));
     }
 
     // 1. CLICKED THE WHOLE ROW: Play Song

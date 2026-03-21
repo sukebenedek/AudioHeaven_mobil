@@ -31,19 +31,34 @@ public partial class HomePage : ContentPage
         LogoutMenu.Open();
     }
 
+    private readonly HomeViewModel _vm;
+
     private readonly MusicService _musicService;
 
     public HomePage(HomeViewModel viewModel, MusicService musicService)
     {
         InitializeComponent();
-
-        BindingContext = viewModel;
+        _vm = viewModel;
+        BindingContext = _vm;
         _musicService = musicService;
     }
 
     private void OnPlayerLoaded(object sender, EventArgs e)
     {
         _musicService.SetPlayer((MediaElement)sender);
+    }
+
+    private bool _isFirstTime = true;
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (_isFirstTime)
+        {
+            _isFirstTime = false;
+            await _vm.LoadAsync();
+        }
     }
 
 }

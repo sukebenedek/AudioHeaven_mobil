@@ -285,5 +285,24 @@ namespace AudioHeaven.Classes
                 return null;
             }
         }
+
+        public static async Task<ObservableCollection<Song>?> GetDiscoverAsync(int take)
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/songs/random?count={take}";
+
+                var response = await HTTPCommunication<List<Song>>.Get(url);
+
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetDiscoverAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
+            }
+        }
     }
 }
