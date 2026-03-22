@@ -37,7 +37,6 @@ public partial class AllSongsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        Title = $"{UserData.User.Name}'s Songs";
         IsBusy = true;
 
         try
@@ -52,6 +51,10 @@ public partial class AllSongsPage : ContentPage
                 foreach (var song in result)
                     Songs.Add(song);
             }
+                if (Songs[0].User != null)
+                    Title = $"{Songs[0].User.Name}'s Songs";
+                else
+                    Title = $"{UserData.User.Name}'s Songs";
         }
         finally
         {

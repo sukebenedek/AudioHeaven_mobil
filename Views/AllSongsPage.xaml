@@ -7,7 +7,7 @@
     Title="Songs"
     Shell.TabBarIsVisible="False">
     <ScrollView>
-        <Grid>
+        <Grid RowDefinitions="*">
 
             <VerticalStackLayout
                 Grid.Row="0"
@@ -28,6 +28,10 @@
                 HorizontalOptions="Fill"
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Fill" />
+            <comp:FloatingPlayer
+                Grid.Row="0"
+                Margin="5,0,5,10"
+                VerticalOptions="End" />
         </Grid>
     </ScrollView>
 </ContentPage>

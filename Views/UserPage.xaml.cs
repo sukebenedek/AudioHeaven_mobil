@@ -113,7 +113,7 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
             if (albums != null)
             {
                 Albums = new ObservableCollection<Album>(
-                    albums.OrderByDescending(a => a.CreatedAt)
+                    albums.OrderByDescending(a => a.CreatedAt).Take(5)
                 );
                 HasAlbums = Albums.Any();
 

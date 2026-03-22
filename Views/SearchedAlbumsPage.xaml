@@ -6,12 +6,17 @@
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     Title="Albums">
     <ScrollView>
-        <CollectionView ItemsSource="{Binding Albums}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <comp:AlbumItemRow />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <Grid>
+
+            <CollectionView ItemsSource="{Binding Albums}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <comp:AlbumItemRow />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+        </Grid>
+
     </ScrollView>
 </ContentPage>
