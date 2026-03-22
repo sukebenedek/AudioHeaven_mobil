@@ -35,7 +35,7 @@ public partial class SearchedAlbumsPage : ContentPage, IQueryAttributable
             Title = $"Albums containing: {UserData.SearchTerm}";
         else
         {
-            if(Albums[0].User != null)
+            if(Albums[0] != null && Albums[0].User != null)
                 Title = $"{Albums[0].User.Name}'s Albums";
             else
                 Title = $"{UserData.User.Name}'s Albums";

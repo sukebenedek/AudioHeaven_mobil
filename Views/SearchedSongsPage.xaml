@@ -5,17 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     Title="Songs containing:">
-    <ScrollView>
-        <Grid>
+    <Grid RowDefinitions="*">
+        <ScrollView Grid.Row="0" Padding="0,0,0,80">
+            <VerticalStackLayout Padding="20" Spacing="10">
+                <CollectionView ItemsSource="{Binding Songs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <comp:SongItemRow Format="username" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
 
-            <CollectionView ItemsSource="{Binding Songs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <comp:SongItemRow Format="username" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
-        </Grid>
-    </ScrollView>
+        <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+    </Grid>
 </ContentPage>
