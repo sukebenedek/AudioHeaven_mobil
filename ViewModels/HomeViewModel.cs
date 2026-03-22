@@ -44,7 +44,7 @@ namespace AudioHeaven.ViewModels
         private ObservableCollection<Song> reccomended = new();
 
         [ObservableProperty]
-        private ObservableCollection<Song> discover = new();
+        private ObservableCollection<Song> newSongs = new();
 
         [ObservableProperty]
         private bool hasHistory;
@@ -56,7 +56,8 @@ namespace AudioHeaven.ViewModels
         {
             //History = new ObservableCollection<Song>(await API.GetUserHistoryAsync()).OrderByDescending(s => s.Plays).Take(10).ToObservableCollection();
             //HasHistory = History.Any();
-            Reccomended = new ObservableCollection<Song>(await API.GetDiscoverAsync(7));
+            Reccomended = new ObservableCollection<Song>(await API.GetReccomendedAsync(10));
+            NewSongs = new ObservableCollection<Song>(await API.GetNewSongsAsync(10));
             IsBusy = false;
         }
 

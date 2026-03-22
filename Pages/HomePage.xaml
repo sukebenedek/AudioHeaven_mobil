@@ -82,7 +82,7 @@
                                 Grid.Column="0"
                                 FontAttributes="Bold"
                                 FontSize="25"
-                                Text="Your history"
+                                Text="Your playing history"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />
 
@@ -105,6 +105,37 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </VerticalStackLayout>
+
+                    <VerticalStackLayout>
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Discover new songs"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
+
+                        <CollectionView
+                            Margin="0,0,0,20"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding NewSongs}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Song">
+                                    <comp:SongItemRow Margin="10,0" Format="card" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
