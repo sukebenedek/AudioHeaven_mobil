@@ -284,6 +284,21 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<Album?> GetAlbumByIdAsync(int albumId)
+        {
+            try
+            {
+                string url = $"{BaseUrl}/albums/{albumId}";
+                var response = await HTTPCommunication<Album>.Get(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAlbumByIdAsync ERROR: {ex.Message}");
+                return null;
+            }
+        }
+
         public static async Task<ObservableCollection<Song>?> GetReccomendedAsync(int take)
         {
             try
@@ -332,6 +347,25 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<ObservableCollection<Song>?> GetNewSongsAsync(int take)
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/songs/new?count={take}";
+
+                var response = await HTTPCommunication<List<Song>>.Get(url);
+
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetDiscoverAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
+            }
+        }
+
         public static async Task<bool> LogPlayAsync(int songId, int? playlistId = null)
         {
             try
@@ -355,23 +389,5 @@ namespace AudioHeaven.Classes
             }
         }
 
-        public static async Task<ObservableCollection<Song>?> GetNewSongsAsync(int take)
-        {
-            try
-            {
-                if (UserData.User == null) throw new Exception("There is no user");
-
-                string url = $"{BaseUrl}/songs/new?count={take}";
-
-                var response = await HTTPCommunication<List<Song>>.Get(url);
-
-                return response != null ? response.ToObservableCollection() : new ObservableCollection<Song>();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"GetDiscoverAsync HIBA: {ex.Message}");
-                return new ObservableCollection<Song>();
-            }
-        }
     }
 }

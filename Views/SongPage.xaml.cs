@@ -71,12 +71,18 @@ public partial class SongPage : ContentPage, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-
     private async void  GoToUserPage(object sender, EventArgs e)
     {
             if (CurrentSong?.User != null)
             {
                 await Shell.Current.GoToAsync($"UserPage?id={CurrentSong.User.Id}");
             }
+    }
+    private async void OnHeaderClicked(object sender, EventArgs e)
+    {
+        if (CurrentSong?.Album != null && CurrentSong?.Album.Id != 0 && CurrentSong?.Album.Id != null)
+        {
+            await Shell.Current.GoToAsync($"AlbumPage?id={CurrentSong?.Album.Id}");
+        }
     }
 }

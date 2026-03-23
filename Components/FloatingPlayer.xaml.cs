@@ -2,18 +2,29 @@ using AudioHeaven.Models;
 using AudioHeaven.Services;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Views;
+using System.Windows.Input;
 
 namespace AudioHeaven.Components;
 
 public partial class FloatingPlayer : ContentView
 {
-	public FloatingPlayer()
+    private FloatingPlayerViewModel _vm;
+
+    public FloatingPlayer()
 	{
 		InitializeComponent();
 
-        BindingContext = Handler?.MauiContext?.Services.GetService<FloatingPlayerViewModel>()
+        _vm = Handler?.MauiContext?.Services.GetService<FloatingPlayerViewModel>()
                          ?? App.Current.Handler.MauiContext.Services.GetService<FloatingPlayerViewModel>();
+
+        BindingContext = _vm;
+
+        _vm.OpenRequested += OnOpenRequested;
     }
 
-    
+    private void OnOpenRequested()
+    {
+        PlayerSheet.IsOpen = true;
+    }
+
 }

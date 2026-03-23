@@ -16,9 +16,12 @@
             Grid.Column="0"
             HeightRequest="60"
             StrokeShape="RoundRectangle 10"
-            StrokeThickness="0"
             WidthRequest="60">
-            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
+            <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHeaderClicked" />
+                </Image.GestureRecognizers>
+            </Image>
         </Border>
 
         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
@@ -27,12 +30,20 @@
                 FontSize="18"
                 LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
-                TextColor="White" />
+                TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHeaderClicked" />
+                </Label.GestureRecognizers>
+            </Label>
 
             <Label
                 FontSize="14"
                 Text="{Binding User.Name}"
-                TextColor="Gray" />
+                TextColor="Gray">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
+                </Label.GestureRecognizers>
+            </Label>
         </VerticalStackLayout>
 
         <!--<ImageButton Grid.Column="2"

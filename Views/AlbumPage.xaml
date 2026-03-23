@@ -1,12 +1,117 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AudioHeaven.Views.AlbumPage"
-             Title="AlbumPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="AudioHeaven.Views.AlbumPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    x:Name="ThisPage"
+    Title="AlbumPage">
+    <Grid RowDefinitions="*">
+
+        <ScrollView Grid.Row="0" Padding="0,0,0,80">
+            <VerticalStackLayout>
+
+
+                <Frame
+                    Margin="0,0,0,11"
+                    Padding="0"
+                    BorderColor="Transparent"
+                    CornerRadius="20"
+                    HeightRequest="320"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    WidthRequest="320">
+                    <Image Aspect="AspectFill" Source="{Binding FullCoverUrl}" />
+                </Frame>
+
+                <Grid
+                    Margin="10,0"
+                    ColumnDefinitions="*, Auto"
+                    VerticalOptions="Center">
+
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        Padding="20,0,0,20"
+                        Spacing="2"
+                        VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding Title}"
+                            TextColor="White" />
+                        <Label
+                            FontSize="18"
+                            Text="{Binding User.Name}"
+                            TextColor="Gray">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToUserPage" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Border
+                    Grid.Column="1"
+                    Margin="0,0,20,0"
+                    BackgroundColor="{StaticResource DarkBlue}"
+                    StrokeThickness="0"
+                    VerticalOptions="Center"
+                    WidthRequest="140">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="30" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout>
+                        <ImageButton
+                            x:Name="PlayPauseImage"
+                            Grid.Column="1"
+                            Padding="15"
+                            BackgroundColor="Transparent"
+                            Clicked="OnPlayClicked"
+                            HeightRequest="60"
+                            HorizontalOptions="Center"
+                            Source="paused.png"
+                            VerticalOptions="Center"
+                            WidthRequest="60" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            HorizontalOptions="Center"
+                            Text="Play"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPlayClicked" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <VerticalStackLayout Padding="20" Spacing="10">
+                    <CollectionView ItemsSource="{Binding Source={x:Reference ThisPage}, Path=Songs}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <comp:AlbumItemRow BindingContext="{Binding .}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+                <Label
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="{Binding CreatedAt, StringFormat='Uploaded on: {0:yyyy.MM.dd}'}"
+                    TextColor="Gray" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
+        <comp:LoadingOverlay
+            Grid.Row="0"
+            Margin="-30"
+            BackgroundColor="Red"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding Source={x:Reference ThisPage}, Path=IsBusy}"
+            Opacity="0.3"
+            VerticalOptions="Fill" />
+    </Grid>
 </ContentPage>

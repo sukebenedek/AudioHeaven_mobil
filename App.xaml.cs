@@ -28,7 +28,7 @@ namespace AudioHeaven
 
                 AuthResponse? authResponse = await API.LoginAsyncToken();
 
-                if (authResponse != null)
+                if (authResponse != null && authResponse.User != null && authResponse.User.Id != 0)
                 {
                     UserData.User = authResponse.User;
                     await Shell.Current.GoToAsync("//main");

@@ -16,7 +16,7 @@ namespace AudioHeaven.Models
 
         public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         public ShortUser? User { get; set; }
 

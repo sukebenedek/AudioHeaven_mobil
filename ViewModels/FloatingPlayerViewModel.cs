@@ -40,5 +40,14 @@ namespace AudioHeaven.ViewModels
                 await Shell.Current.GoToAsync($"SongPage?id={MusicService.CurrentSong.Id}");
             }
         }
+
+        public event Action OpenRequested;
+        [RelayCommand]
+        private void Open()
+        {
+            // we need to trigger UI → use event or callback
+            OpenRequested?.Invoke();
+        }
+
     }
 }

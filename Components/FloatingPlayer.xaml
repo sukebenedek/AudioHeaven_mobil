@@ -2,97 +2,257 @@
     x:Class="AudioHeaven.Components.FloatingPlayer"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:AudioHeaven.ViewModels">
 
+    <Grid>
+        <Border
+            Margin="15,0,15,10"
+            Padding="7"
+            BackgroundColor="{x:DynamicResource DarkGray}"
+            HeightRequest="70"
+            IsVisible="{Binding MusicService.IsPlayerVisible}"
+            StrokeShape="RoundRectangle 20"
+            VerticalOptions="End">
 
-    <Border
-        Margin="15,0,15,10"
-        Padding="7"
-        BackgroundColor="{x:DynamicResource DarkGray}"
-        HeightRequest="70"
-        IsVisible="{Binding MusicService.IsPlayerVisible}"
-        StrokeShape="RoundRectangle 20"
-        VerticalOptions="End">
+            <Grid ColumnDefinitions="Auto, *, Auto">
 
-        <Grid ColumnDefinitions="Auto, *, Auto">
+                <Border
+                    Grid.Column="0"
+                    HeightRequest="55"
+                    StrokeShape="RoundRectangle 10"
+                    WidthRequest="55">
+                    <Image Aspect="AspectFill" Source="{Binding MusicService.CurrentSong.FullCoverUrl}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
 
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Margin="15,0"
+                    VerticalOptions="Center">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding MusicService.CurrentSong.Title}"
+                        TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        FontSize="12"
+                        Text="{Binding MusicService.CurrentSong.User.Name}"
+                        TextColor="{x:DynamicResource LightGray}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
 
+                <HorizontalStackLayout
+                    Grid.Column="2"
+                    Margin="0,0,10,0"
+                    Spacing="15"
+                    VerticalOptions="Center">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        HeightRequest="24"
+                        Source="backward"
+                        WidthRequest="24" />
 
-            <Border
-                Grid.Column="0"
-                HeightRequest="55"
-                StrokeShape="RoundRectangle 10"
-                WidthRequest="55">
-                <Image Aspect="AspectFill" Source="{Binding MusicService.CurrentSong.FullCoverUrl}" />
-            </Border>
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding TogglePlayCommand}"
+                        HeightRequest="32"
+                        WidthRequest="32">
+                        <ImageButton.Source>
+                            <FileImageSource x:Name="PlayPauseImage" File="paused.png" />
+                        </ImageButton.Source>
 
-            <VerticalStackLayout
-                Grid.Column="1"
-                Margin="15,0"
-                VerticalOptions="Center">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    LineBreakMode="TailTruncation"
-                    Text="{Binding MusicService.CurrentSong.Title}"
-                    TextColor="White">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label
-                    FontSize="12"
-                    Text="{Binding MusicService.CurrentSong.User.Name}"
-                    TextColor="{x:DynamicResource LightGray}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </VerticalStackLayout>
+                        <ImageButton.Triggers>
+                            <DataTrigger
+                                Binding="{Binding MusicService.IsPlaying}"
+                                TargetType="ImageButton"
+                                Value="True">
+                                <Setter Property="Source" Value="playing.png" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding MusicService.IsPlaying}"
+                                TargetType="ImageButton"
+                                Value="False">
+                                <Setter Property="Source" Value="paused" />
+                            </DataTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
 
-            <HorizontalStackLayout
-                Grid.Column="2"
-                Margin="0,0,10,0"
-                Spacing="15"
-                VerticalOptions="Center">
-                <ImageButton
-                    BackgroundColor="Transparent"
-                    HeightRequest="24"
-                    Source="backward"
-                    WidthRequest="24" />
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        HeightRequest="24"
+                        Source="forward.png"
+                        WidthRequest="24" />
+                </HorizontalStackLayout>
 
-                <ImageButton
-                    BackgroundColor="Transparent"
-                    Command="{Binding TogglePlayCommand}"
-                    HeightRequest="32"
-                    WidthRequest="32">
-                    <ImageButton.Source>
-                        <FileImageSource x:Name="PlayPauseImage" File="paused.png" />
-                    </ImageButton.Source>
+            </Grid>
+        </Border>
 
-                    <ImageButton.Triggers>
-                        <DataTrigger
-                            Binding="{Binding MusicService.IsPlaying}"
-                            TargetType="ImageButton"
-                            Value="True">
-                            <Setter Property="Source" Value="playing.png" />
-                        </DataTrigger>
-                        <DataTrigger
-                            Binding="{Binding MusicService.IsPlaying}"
-                            TargetType="ImageButton"
-                            Value="False">
-                            <Setter Property="Source" Value="paused" />
-                        </DataTrigger>
-                    </ImageButton.Triggers>
-                </ImageButton>
+        <bottomsheet:BottomSheet
+            x:Name="PlayerSheet"
+            BackgroundColor="{x:DynamicResource DarkGray}"
+            CornerRadius="10"
+            CurrentState="Large"
+            HasHandle="True"
+            IsModal="True"
+            IsOpen="False"
+            PeekHeight="310"
+            States="Large">
+            <bottomsheet:BottomSheet.Content>
+                <bottomsheet:BottomSheetContent>
+                    <Grid RowDefinitions="*">
+                        <VerticalStackLayout
+                            Grid.Row="0"
+                            Padding="20,10,20,30"
+                            Spacing="5">
 
-                <ImageButton
-                    BackgroundColor="Transparent"
-                    HeightRequest="24"
-                    Source="forward.png"
-                    WidthRequest="24" />
-            </HorizontalStackLayout>
-        </Grid>
-    </Border>
+                            <VerticalStackLayout
+                                Grid.Row="1"
+                                Padding="0,15"
+                                Spacing="25">
+
+                                <Frame
+                                    Padding="0"
+                                    BorderColor="Transparent"
+                                    CornerRadius="20"
+                                    HeightRequest="320"
+                                    HorizontalOptions="Center"
+                                    IsClippedToBounds="True"
+                                    WidthRequest="320">
+                                    <Image Aspect="AspectFill" Source="{Binding MusicService.CurrentSong.FullCoverUrl}" />
+                                </Frame>
+
+                                <Grid
+                                    Margin="0"
+                                    ColumnDefinitions="*, Auto"
+                                    VerticalOptions="Center">
+
+                                    <VerticalStackLayout
+                                        Grid.Column="0"
+                                        Padding="20,0,0,0"
+                                        Spacing="2"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="28"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding MusicService.CurrentSong.Title}"
+                                            TextColor="White">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label
+                                            FontSize="18"
+                                            Text="{Binding MusicService.CurrentSong.User.Name}"
+                                            TextColor="Gray">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+
+                                <HorizontalStackLayout
+                                    Grid.Column="2"
+                                    Margin="0,0,10,0"
+                                    HorizontalOptions="Center"
+                                    Spacing="15"
+                                    VerticalOptions="Center">
+                                    <HorizontalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                                    </HorizontalStackLayout.GestureRecognizers>
+                                    <ImageButton
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="50"
+                                        Source="backward"
+                                        WidthRequest="50" />
+
+                                    <ImageButton
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding TogglePlayCommand}"
+                                        HeightRequest="60"
+                                        WidthRequest="60">
+                                        <ImageButton.Source>
+                                            <FileImageSource File="paused.png" />
+                                        </ImageButton.Source>
+
+                                        <ImageButton.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding MusicService.IsPlaying}"
+                                                TargetType="ImageButton"
+                                                Value="True">
+                                                <Setter Property="Source" Value="playing.png" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding MusicService.IsPlaying}"
+                                                TargetType="ImageButton"
+                                                Value="False">
+                                                <Setter Property="Source" Value="paused" />
+                                            </DataTrigger>
+                                        </ImageButton.Triggers>
+                                    </ImageButton>
+
+                                    <ImageButton
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="50"
+                                        Source="forward.png"
+                                        WidthRequest="50" />
+                                </HorizontalStackLayout>
+
+                                <Grid Margin="14,0,11,0" ColumnDefinitions="*, Auto, Auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="25"
+                                        Text="Up next"
+                                        TextColor="{x:DynamicResource LightBlue}"
+                                        VerticalOptions="Center" />
+
+                                    <ImageButton
+                                        Grid.Column="1"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="25"
+                                        Source="arrowr.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="25" />
+
+                                </Grid>
+
+                                <BoxView
+                                    Margin="14,-12,11,10"
+                                    HeightRequest="2"
+                                    HorizontalOptions="Fill"
+                                    Color="{x:DynamicResource LightBlue}" />
+
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </bottomsheet:BottomSheetContent>
+            </bottomsheet:BottomSheet.Content>
+        </bottomsheet:BottomSheet>
+    </Grid>
 </ContentView>

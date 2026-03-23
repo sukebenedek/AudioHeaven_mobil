@@ -41,7 +41,11 @@
                             FontSize="28"
                             LineBreakMode="TailTruncation"
                             Text="{Binding CurrentSong.Title}"
-                            TextColor="White" />
+                            TextColor="White">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnHeaderClicked" />
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Label
                             FontSize="18"
                             Text="{Binding CurrentSong.User.Name}"
