@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="AudioHeaven.Components.PlayerSheet"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com">
+    <bottomsheet:BottomSheet
+        x:Name="PlayerSheetBottomSheet"
+        BackgroundColor="{x:DynamicResource DarkGray}"
+        CornerRadius="10"
+        CurrentState="Large"
+        HasHandle="True"
+        IsModal="True"
+        IsOpen="False"
+        PeekHeight="310"
+        States="Large">
+        <bottomsheet:BottomSheet.Content>
+            <bottomsheet:BottomSheetContent>
+                <Grid RowDefinitions="*">
+                    <VerticalStackLayout
+                        Grid.Row="0"
+                        Padding="20,10,20,30"
+                        Spacing="5">
+
+                        <VerticalStackLayout
+                            Grid.Row="1"
+                            Padding="0,15"
+                            Spacing="25">
+
+                            <Frame
+                                Padding="0"
+                                BorderColor="Transparent"
+                                CornerRadius="20"
+                                HeightRequest="320"
+                                HorizontalOptions="Center"
+                                IsClippedToBounds="True"
+                                WidthRequest="320">
+                                <Image Aspect="AspectFill" Source="{Binding MusicService.CurrentSong.FullCoverUrl}" />
+                            </Frame>
+
+                            <Grid
+                                Margin="0"
+                                ColumnDefinitions="*, Auto"
+                                VerticalOptions="Center">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Padding="20,0,0,0"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="28"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding MusicService.CurrentSong.Title}"
+                                        TextColor="White">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label
+                                        FontSize="18"
+                                        Text="{Binding MusicService.CurrentSong.User.Name}"
+                                        TextColor="Gray">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <HorizontalStackLayout
+                                Grid.Column="2"
+                                Margin="0,0,10,0"
+                                HorizontalOptions="Center"
+                                Spacing="15"
+                                VerticalOptions="Center">
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenCommand}" />
+                                </HorizontalStackLayout.GestureRecognizers>
+                                <ImageButton
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="50"
+                                    Source="backward"
+                                    WidthRequest="50" />
+
+                                <ImageButton
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding TogglePlayCommand}"
+                                    HeightRequest="60"
+                                    WidthRequest="60">
+                                    <ImageButton.Source>
+                                        <FileImageSource File="paused.png" />
+                                    </ImageButton.Source>
+
+                                    <ImageButton.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding MusicService.IsPlaying}"
+                                            TargetType="ImageButton"
+                                            Value="True">
+                                            <Setter Property="Source" Value="playing.png" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding MusicService.IsPlaying}"
+                                            TargetType="ImageButton"
+                                            Value="False">
+                                            <Setter Property="Source" Value="paused" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
+
+                                <ImageButton
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="50"
+                                    Source="forward.png"
+                                    WidthRequest="50" />
+                            </HorizontalStackLayout>
+
+                            <Grid Margin="14,0,11,0" ColumnDefinitions="*, Auto, Auto">
+                                <Label
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    FontSize="25"
+                                    Text="Up next"
+                                    TextColor="{x:DynamicResource LightBlue}"
+                                    VerticalOptions="Center" />
+
+                                <ImageButton
+                                    Grid.Column="1"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="25"
+                                    Source="arrowr.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+
+                            </Grid>
+
+                            <BoxView
+                                Margin="14,-12,11,10"
+                                HeightRequest="2"
+                                HorizontalOptions="Fill"
+                                Color="{x:DynamicResource LightBlue}" />
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Grid>
+            </bottomsheet:BottomSheetContent>
+        </bottomsheet:BottomSheet.Content>
+    </bottomsheet:BottomSheet>
+</ContentView>

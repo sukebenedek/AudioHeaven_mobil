@@ -4,7 +4,6 @@ namespace AudioHeaven.Components;
 
 public partial class LogoutSheetContent : ContentView
 {
-    public event EventHandler LogoutRequested;
 
     public LogoutSheetContent()
     {

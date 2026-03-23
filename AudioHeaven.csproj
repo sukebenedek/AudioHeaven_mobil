@@ -105,6 +105,9 @@
 	  <MauiXaml Update="Components\LogoutSheetContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Components\PlayerSheet.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Components\ProfileButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

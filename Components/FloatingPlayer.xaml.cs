@@ -2,6 +2,7 @@ using AudioHeaven.Models;
 using AudioHeaven.Services;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 
 namespace AudioHeaven.Components;
@@ -24,7 +25,8 @@ public partial class FloatingPlayer : ContentView
 
     private void OnOpenRequested()
     {
-        PlayerSheet.IsOpen = true;
+        // Elküldjük az üzenetet az egész appnak
+        WeakReferenceMessenger.Default.Send(new OpenPlayerMessage());
     }
 
 }

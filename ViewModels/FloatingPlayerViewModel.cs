@@ -1,9 +1,10 @@
-﻿using AudioHeaven.Models;
+﻿using AudioHeaven.Classes;
+using AudioHeaven.Models;
+using AudioHeaven.Services; 
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Maui.Views;
-using AudioHeaven.Classes;
-using AudioHeaven.Services; 
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AudioHeaven.ViewModels
 {
@@ -45,9 +46,7 @@ namespace AudioHeaven.ViewModels
         [RelayCommand]
         private void Open()
         {
-            // we need to trigger UI → use event or callback
-            OpenRequested?.Invoke();
+            WeakReferenceMessenger.Default.Send(new OpenPlayerMessage());
         }
-
     }
 }
