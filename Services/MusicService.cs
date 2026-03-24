@@ -12,6 +12,9 @@ namespace AudioHeaven.Services
         private Song currentSong;
 
         [ObservableProperty]
+        private Song currentQueueSong;
+
+        [ObservableProperty]
         private bool isPlaying;
 
         [ObservableProperty]
@@ -75,6 +78,16 @@ namespace AudioHeaven.Services
             _player.Source = MediaSource.FromUri(song.FullAudioUrl);
             _player.Play();
             IsPlaying = true;
+        }
+
+        public async void GetCurrentQueueSong()
+        {
+            var songs = await API.GetQueueSongsAsync();
+
+            if (songs != null && songs.Count > 0)
+            {
+                CurrentQueueSong = songs[0];
+            }
         }
     }
 }

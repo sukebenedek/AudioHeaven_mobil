@@ -19,6 +19,7 @@ namespace AudioHeaven
             Routing.RegisterRoute("SeachedSongsPage", typeof(SearchedSongsPage));
             Routing.RegisterRoute("SeachedAlbumsPage", typeof(SearchedAlbumsPage));
             Routing.RegisterRoute("AllSongsPage", typeof(AllSongsPage));
+            Routing.RegisterRoute("SongListPage", typeof(SongListPage));
 
             Routing.RegisterRoute("UserPage", typeof(UserPage));
             Routing.RegisterRoute("AlbumPage", typeof(AlbumPage));

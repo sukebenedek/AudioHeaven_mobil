@@ -3,10 +3,11 @@
     x:Class="AudioHeaven.Components.PlayerSheet"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:bottomsheet="http://pluginmauibottomsheet.com">
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com"
+    xmlns:comp="clr-namespace:AudioHeaven.Components">
     <bottomsheet:BottomSheet
         x:Name="PlayerSheetBottomSheet"
-        BackgroundColor="{x:DynamicResource DarkGray}"
+        BackgroundColor="{x:DynamicResource Black}"
         CornerRadius="10"
         CurrentState="Large"
         HasHandle="True"
@@ -86,7 +87,7 @@
 
                                 <ImageButton
                                     BackgroundColor="Transparent"
-                                    Command="{Binding TogglePlayCommand}"
+                                    Clicked="TogglePlay"
                                     HeightRequest="60"
                                     WidthRequest="60">
                                     <ImageButton.Source>
@@ -121,7 +122,7 @@
                                     Grid.Column="0"
                                     FontAttributes="Bold"
                                     FontSize="25"
-                                    Text="Up next"
+                                    Text="Next up"
                                     TextColor="{x:DynamicResource LightBlue}"
                                     VerticalOptions="Center" />
 
@@ -131,8 +132,15 @@
                                     HeightRequest="25"
                                     Source="arrowr.png"
                                     VerticalOptions="Center"
-                                    WidthRequest="25" />
+                                    WidthRequest="25">
+                                    <ImageButton.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="NextSongs" />
+                                    </ImageButton.GestureRecognizers>
+                                </ImageButton>
 
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="NextSongs" />
+                                </Grid.GestureRecognizers>
                             </Grid>
 
                             <BoxView
@@ -141,6 +149,7 @@
                                 HorizontalOptions="Fill"
                                 Color="{x:DynamicResource LightBlue}" />
 
+                            <comp:SongItemRow BindingContext="{Binding MusicService.CurrentQueueSong}" Format="username" />
                         </VerticalStackLayout>
 
                     </VerticalStackLayout>

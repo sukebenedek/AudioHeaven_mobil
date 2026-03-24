@@ -30,6 +30,7 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="18"
+                    LineBreakMode="TailTruncation"
                     Text="{Binding Title}"
                     TextColor="White">
                     <Label.GestureRecognizers>

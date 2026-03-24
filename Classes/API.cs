@@ -408,5 +408,51 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<ObservableCollection<Song>> GetQueueSongsAsync()
+        {
+            try
+            {
+                if (UserData.Token == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/queue";
+
+                var response = await HTTPCommunication<QueueResponse>.Get(url);
+
+                if (response?.Queue == null)
+                    return new ObservableCollection<Song>();
+
+                return new ObservableCollection<Song>(
+                    response.Queue
+                        .OrderBy(q => q.Position) // just in case
+                        .Select(q => q.Song)
+                );
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetQueueSongsAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Song>();
+            }
+        }
+
+        public static async Task<ObservableCollection<QueueItem>> GetQueueItemsAsync()
+        {
+            try
+            {
+                if (UserData.Token == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/queue";
+
+                var response = await HTTPCommunication<QueueResponse>.Get(url);
+
+                return response?.Queue != null
+                    ? new ObservableCollection<QueueItem>(response.Queue.OrderBy(q => q.Position))
+                    : new ObservableCollection<QueueItem>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetQueueItemsAsync HIBA: {ex.Message}");
+                return new ObservableCollection<QueueItem>();
+            }
+        }
     }
 }

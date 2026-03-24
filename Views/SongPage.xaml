@@ -93,6 +93,7 @@
                 </Border>
 
                 <Label
+                    Margin="0,0,0,160"
                     FontSize="18"
                     HorizontalOptions="Center"
                     Text="{Binding CurrentSong.CreatedAt, StringFormat='Uploaded on: {0:yyyy.MM.dd}'}"

@@ -44,6 +44,7 @@ namespace AudioHeaven
             builder.Services.AddSingleton<MusicService>();
             //views
             builder.Services.AddSingleton<AllSongsPage>();
+            builder.Services.AddSingleton<SongListPage>();
             builder.Services.AddSingleton<SearchedAlbumsPage>();
             builder.Services.AddSingleton<SearchedSongsPage>();
             //components

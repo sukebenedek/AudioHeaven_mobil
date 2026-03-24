@@ -47,6 +47,8 @@ namespace AudioHeaven.ViewModels
         private void Open()
         {
             WeakReferenceMessenger.Default.Send(new OpenPlayerMessage());
+            MusicService.GetCurrentQueueSong();
+
         }
     }
 }
