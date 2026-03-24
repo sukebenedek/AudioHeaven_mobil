@@ -299,7 +299,7 @@ namespace AudioHeaven.Classes
             }
         }
 
-        public static async Task<ObservableCollection<Song>?> GetReccomendedAsync(int take)
+        public static async Task<ObservableCollection<Song>?> GetReccomendedSongsAsync(int take)
         {
             try
             {
@@ -315,6 +315,25 @@ namespace AudioHeaven.Classes
             {
                 System.Diagnostics.Debug.WriteLine($"GetDiscoverAsync HIBA: {ex.Message}");
                 return new ObservableCollection<Song>();
+            }
+        }
+
+        public static async Task<ObservableCollection<Album>?> GetReccomendedAlbumsAsync(int take)
+        {
+            try
+            {
+                if (UserData.User == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/albums/random?count={take}";
+
+                var response = await HTTPCommunication<List<Album>>.Get(url);
+
+                return response != null ? response.ToObservableCollection() : new ObservableCollection<Album>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetDiscoverAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Album>();
             }
         }
 

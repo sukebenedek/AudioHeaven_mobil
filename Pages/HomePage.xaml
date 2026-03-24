@@ -37,44 +37,35 @@
 
 
                 <VerticalStackLayout Margin="0,15,0,80" Spacing="0">
-                    <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
-                        <Label
-                            Grid.Column="0"
-                            FontAttributes="Bold"
-                            FontSize="25"
-                            Text="Reccomended for you"
-                            TextColor="{x:DynamicResource LightBlue}"
-                            VerticalOptions="Center" />
+                    <VerticalStackLayout>
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Reccomended songs for you"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
 
-                        <!--<ImageButton
-                            Grid.Column="1"
-                            BackgroundColor="Transparent"
-                            Clicked="OnSongsHeaderClicked"
-                            HeightRequest="30"
-                            Source="arrowr.png"
-                            VerticalOptions="Center"
-                            WidthRequest="30" />-->
-                    </Grid>
+                        </Grid>
 
-                    <BoxView
-                        Margin="14,0,11,10"
-                        HeightRequest="2"
-                        HorizontalOptions="Fill"
-                        Color="{x:DynamicResource LightBlue}" />
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
 
-                    <!--<VerticalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnSongsHeaderClicked" />
-                    </VerticalStackLayout.GestureRecognizers>-->
-                    <CollectionView
-                        Margin="0,0,0,20"
-                        ItemsLayout="HorizontalList"
-                        ItemsSource="{Binding Reccomended}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Song">
-                                <comp:SongItemRow Margin="10,0" Format="card" />
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        <CollectionView
+                            Margin="0,0,0,20"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ReccomendedSongs}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Song">
+                                    <comp:SongItemRow Margin="10,0" Format="card" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
 
                     <VerticalStackLayout IsVisible="{Binding HasHistory}">
                         <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
@@ -112,7 +103,37 @@
                                 Grid.Column="0"
                                 FontAttributes="Bold"
                                 FontSize="25"
-                                Text="Discover new songs"
+                                Text="Reccomended albums for you"
+                                TextColor="{x:DynamicResource LightBlue}"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                        <BoxView
+                            Margin="14,0,11,10"
+                            HeightRequest="2"
+                            HorizontalOptions="Fill"
+                            Color="{x:DynamicResource LightBlue}" />
+
+                        <CollectionView
+                            Margin="0,0,0,20"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ReccomendedAlbums}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Album">
+                                    <comp:AlbumItemRow Margin="10,0" Format="card" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout>
+                        <Grid Margin="14,0,11,10" ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="Discover the newest songs"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />
 
