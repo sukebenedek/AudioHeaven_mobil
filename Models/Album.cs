@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.Models
 {
-    // Egy közös helyre, pl. a Models vagy Messages mappába
     public class OpenPlayerMessage { }
 
     public class Album

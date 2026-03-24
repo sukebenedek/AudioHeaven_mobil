@@ -21,6 +21,7 @@
     </Shell.TitleView>
 
     <Grid>
+
         <ScrollView>
             <VerticalStackLayout Padding="10" Spacing="10">
 
@@ -140,8 +141,6 @@
                             TextColor="{x:DynamicResource LightGray}" />
                     </VerticalStackLayout>
                 </Frame>
-
-
 
             </VerticalStackLayout>
         </ScrollView>

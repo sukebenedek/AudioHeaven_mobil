@@ -13,6 +13,7 @@ namespace AudioHeaven.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public int Plays { get; set; }
+        public int Length { get; set; }
         public string StoredAt { get; set; }
         public string Cover { get; set; }
         public int UserId { get; set; }

@@ -454,5 +454,26 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<QueueItem>();
             }
         }
+
+        public static async Task<ObservableCollection<Playlist>> GetUserPlaylistsAsync()
+        {
+            try
+            {
+                if (UserData.Token == null) throw new Exception("There is no user");
+
+                string url = $"{BaseUrl}/playlists";
+
+                var response = await HTTPCommunication<List<Playlist>>.Get(url);
+
+                return response != null
+                    ? new ObservableCollection<Playlist>(response)
+                    : new ObservableCollection<Playlist>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetMyPlaylistsAsync HIBA: {ex.Message}");
+                return new ObservableCollection<Playlist>();
+            }
+        }
     }
 }

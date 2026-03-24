@@ -23,13 +23,30 @@
         <ScrollView>
             <VerticalStackLayout Padding="10" Spacing="10">
 
+                <VerticalStackLayout
+                    Margin="0,0,0,90"
+                    Padding="3"
+                    IsVisible="{Binding HasPlaylists}"
+                    Spacing="10">
+
+                    <CollectionView ItemsSource="{Binding Playlists}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <comp:PlaylistItemRow />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
                 <Frame
                     Margin="14,20"
                     Padding="30"
                     BackgroundColor="Transparent"
                     BorderColor="{x:DynamicResource LightBlue}"
                     CornerRadius="10"
-                    HasShadow="False">
+                    HasShadow="False"
+                    IsVisible="{Binding HasPlaylists, Converter={StaticResource InverseBoolConverter}}">
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
                         <Label
                             FontSize="40"
@@ -50,11 +67,16 @@
                     </VerticalStackLayout>
                 </Frame>
 
-
             </VerticalStackLayout>
         </ScrollView>
         <comp:FloatingPlayer Margin="5,0,5,10" VerticalOptions="End" />
         <comp:LogoutSheetContent x:Name="LogoutMenu" />
+        <comp:LoadingOverlay
+            Grid.Row="0"
+            Margin="-30"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Fill" />
 
     </Grid>
 </ContentPage>

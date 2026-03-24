@@ -5,10 +5,13 @@ namespace AudioHeaven.Pages;
 
 public partial class LibraryPage : ContentPage
 {
-	public LibraryPage(LibraryViewModel vm)
+    private readonly LibraryViewModel _vm;
+
+    public LibraryPage(LibraryViewModel vm)
 	{
 		InitializeComponent();
-        this.BindingContext = vm;
+        _vm = vm;
+        this.BindingContext = _vm;
 
     }
 
@@ -27,6 +30,13 @@ public partial class LibraryPage : ContentPage
         });
 
         return true;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await _vm.LoadAsync();
     }
 
     private void OnProfileTapped(object sender, EventArgs e)
