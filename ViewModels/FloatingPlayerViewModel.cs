@@ -44,10 +44,10 @@ namespace AudioHeaven.ViewModels
 
         public event Action OpenRequested;
         [RelayCommand]
-        private void Open()
+        private async void Open()
         {
             WeakReferenceMessenger.Default.Send(new OpenPlayerMessage());
-            MusicService.GetCurrentQueueSong();
+            await MusicService.UpdateQueue();
 
         }
     }

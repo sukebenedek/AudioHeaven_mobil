@@ -117,39 +117,42 @@
                                     WidthRequest="50" />
                             </HorizontalStackLayout>
 
-                            <Grid Margin="14,0,11,0" ColumnDefinitions="*, Auto, Auto">
-                                <Label
-                                    Grid.Column="0"
-                                    FontAttributes="Bold"
-                                    FontSize="25"
-                                    Text="Next up"
-                                    TextColor="{x:DynamicResource LightBlue}"
-                                    VerticalOptions="Center" />
+                            <VerticalStackLayout IsVisible="{Binding MusicService.HasQueue}">
+                                <Grid Margin="14,0,11,20" ColumnDefinitions="*, Auto, Auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="25"
+                                        Text="Next up"
+                                        TextColor="{x:DynamicResource LightBlue}"
+                                        VerticalOptions="Center" />
 
-                                <ImageButton
-                                    Grid.Column="1"
-                                    BackgroundColor="Transparent"
-                                    HeightRequest="25"
-                                    Source="arrowr.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="25">
-                                    <ImageButton.GestureRecognizers>
+                                    <ImageButton
+                                        Grid.Column="1"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="25"
+                                        Source="arrowr.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="25">
+                                        <ImageButton.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="NextSongs" />
+                                        </ImageButton.GestureRecognizers>
+                                    </ImageButton>
+
+                                    <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="NextSongs" />
-                                    </ImageButton.GestureRecognizers>
-                                </ImageButton>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
 
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="NextSongs" />
-                                </Grid.GestureRecognizers>
-                            </Grid>
+                                <BoxView
+                                    Margin="14,-12,11,10"
+                                    HeightRequest="2"
+                                    HorizontalOptions="Fill"
+                                    Color="{x:DynamicResource LightBlue}" />
 
-                            <BoxView
-                                Margin="14,-12,11,10"
-                                HeightRequest="2"
-                                HorizontalOptions="Fill"
-                                Color="{x:DynamicResource LightBlue}" />
+                                <comp:SongItemRow BindingContext="{Binding MusicService.CurrentQueueSong}" Format="username" />
+                            </VerticalStackLayout>
 
-                            <comp:SongItemRow BindingContext="{Binding MusicService.CurrentQueueSong}" Format="username" />
                         </VerticalStackLayout>
 
                     </VerticalStackLayout>

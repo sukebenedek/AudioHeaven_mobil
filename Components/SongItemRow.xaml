@@ -57,6 +57,7 @@
             <ImageButton
                 Grid.Column="2"
                 BackgroundColor="Transparent"
+                Clicked="OnMeatballsClicked"
                 HeightRequest="26"
                 Source="meatballs.png"
                 WidthRequest="26" />

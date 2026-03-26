@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="AudioHeaven.Components.SongSheet"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com"
+    xmlns:comp="clr-namespace:AudioHeaven.Components">
+    <bottomsheet:BottomSheet
+        x:Name="SongSheetBottomSheet"
+        BackgroundColor="{x:DynamicResource DarkGray}"
+        CornerRadius="10"
+        CurrentState="Peek"
+        HasHandle="True"
+        IsModal="True"
+        IsOpen="False"
+        PeekHeight="310"
+        States="Peek">
+        <bottomsheet:BottomSheet.Content>
+            <bottomsheet:BottomSheetContent>
+                <Grid RowDefinitions="*">
+                    <VerticalStackLayout
+                        Grid.Row="0"
+                        Padding="20,10,20,30"
+                        Spacing="5">
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding MusicService.SelectedSong.Title}"
+                            TextColor="White">
+                            <!--<Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                                        </Label.GestureRecognizers>-->
+                        </Label>
+
+                    </VerticalStackLayout>
+
+                </Grid>
+            </bottomsheet:BottomSheetContent>
+        </bottomsheet:BottomSheet.Content>
+    </bottomsheet:BottomSheet>
+</ContentView>

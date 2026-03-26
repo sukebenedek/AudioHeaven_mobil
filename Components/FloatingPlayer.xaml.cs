@@ -25,9 +25,7 @@ public partial class FloatingPlayer : ContentView
 
     private void OnOpenRequested()
     {
-        // Elküldjük az üzenetet az egész appnak
         WeakReferenceMessenger.Default.Send(new OpenPlayerMessage());
-
     }
 
 }

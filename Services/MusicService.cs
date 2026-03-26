@@ -12,6 +12,15 @@ namespace AudioHeaven.Services
         private Song currentSong;
 
         [ObservableProperty]
+        private Song selectedSong;
+
+        [ObservableProperty]
+        private List<Song> queue;
+
+        [ObservableProperty]
+        private bool hasQueue = false;
+
+        [ObservableProperty]
         private Song currentQueueSong;
 
         [ObservableProperty]
@@ -80,13 +89,17 @@ namespace AudioHeaven.Services
             IsPlaying = true;
         }
 
-        public async void GetCurrentQueueSong()
+        public async Task UpdateQueue()
         {
-            var songs = await API.GetQueueSongsAsync();
-
-            if (songs != null && songs.Count > 0)
+            var res = await API.GetQueueSongsAsync();
+            if (res != null)
             {
-                CurrentQueueSong = songs[0];
+                Queue = res.ToList();
+                HasQueue = Queue.Count > 0;
+                if (res.Count > 0)
+                {
+                    CurrentQueueSong = res[0];
+                }
             }
         }
     }

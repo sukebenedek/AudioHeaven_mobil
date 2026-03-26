@@ -1,5 +1,7 @@
 using AudioHeaven.Models;
 using AudioHeaven.Services;
+using AudioHeaven.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AudioHeaven.Components;
 
@@ -23,9 +25,15 @@ public partial class SongItemRow : ContentView
     public bool ShowUsername { get; set; }
     public bool IsCard { get; set; }
 
+    private readonly MusicService _musicService;
     public SongItemRow()
     {
         InitializeComponent();
+
+        var services = IPlatformApplication.Current.Services;
+
+        _musicService = services.GetService<MusicService>();
+
     }
 
     static void OnFormatChanged(BindableObject bindable, object oldValue, object newValue)
@@ -43,7 +51,6 @@ public partial class SongItemRow : ContentView
         control.OnPropertyChanged(nameof(IsCard));
     }
 
-    // 1. CLICKED THE WHOLE ROW: Play Song
     private void OnPlaySongClicked(object sender, EventArgs e)
     {
         if (BindingContext is Song song)
@@ -55,7 +62,6 @@ public partial class SongItemRow : ContentView
         }
     }
 
-    // 2. CLICKED TITLE: Go to SongPage
     private async void OnGoToSongPageClicked(object sender, EventArgs e)
     {
         if (BindingContext is Song song)
@@ -64,7 +70,6 @@ public partial class SongItemRow : ContentView
         }
     }
 
-    // 3. CLICKED USERNAME: Go to UserPage
     private async void OnGoToUserPageClicked(object sender, EventArgs e)
     {
         if (BindingContext is Song song && song.User != null)
@@ -75,4 +80,24 @@ public partial class SongItemRow : ContentView
             await Shell.Current.GoToAsync($"UserPage?id={song.User.Id}");
         }
     }
+
+    private void OnMeatballsClicked(object sender, EventArgs e)
+    {
+        if (BindingContext is Song song)
+        {
+            _musicService.SelectedSong = song;
+
+            WeakReferenceMessenger.Default.Send(new OpenSongSheetMessage(song));
+        }
+    }
+
+    //private void OnOpenRequested()
+    //{
+    //    if (BindingContext is Song song)
+    //            {
+    //                WeakReferenceMessenger.Default.Send(new OpenSongSheetMessage());
+    //        _musicService.SelectedSong = song;
+
+    //    }
+    //}
 }

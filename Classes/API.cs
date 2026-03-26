@@ -253,14 +253,11 @@ namespace AudioHeaven.Classes
         {
             try
             {
-                // Construct the URL using the specific userId
                 string url = $"{BaseUrl}/users/{userId}";
 
-                // Since your Laravel 'show' method likely returns a single User object 
-                // (not a list), we request <User> directly.
-                var response = await HTTPCommunication<User>.Get(url);
-
-                return response;
+                // Update the generic type here
+                var response = await HTTPCommunication<UserProfileResponse>.Get(url);
+                return response?.User;
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@
     Title="AlbumPage">
     <Grid RowDefinitions="*">
 
-        <ScrollView Grid.Row="0" Padding="0,0,0,80">
+        <ScrollView Grid.Row="0" Padding="0,0,0,130">
             <VerticalStackLayout>
 
 
@@ -91,7 +91,7 @@
                     <CollectionView ItemsSource="{Binding Source={x:Reference ThisPage}, Path=Songs}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <comp:AlbumItemRow BindingContext="{Binding .}" />
+                                <comp:SongItemRow BindingContext="{Binding .}" Format="plays" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -108,10 +108,8 @@
         <comp:LoadingOverlay
             Grid.Row="0"
             Margin="-30"
-            BackgroundColor="Red"
             HorizontalOptions="Fill"
             IsVisible="{Binding Source={x:Reference ThisPage}, Path=IsBusy}"
-            Opacity="0.3"
             VerticalOptions="Fill" />
     </Grid>
 </ContentPage>

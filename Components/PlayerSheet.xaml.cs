@@ -30,6 +30,7 @@ public partial class PlayerSheet : ContentView
             MainThread.BeginInvokeOnMainThread(() => {
                 PlayerSheetBottomSheet.IsOpen = true;
             });
+
         });
     }
 
@@ -46,7 +47,6 @@ public partial class PlayerSheet : ContentView
         PlayerSheetBottomSheet.IsOpen = false;
     }
 
-
     private void TogglePlay(object sender, EventArgs e)
     {
         _musicService.Toggle();
@@ -55,10 +55,11 @@ public partial class PlayerSheet : ContentView
     private async void NextSongs(object sender, TappedEventArgs e)
     {
         var title = "Queue";
-        var songs = (await API.GetQueueSongsAsync()).ToList();
+        //var songs = (await API.GetQueueSongsAsync()).ToList();
+        await _musicService.UpdateQueue();
         var navParam = new Dictionary<string, object>
         {
-            { "songs", songs },
+            { "songs", _musicService.Queue },
             { "title", title }
         };
 

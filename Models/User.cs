@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AudioHeaven.Models
@@ -15,6 +16,17 @@ namespace AudioHeaven.Models
             public string? Email { get; set; }
             public string profile_picture { get; set; } 
 
-            public string FullProfilePicUrl => $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
+            public string FullProfilePicUrl => string.IsNullOrEmpty(profile_picture)
+            ? "default_profile_picture.png"
+            : $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
         }
+
+    public class UserProfileResponse
+    {
+        public User User { get; set; }
+
+        public List<Song> Songs { get; set; }
+
+        public List<Album> Albums { get; set; }
+    }
 }

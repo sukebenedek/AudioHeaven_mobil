@@ -8,6 +8,15 @@ using System.Threading.Tasks;
 namespace AudioHeaven.Models
 {
     public class OpenPlayerMessage { }
+    public class OpenSongSheetMessage
+    {
+        public Song Song { get; }
+
+        public OpenSongSheetMessage(Song song)
+        {
+            Song = song;
+        }
+    }
 
     public class Album
     {
@@ -25,7 +34,7 @@ namespace AudioHeaven.Models
         public List<Song>? Songs { get; set; }
 
         public string FullCoverUrl => string.IsNullOrEmpty(AlbumCover)
-            ? "default_cover.png"
+            ? "default_album_cover.png"
             : $"{API.BaseUrl.Replace("/api", "")}/{AlbumCover.Replace("app/public", "storage")}";
     }
 }
