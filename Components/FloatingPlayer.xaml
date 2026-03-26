@@ -102,6 +102,7 @@
 
                     <ImageButton
                         BackgroundColor="Transparent"
+                        Command="{Binding SkipCommand}"
                         HeightRequest="24"
                         Source="forward.png"
                         WidthRequest="24" />

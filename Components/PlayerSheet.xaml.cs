@@ -52,6 +52,11 @@ public partial class PlayerSheet : ContentView
         _musicService.Toggle();
     }
 
+    private async void Skip(object sender, EventArgs e)
+    {
+        await _musicService.Skip();
+    }
+
     private async void NextSongs(object sender, TappedEventArgs e)
     {
         var title = "Queue";

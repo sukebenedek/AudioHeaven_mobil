@@ -29,5 +29,19 @@ namespace AudioHeaven.Models
         public string FullAudioUrl => $"{API.BaseUrl}/play/{Id}";
         //public string FullCoverUrl => $"http://10.0.2.2:8000/storage/covers/BZn7MoFnKOgsOY30zpxVsohitmnn1MJbE7uxDu1f.jpg";
 
+        public string LengthFormatted
+        {
+            get
+            {
+                int hours = Length / 3600;
+                int minutes = (Length % 3600) / 60;
+                int seconds = Length % 60;
+
+                if (hours > 0)
+                    return $"{hours}:{minutes:D2}:{seconds:D2}";
+                else
+                    return $"{minutes}:{seconds:D2}";
+            }
+        }
     }
 }

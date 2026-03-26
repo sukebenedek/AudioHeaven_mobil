@@ -472,5 +472,43 @@ namespace AudioHeaven.Classes
                 return new ObservableCollection<Playlist>();
             }
         }
+
+        public static async Task<bool> AddToQueueAsync(int songId)
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Post($"{BaseUrl}/queue/{songId}", new {});
+
+                if (response != null && response.StatusCode == 201)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddToQueueAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> DeleteQueuePositionAsync(int posId)
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Delete($"{BaseUrl}/queue/position/{posId}", new { });
+
+                if (response != null && response.StatusCode == 200)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DeleteQueuePositionAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
     }
 }

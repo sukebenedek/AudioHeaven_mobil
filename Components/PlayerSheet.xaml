@@ -112,6 +112,7 @@
 
                                 <ImageButton
                                     BackgroundColor="Transparent"
+                                    Clicked="Skip"
                                     HeightRequest="50"
                                     Source="forward.png"
                                     WidthRequest="50" />

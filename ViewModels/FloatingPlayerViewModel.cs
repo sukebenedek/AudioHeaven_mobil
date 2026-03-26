@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Threading.Tasks;
 
 namespace AudioHeaven.ViewModels
 {
@@ -22,6 +23,12 @@ namespace AudioHeaven.ViewModels
         private void TogglePlay()
         {
             MusicService.Toggle();
+        }
+
+        [RelayCommand]
+        private async Task Skip()
+        {   
+            await MusicService.Skip();
         }
 
         [RelayCommand]

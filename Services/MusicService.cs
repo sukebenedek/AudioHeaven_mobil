@@ -3,6 +3,7 @@ using AudioHeaven.Models;
 using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Java.Lang;
 
 namespace AudioHeaven.Services
 {
@@ -16,6 +17,9 @@ namespace AudioHeaven.Services
 
         [ObservableProperty]
         private List<Song> queue;
+
+        [ObservableProperty]
+        private List<Song> history;
 
         [ObservableProperty]
         private bool hasQueue = false;
@@ -44,12 +48,14 @@ namespace AudioHeaven.Services
                 _pendingSong = null;
             }
         }
+
         private void OnPlayerStateChanged(object sender, EventArgs e)
         {
             if (_player == null) return;
 
             IsPlaying = _player.CurrentState == MediaElementState.Playing;
         }
+
         public void Toggle()
         {
             if (_player == null) return;
@@ -80,17 +86,20 @@ namespace AudioHeaven.Services
             PlayInternal(song);
         }
 
-        private void PlayInternal(Song song)
+        private async void PlayInternal(Song song)
         {
             if (_player == null) return;
 
             _player.Source = MediaSource.FromUri(song.FullAudioUrl);
             _player.Play();
             IsPlaying = true;
+
+            //History.Insert(0, song);
         }
 
         public async Task UpdateQueue()
         {
+            Queue = new();
             var res = await API.GetQueueSongsAsync();
             if (res != null)
             {
@@ -100,6 +109,17 @@ namespace AudioHeaven.Services
                 {
                     CurrentQueueSong = res[0];
                 }
+            }
+        }
+
+        public async Task Skip()
+        {
+            if (Queue != null && Queue.Count > 0)
+            {
+                CurrentSong = Queue[0];
+                PlaySong(CurrentSong);
+                await API.DeleteQueuePositionAsync(1);
+                await UpdateQueue();
             }
         }
     }
