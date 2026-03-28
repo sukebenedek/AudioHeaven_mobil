@@ -144,6 +144,9 @@
 	  <MauiXaml Update="Pages\SearchPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PlaylistPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SearchedAlbumsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -11,11 +11,12 @@ namespace AudioHeaven.Models
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        public ShortUser? User { get; set; }
         public List<Song> Songs { get; set; } = new();
         public Pivot? Pivot { get; set; }
 

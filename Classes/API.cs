@@ -296,6 +296,21 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<Playlist?> GetPlaylistByIdAsync(int playlistId)
+        {
+            try
+            {
+                string url = $"{BaseUrl}/playlists/{playlistId}";
+                var response = await HTTPCommunication<Playlist>.Get(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetPlaylistByIdAsync ERROR: {ex.Message}");
+                return null;
+            }
+        }
+
         public static async Task<ObservableCollection<Song>?> GetReccomendedSongsAsync(int take)
         {
             try
@@ -487,6 +502,25 @@ namespace AudioHeaven.Classes
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"AddToQueueAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> AddToPlaylistAsync(int playlistId, int songId)
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Post($"{BaseUrl}/playlists/{playlistId}/songs/{songId}", new { });
+
+                if (response != null && response.StatusCode == 200)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddToPlaylistAsync HIBA: {ex.Message}");
             }
 
             return false;
