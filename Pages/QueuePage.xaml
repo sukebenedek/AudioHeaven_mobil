@@ -4,14 +4,45 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
+    x:Name="ThisPage"
     Title="Your queue"
     Shell.TabBarIsVisible="False">
+
     <Grid RowDefinitions="*">
         <VerticalStackLayout Padding="20,20,20,80">
+
             <CollectionView CanReorderItems="True" ItemsSource="{Binding MusicService.Queue}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <comp:SongItemRow Format="username" />
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem
+                                        BackgroundColor="#E53935"
+                                        Command="{Binding BindingContext.RemoveQueueSongCommand, Source={x:Reference ThisPage}}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="bin"
+                                        Text="Remove" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid ColumnDefinitions="Auto, *">
+
+                                <ImageButton
+                                    Grid.Column="0"
+                                    Margin="0,0,10,0"
+                                    HeightRequest="25"
+                                    Source="hamburger.png"
+                                    WidthRequest="25" />
+
+                                <comp:SongItemRow
+                                    Grid.Column="1"
+                                    BindingContext="{Binding .}"
+                                    Format="username" />
+
+                            </Grid>
+
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

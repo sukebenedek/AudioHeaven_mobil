@@ -1,4 +1,7 @@
+using AudioHeaven.Classes;
+using AudioHeaven.Models;
 using AudioHeaven.ViewModels;
+using System.Windows.Input;
 
 namespace AudioHeaven.Pages;
 
@@ -8,7 +11,7 @@ public partial class QueuePage : ContentPage
     public QueuePage(QueueViewModel vm)
 	{
 		InitializeComponent();
-		_vm = vm;
+        _vm = vm;
 		this.BindingContext = _vm;
 	}
 
@@ -16,4 +19,5 @@ public partial class QueuePage : ContentPage
     {
             await _vm.UpdateSongs();
     }
+
 }

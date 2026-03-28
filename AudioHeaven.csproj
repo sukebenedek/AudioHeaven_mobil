@@ -64,6 +64,7 @@
 	  <None Remove="Resources\Images\icons\bin.png" />
 	  <None Remove="Resources\Images\icons\edit.png" />
 	  <None Remove="Resources\Images\icons\forward.png" />
+	  <None Remove="Resources\Images\icons\hamburger.png" />
 	  <None Remove="Resources\Images\icons\history.png" />
 	  <None Remove="Resources\Images\icons\home.png" />
 	  <None Remove="Resources\Images\icons\homeblue.png" />
@@ -177,6 +178,7 @@
 	  <MauiImage Include="Resources\Images\icons\bin.png" />
 	  <MauiImage Include="Resources\Images\icons\edit.png" />
 	  <MauiImage Include="Resources\Images\icons\forward.png" />
+	  <MauiImage Include="Resources\Images\icons\hamburger.png" />
 	  <MauiImage Include="Resources\Images\icons\history.png" />
 	  <MauiImage Include="Resources\Images\icons\home.png" />
 	  <MauiImage Include="Resources\Images\icons\homeblue.png" />
