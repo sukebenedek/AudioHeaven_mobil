@@ -2,6 +2,7 @@ using AudioHeaven.Classes;
 using AudioHeaven.Models;
 using AudioHeaven.Services;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 
 namespace AudioHeaven.Components;
 
@@ -100,4 +101,16 @@ public partial class SongSheet : ContentView
         Close();
     }
 
+    private async void ShareSongAsync(object sender, EventArgs e)
+    {
+        if (_musicService.SelectedSong == null) return;
+
+        await Share.Default.RequestAsync(new ShareTextRequest
+        {
+            Title = "Share Song",
+            Text = $"Check out '{_musicService.SelectedSong.Title}' by '{_musicService.SelectedSong.User.Name}' on AudioHeaven!",
+            Uri = $"https://yourwebsite.com/song/{_musicService.SelectedSong.Id}"
+        });
+    }
+        
 }

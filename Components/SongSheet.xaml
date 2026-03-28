@@ -95,6 +95,7 @@
 
                         <Button
                             BackgroundColor="Transparent"
+                            Clicked="ShareSongAsync"
                             FontAttributes="Bold"
                             FontSize="17"
                             HorizontalOptions="Fill"
