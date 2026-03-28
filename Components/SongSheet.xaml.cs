@@ -75,8 +75,8 @@ public partial class SongSheet : ContentView
 
                 bool success = await API.AddToPlaylistAsync(selectedPlaylist.Id, _musicService.SelectedSong.Id);
 
-                if (success)
-                    await Shell.Current.DisplayAlert("Success", $"Added to {selectedPlaylist.Title}", "OK");
+                if (!success)
+                    await Shell.Current.DisplayAlert("Error", $"An unexpected error occured", "OK");
             }
         }
         Close();

@@ -50,11 +50,12 @@
 
                 <ImageButton
                     Grid.Row="1"
-                    Margin="8.0"
+                    Margin="13"
                     BackgroundColor="Transparent"
+                    Clicked="DeletePlaylist"
                     HeightRequest="30"
                     HorizontalOptions="End"
-                    Source="meatballs.png"
+                    Source="bin"
                     VerticalOptions="End"
                     WidthRequest="30" />
             </Grid>

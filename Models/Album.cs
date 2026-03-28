@@ -1,4 +1,5 @@
 ﻿    using AudioHeaven.Classes;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace AudioHeaven.Models
         {
             Song = song;
         }
+    }
+    public class PlaylistDeletedMessage : ValueChangedMessage<int>
+    {
+        public PlaylistDeletedMessage(int playlistId) : base(playlistId) { }
     }
 
     public class Album

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     xmlns:models="clr-namespace:AudioHeaven.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="models:Song">
 
     <Grid>
@@ -70,6 +71,7 @@
 
             <VerticalStackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnPlaySongClicked" />
+                <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="OnMeatballsClicked" />
             </VerticalStackLayout.GestureRecognizers>
 
             <Border

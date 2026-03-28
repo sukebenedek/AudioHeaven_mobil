@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
-    Title="Songs">
+    Title="Songs"
+    Shell.TabBarIsVisible="False">
     <Grid RowDefinitions="*">
 
         <ScrollView Grid.Row="0" Padding="0,0,0,80">

@@ -526,6 +526,25 @@ namespace AudioHeaven.Classes
             return false;
         }
 
+        public static async Task<Playlist?> CreatePlaylistAsync(string title)
+        {
+            try
+            {
+                string url = $"{BaseUrl}/playlists";
+
+                var body = new { title = title };
+
+                var response = await HTTPCommunication<Playlist>.Post(url, body);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CREATE PLAYLIST ERROR: {ex.Message}");
+                return null;
+            }
+        }
+
         public static async Task<bool> DeleteQueuePositionAsync(int posId)
         {
             try
@@ -540,6 +559,25 @@ namespace AudioHeaven.Classes
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"DeleteQueuePositionAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> DeletePlaylistAsync(int playlistId)
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Delete($"{BaseUrl}/playlists/{playlistId}", new { });
+
+                if (response != null && response.StatusCode == 200)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DeletePlaylistAsync HIBA: {ex.Message}");
             }
 
             return false;

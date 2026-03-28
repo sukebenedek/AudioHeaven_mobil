@@ -61,6 +61,7 @@
 	  <None Remove="Resources\Images\icons\arrowl.png" />
 	  <None Remove="Resources\Images\icons\arrowr.png" />
 	  <None Remove="Resources\Images\icons\backward.png" />
+	  <None Remove="Resources\Images\icons\bin.png" />
 	  <None Remove="Resources\Images\icons\edit.png" />
 	  <None Remove="Resources\Images\icons\forward.png" />
 	  <None Remove="Resources\Images\icons\history.png" />
@@ -170,6 +171,7 @@
 	  <MauiImage Include="Resources\Images\icons\arrowl.png" />
 	  <MauiImage Include="Resources\Images\icons\arrowr.png" />
 	  <MauiImage Include="Resources\Images\icons\backward.png" />
+	  <MauiImage Include="Resources\Images\icons\bin.png" />
 	  <MauiImage Include="Resources\Images\icons\edit.png" />
 	  <MauiImage Include="Resources\Images\icons\forward.png" />
 	  <MauiImage Include="Resources\Images\icons\history.png" />

@@ -2,6 +2,7 @@ using AudioHeaven.Classes;
 using AudioHeaven.Models;
 using AudioHeaven.Services;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -84,5 +85,16 @@ public partial class SongPage : ContentPage, INotifyPropertyChanged
         {
             await Shell.Current.GoToAsync($"AlbumPage?id={CurrentSong?.Album.Id}");
         }
+    }
+
+    private void OnMeatballsClicked(object sender, EventArgs e)
+    {
+        var services = IPlatformApplication.Current.Services;
+
+        var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
+
+        musicService.SelectedSong = CurrentSong;
+
+        WeakReferenceMessenger.Default.Send(new OpenSongSheetMessage(CurrentSong));
     }
 }

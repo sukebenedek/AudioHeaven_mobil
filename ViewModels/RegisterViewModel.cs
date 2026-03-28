@@ -12,10 +12,10 @@ namespace AudioHeaven.ViewModels
     public partial class RegisterViewModel : ObservableObject
     {
         [ObservableProperty]
-        string? inputUsername = "GipsyJakab69";
+        string? inputUsername = "GipszJakab99";
 
         [ObservableProperty]
-        string? inputEmail = "gj@a.com";
+        string? inputEmail = "a@a.com";
 
         [ObservableProperty]
         string? inputPassword1 = "aaaaaaaa";

@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:comp="clr-namespace:AudioHeaven.Components"
     Title="{Binding CurrentSong.Title}"
-    BackgroundColor="Black">
+    BackgroundColor="Black"
+    Shell.TabBarIsVisible="False">
 
     <Grid RowDefinitions="Auto, *, Auto">
 
@@ -31,6 +32,7 @@
                     ColumnDefinitions="*, Auto"
                     VerticalOptions="Center">
 
+                    <Grid ColumnDefinitions="*,*" />
                     <VerticalStackLayout
                         Grid.Column="0"
                         Padding="20,0,0,0"
@@ -54,7 +56,16 @@
                                 <TapGestureRecognizer Tapped="GoToUserPage" />
                             </Label.GestureRecognizers>
                         </Label>
+
                     </VerticalStackLayout>
+                    <ImageButton
+                        Margin="10,0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnMeatballsClicked"
+                        HeightRequest="35"
+                        HorizontalOptions="End"
+                        Source="meatballs.png"
+                        WidthRequest="35" />
                 </Grid>
                 <Border
                     Grid.Column="1"
