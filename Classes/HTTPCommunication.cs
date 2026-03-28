@@ -43,7 +43,9 @@ namespace AudioHeaven.Classes
 
         public async static Task<T?> Post(string url, object data)
         {
-            _client.DefaultRequestHeaders.Add("Accept", "application/json");
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
             if (!string.IsNullOrEmpty(UserData.Token))
             {
@@ -89,6 +91,47 @@ namespace AudioHeaven.Classes
 
             string jsonPayload = JsonSerializer.Serialize(data);
             using var request = new HttpRequestMessage(HttpMethod.Delete, url)
+            {
+                Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json")
+            };
+
+            using var response = await _client.SendAsync(request).ConfigureAwait(false);
+
+            if (response != null)
+            {
+                string resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var res = JsonSerializer.Deserialize<T>(resultString, _options);
+
+                if (res != null)
+                {
+                    var prop = typeof(T).GetProperty("StatusCode");
+                    if (prop != null && prop.CanWrite)
+                    {
+                        prop.SetValue(res, (int)response.StatusCode);
+                    }
+                }
+
+                return res;
+            }
+
+            return null;
+        }
+
+        public async static Task<T?> Patch(string url, object data)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            if (!string.IsNullOrEmpty(UserData.Token))
+            {
+                _client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
+            }
+
+            string jsonPayload = JsonSerializer.Serialize(data);
+
+            using var request = new HttpRequestMessage(HttpMethod.Patch, url)
             {
                 Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json")
             };

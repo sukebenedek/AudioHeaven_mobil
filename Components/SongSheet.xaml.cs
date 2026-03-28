@@ -50,35 +50,40 @@ public partial class SongSheet : ContentView
 
     private async void ToPlaylist(object sender, EventArgs e)
     {
-        if (_musicService.SelectedSong != null)
+        if (_musicService.SelectedSong == null)
+            return;
+
+        var myPlaylists = await API.GetUserPlaylistsAsync();
+
+        if (myPlaylists == null || !myPlaylists.Any())
         {
-            //var success = await API.AddToPlaylistAsync(_musicService.SelectedSong.Id, 8);
-            var myPlaylists = await API.GetUserPlaylistsAsync();
-
-            if (myPlaylists == null || !myPlaylists.Any())
-            {
-                await Shell.Current.DisplayAlert("Oops", "You don't have any playlists yet.", "OK");
-                return;
-            }
-
-            // 2. Extract just the names for the Action Sheet
-            string[] playlistNames = myPlaylists.Select(p => p.Title).ToArray();
-
-            // 3. Show the popup!
-            string selectedName = await Shell.Current.DisplayActionSheet("Add to Playlist", "Cancel", null, playlistNames);
-
-            // 4. Handle the selection
-            if (selectedName != "Cancel" && !string.IsNullOrEmpty(selectedName))
-            {
-                // Find the original playlist object so we get the ID
-                var selectedPlaylist = myPlaylists.First(p => p.Title == selectedName);
-
-                var success = await API.AddToPlaylistAsync(selectedPlaylist.Id, _musicService.SelectedSong.Id);
-
-                if (!success)
-                    await Shell.Current.DisplayAlert("Error", $"Song already added to playlist!", "OK");
-            }
+            await Shell.Current.DisplayAlert("Oops", "You don't have any playlists yet.", "OK");
+            return;
         }
+
+        // Create dictionary: display text -> playlist
+        var map = myPlaylists.ToDictionary(
+            p => $"{p.Title} (ID:{p.Id})", // unique label
+            p => p
+        );
+
+        string selectedKey = await Shell.Current.DisplayActionSheet(
+            "Add to Playlist",
+            "Cancel",
+            null,
+            map.Keys.ToArray()
+        );
+
+        if (selectedKey == "Cancel" || string.IsNullOrEmpty(selectedKey))
+            return;
+
+        var selectedPlaylist = map[selectedKey];
+
+        var success = await API.AddToPlaylistAsync(selectedPlaylist.Id, _musicService.SelectedSong.Id);
+
+        if (!success)
+            await Shell.Current.DisplayAlert("Error", "Song already added to playlist!", "OK");
+
         Close();
     }
 

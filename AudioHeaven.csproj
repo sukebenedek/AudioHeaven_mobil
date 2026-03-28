@@ -124,6 +124,9 @@
 	  <MauiXaml Update="Components\UserItemCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\QueuePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AlbumPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

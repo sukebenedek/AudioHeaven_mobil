@@ -31,6 +31,7 @@ namespace AudioHeaven
             builder.Services.AddSingleton<RegisterPage>();
             builder.Services.AddSingleton<SearchPage>();
             builder.Services.AddSingleton<LibraryPage>();
+            builder.Services.AddSingleton<QueuePage>();
             builder.Services.AddSingleton<MySongsPage>();
             //viewmodels
             builder.Services.AddSingleton<MainViewModel>();
@@ -40,6 +41,7 @@ namespace AudioHeaven
             builder.Services.AddSingleton<LibraryViewModel>();
             builder.Services.AddSingleton<MySongsViewModel>();
             builder.Services.AddSingleton<FloatingPlayerViewModel>();
+            builder.Services.AddSingleton<QueueViewModel>();
             //services
             builder.Services.AddSingleton<MusicService>();
             //views

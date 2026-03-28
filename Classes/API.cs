@@ -601,5 +601,25 @@ namespace AudioHeaven.Classes
 
             return false;
         }
+
+        public static async Task<bool> MoveQueueItemAsync(int fromPosition, int toPosition)
+        {
+            try
+            {
+                // Construct the URL matching your PATCH endpoint
+                string url = $"{BaseUrl}/queue/move/{fromPosition}/to/{toPosition}";
+
+                // Call the Patch method (assuming your HTTPCommunication class has it)
+                // We pass an empty object since the data is in the URL
+                var response = await HTTPCommunication<object>.Patch(url, new { });
+
+                return response != null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"MOVE QUEUE ERROR: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

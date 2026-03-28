@@ -59,16 +59,17 @@ public partial class PlayerSheet : ContentView
 
     private async void NextSongs(object sender, TappedEventArgs e)
     {
-        var title = "Queue";
-        //var songs = (await API.GetQueueSongsAsync()).ToList();
-        await _musicService.UpdateQueue();
-        var navParam = new Dictionary<string, object>
-        {
-            { "songs", _musicService.Queue },
-            { "title", title }
-        };
+        //var title = "Queue";
+        ////var songs = (await API.GetQueueSongsAsync()).ToList();
+        //await _musicService.UpdateQueue();
+        //var navParam = new Dictionary<string, object>
+        //{
+        //    { "songs", _musicService.Queue },
+        //    { "title", title }
+        //};
 
         Close();
-        await Shell.Current.GoToAsync($"SongListPage", navParam);
+        //await Shell.Current.GoToAsync($"SongListPage", navParam);
+        await Shell.Current.GoToAsync($"QueuePage");
     }
 }

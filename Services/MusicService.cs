@@ -3,6 +3,8 @@ using AudioHeaven.Models;
 using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace AudioHeaven.Services
 {
@@ -15,10 +17,10 @@ namespace AudioHeaven.Services
         private Song selectedSong;
 
         [ObservableProperty]
-        private List<Song> queue;
+        private ObservableCollection<Song> queue = new();
 
         [ObservableProperty]
-        private List<Song> history;
+        private ObservableCollection<Song> history = new();
 
         [ObservableProperty]
         private bool hasQueue = false;
@@ -32,8 +34,53 @@ namespace AudioHeaven.Services
         [ObservableProperty]
         private bool isPlayerVisible = false;
 
+        private Song _draggedSong = null;
+        private int _dragFromIndex = -1;
+
         private MediaElement _player;
         private Song _pendingSong;
+        public MusicService()
+        {
+            Queue.CollectionChanged += OnQueueChanged;
+        }
+
+        private async void OnQueueChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // 1. Native Move (This still runs perfectly if you run the app on Windows)
+            if (e.Action == NotifyCollectionChangedAction.Move)
+            {
+                await API.MoveQueueItemAsync(e.OldStartingIndex + 1, e.NewStartingIndex + 1);
+                return;
+            }
+
+            // 2. Android/iOS Quirk: Catch the 'Remove' part of the drag
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                // Save the song that is being picked up, and its original position
+                _draggedSong = e.OldItems?[0] as Song;
+                _dragFromIndex = e.OldStartingIndex;
+            }
+
+            // 3. Android/iOS Quirk: Catch the 'Add' part of the drag
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                var addedSong = e.NewItems?[0] as Song;
+
+                // If the item being dropped in is the exact same one that was just picked up... we have a Move!
+                // (Using .Id is bulletproof here)
+                if (_draggedSong != null && addedSong != null && addedSong.Id == _draggedSong.Id)
+                {
+                    int toIndex = e.NewStartingIndex;
+
+                    // Call your backend! (Keeping your +1 logic for Laravel)
+                    await API.MoveQueueItemAsync(_dragFromIndex + 1, toIndex + 1);
+                }
+
+                // Always reset the trackers so normal deleting/adding later doesn't break
+                _draggedSong = null;
+                _dragFromIndex = -1;
+            }
+        }
 
         public void SetPlayer(MediaElement player)
         {
@@ -98,15 +145,27 @@ namespace AudioHeaven.Services
 
         public async Task UpdateQueue()
         {
-            Queue = new();
             var res = await API.GetQueueSongsAsync();
+
             if (res != null)
             {
-                Queue = res.ToList();
-                HasQueue = Queue.Count > 0;
-                if (res.Count > 0)
+                // 1. Unsubscribe from the old collection to prevent memory leaks
+                if (Queue != null)
                 {
-                    CurrentQueueSong = res[0];
+                    Queue.CollectionChanged -= OnQueueChanged;
+                }
+
+                // 2. Create the new ObservableCollection with the API results
+                Queue = new ObservableCollection<Song>(res);
+
+                // 3. Re-attach the listener to the newly created queue!
+                Queue.CollectionChanged += OnQueueChanged;
+
+                HasQueue = Queue.Count > 0;
+
+                if (Queue.Count > 0)
+                {
+                    CurrentQueueSong = Queue[0];
                 }
             }
         }
