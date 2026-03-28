@@ -1,7 +1,10 @@
-using System.Collections.ObjectModel;
 using AudioHeaven.Classes;
 using AudioHeaven.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace AudioHeaven.Views;
 
@@ -10,10 +13,12 @@ public partial class PlaylistPage : ContentPage
 {
     public Playlist playlist { get; set; } = new();
     public ObservableCollection<Song> Songs { get; set; } = new();
+    public ICommand RemoveSongCommand { get; }
 
     public PlaylistPage()
     {
         InitializeComponent();
+        RemoveSongCommand = new Command<Song>(async (song) => await RemoveSong(song));
         BindingContext = this;
     }
 
@@ -80,5 +85,18 @@ public partial class PlaylistPage : ContentPage
 
     private void OnPlayClicked(object sender, EventArgs e)
     {
+    }
+
+    private async Task RemoveSong(Song swipedSong)
+    {
+        if (swipedSong == null) return;
+
+        bool confirm = await DisplayAlert("Remove", $"Remove '{swipedSong.Title}'?", "Yes", "Cancel");
+        if (confirm)
+        {
+            await API.DeleteSongFromPlaylistAsync(playlist.Id, swipedSong.Id);
+            WeakReferenceMessenger.Default.Send(new RelodadPlaylistsMessage(playlist.Id));
+            Songs.Remove(swipedSong);
+        }
     }
 }

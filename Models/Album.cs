@@ -18,9 +18,9 @@ namespace AudioHeaven.Models
             Song = song;
         }
     }
-    public class PlaylistDeletedMessage : ValueChangedMessage<int>
+    public class RelodadPlaylistsMessage : ValueChangedMessage<int>
     {
-        public PlaylistDeletedMessage(int playlistId) : base(playlistId) { }
+        public RelodadPlaylistsMessage(int playlistId) : base(playlistId) { }
     }
 
     public class Album

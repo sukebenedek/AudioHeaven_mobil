@@ -66,6 +66,11 @@ public partial class SongItemRow : ContentView
     {
         if (BindingContext is Song song)
         {
+            if(song.AlbumId != null)
+            {
+                await Shell.Current.GoToAsync($"AlbumPage?id={song.AlbumId}");
+                return;
+            }
             await Shell.Current.GoToAsync($"SongPage?id={song.Id}");
         }
     }

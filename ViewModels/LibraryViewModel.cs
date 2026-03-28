@@ -31,7 +31,7 @@ namespace AudioHeaven.ViewModels
         }
         public LibraryViewModel()
         {
-            WeakReferenceMessenger.Default.Register<PlaylistDeletedMessage>(this, async (recipient, message) =>
+            WeakReferenceMessenger.Default.Register<RelodadPlaylistsMessage>(this, async (recipient, message) =>
             {
                 await LoadAsync();
             });

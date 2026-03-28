@@ -45,6 +45,11 @@ namespace AudioHeaven.ViewModels
         {
             if (MusicService.CurrentSong != null)
             {
+                if (MusicService.CurrentSong.AlbumId != null)
+                {
+                    await Shell.Current.GoToAsync($"AlbumPage?id={MusicService.CurrentSong.AlbumId}");
+                    return;
+                }
                 await Shell.Current.GoToAsync($"SongPage?id={MusicService.CurrentSong.Id}");
             }
         }

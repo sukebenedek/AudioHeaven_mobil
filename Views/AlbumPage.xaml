@@ -41,14 +41,24 @@
                             LineBreakMode="TailTruncation"
                             Text="{Binding Title}"
                             TextColor="White" />
-                        <Label
-                            FontSize="18"
-                            Text="{Binding User.Name}"
-                            TextColor="Gray">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="GoToUserPage" />
-                            </Label.GestureRecognizers>
-                        </Label>
+                        <HorizontalStackLayout>
+                            <Label
+                                FontSize="18"
+                                Text="{Binding User.Name}"
+                                TextColor="Gray">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="GoToUserPage" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                                FontSize="18"
+                                Text=" - "
+                                TextColor="Gray" />
+                            <Label
+                                FontSize="18"
+                                Text="{Binding LengthFormatted}"
+                                TextColor="Gray" />
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </Grid>
 

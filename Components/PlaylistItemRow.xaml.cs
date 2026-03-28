@@ -35,7 +35,7 @@ public partial class PlaylistItemRow : ContentView
 
             if (success)
             {
-                WeakReferenceMessenger.Default.Send(new PlaylistDeletedMessage(p.Id));
+                WeakReferenceMessenger.Default.Send(new RelodadPlaylistsMessage(p.Id));
 
                 await Shell.Current.DisplayAlert("Success", "Playlist deleted successfully.", "OK");
             }

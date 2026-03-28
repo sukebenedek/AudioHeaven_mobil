@@ -582,5 +582,24 @@ namespace AudioHeaven.Classes
 
             return false;
         }
+
+        public static async Task<bool> DeleteSongFromPlaylistAsync(int playlistId, int songId)
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Delete($"{BaseUrl}/playlists/{playlistId}/songs/{songId}", new { });
+
+                if (response != null && response.StatusCode == 200)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DeletePlaylistAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
     }
 }

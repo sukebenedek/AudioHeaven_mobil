@@ -92,11 +92,24 @@
                     <CollectionView ItemsSource="{Binding Source={x:Reference ThisPage}, Path=Songs}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <comp:SongItemRow BindingContext="{Binding .}" Format="plays" />
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems Mode="Reveal">
+                                            <SwipeItem
+                                                BackgroundColor="#E53935"
+                                                Command="{Binding RemoveSongCommand, Source={x:Reference ThisPage}}"
+                                                CommandParameter="{Binding .}"
+                                                IconImageSource="bin"
+                                                Text="Remove" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <comp:SongItemRow BindingContext="{Binding .}" Format="plays" />
+                                </SwipeView>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </VerticalStackLayout>
+
                 <Label
                     FontSize="18"
                     HorizontalOptions="Center"

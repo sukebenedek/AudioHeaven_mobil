@@ -73,10 +73,10 @@ public partial class SongSheet : ContentView
                 // Find the original playlist object so we get the ID
                 var selectedPlaylist = myPlaylists.First(p => p.Title == selectedName);
 
-                bool success = await API.AddToPlaylistAsync(selectedPlaylist.Id, _musicService.SelectedSong.Id);
+                var success = await API.AddToPlaylistAsync(selectedPlaylist.Id, _musicService.SelectedSong.Id);
 
                 if (!success)
-                    await Shell.Current.DisplayAlert("Error", $"An unexpected error occured", "OK");
+                    await Shell.Current.DisplayAlert("Error", $"Song already added to playlist!", "OK");
             }
         }
         Close();
