@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Threading;
 
 namespace AudioHeaven.Services
 {
@@ -34,8 +35,10 @@ namespace AudioHeaven.Services
         [ObservableProperty]
         private bool isPlayerVisible = false;
 
-        private Song _draggedSong = null;
         private int _dragFromIndex = -1;
+        private Song _draggedSong = null;
+        private int _initialDragFromIndex = -1;
+        private CancellationTokenSource _debounceTimer = null;
 
         private MediaElement _player;
         private Song _pendingSong;
@@ -44,42 +47,72 @@ namespace AudioHeaven.Services
             Queue.CollectionChanged += OnQueueChanged;
         }
 
-        private async void OnQueueChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnQueueChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            // 1. Native Move (This still runs perfectly if you run the app on Windows)
-            if (e.Action == NotifyCollectionChangedAction.Move)
-            {
-                await API.MoveQueueItemAsync(e.OldStartingIndex + 1, e.NewStartingIndex + 1);
-                return;
-            }
-
-            // 2. Android/iOS Quirk: Catch the 'Remove' part of the drag
+            // 1. Android/iOS Quirk: Catch the 'Remove' part of the drag
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                // Save the song that is being picked up, and its original position
-                _draggedSong = e.OldItems?[0] as Song;
-                _dragFromIndex = e.OldStartingIndex;
+                // ONLY save the initial index if we aren't already in the middle of a drag
+                if (_initialDragFromIndex == -1)
+                {
+                    _initialDragFromIndex = e.OldStartingIndex;
+                    _draggedSong = e.OldItems?[0] as Song;
+                }
             }
 
-            // 3. Android/iOS Quirk: Catch the 'Add' part of the drag
+            // 2. Android/iOS Quirk: Catch the 'Add' part of the drag
             else if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 var addedSong = e.NewItems?[0] as Song;
 
-                // If the item being dropped in is the exact same one that was just picked up... we have a Move!
-                // (Using .Id is bulletproof here)
+                // If it's the same song we are dragging...
                 if (_draggedSong != null && addedSong != null && addedSong.Id == _draggedSong.Id)
                 {
-                    int toIndex = e.NewStartingIndex;
+                    int currentDropIndex = e.NewStartingIndex;
 
-                    // Call your backend! (Keeping your +1 logic for Laravel)
-                    await API.MoveQueueItemAsync(_dragFromIndex + 1, toIndex + 1);
+                    // Trigger the Debounce logic
+                    ProcessDebouncedMove(currentDropIndex);
+                }
+            }
+
+            // 3. Native Move (Windows/Mac)
+            else if (e.Action == NotifyCollectionChangedAction.Move)
+            {
+                if (_initialDragFromIndex == -1)
+                {
+                    _initialDragFromIndex = e.OldStartingIndex;
                 }
 
-                // Always reset the trackers so normal deleting/adding later doesn't break
-                _draggedSong = null;
-                _dragFromIndex = -1;
+                ProcessDebouncedMove(e.NewStartingIndex);
             }
+        }
+
+        private void ProcessDebouncedMove(int currentDropIndex)
+        {
+            // 1. Cancel the previous timer if they are still dragging!
+            _debounceTimer?.Cancel();
+
+            // 2. Create a fresh timer
+            _debounceTimer = new CancellationTokenSource();
+            var token = _debounceTimer.Token;
+
+            // 3. Start a background countdown
+            Task.Run(async () =>
+            {
+                // Wait for 500 milliseconds...
+                await Task.Delay(500, token);
+
+                // 4. If 500ms passes and this task WASN'T cancelled, they dropped it!
+                if (!token.IsCancellationRequested)
+                {
+                    // Call the API with the ORIGINAL start index, and the FINAL drop index
+                    await API.MoveQueueItemAsync(_initialDragFromIndex + 1, currentDropIndex + 1);
+
+                    // Reset our trackers for the next time they drag something
+                    _initialDragFromIndex = -1;
+                    _draggedSong = null;
+                }
+            }, token);
         }
 
         public void SetPlayer(MediaElement player)
