@@ -187,11 +187,59 @@ namespace AudioHeaven.Services
 
         public async Task Skip()
         {
+            if (CurrentSong != null)
+                History.Add(CurrentSong);
+
+            if (History.Count > 50) 
+                History.RemoveAt(0);
+
             if (Queue != null && Queue.Count > 0)
             {
                 CurrentSong = Queue[0];
                 PlaySong(CurrentSong);
                 await API.DeleteQueuePositionAsync(1);
+            }
+            else
+            {
+                var maxAttempts = 5;
+                Song? nextSong = null;
+
+                for (int i = 0; i < maxAttempts; i++)
+                {
+                    var rand = await API.GetReccomendedSongsAsync(1);
+                    if (rand == null || rand.Count == 0)
+                        break;
+                    var candidate = rand[0];
+                    if (CurrentSong == null || (candidate.Id != CurrentSong.Id && !History.Any(s => s.Id == candidate.Id))) { 
+                        nextSong = candidate;
+                        break;
+                    }
+                }
+
+                if (nextSong == null)
+                {
+                    var fallback = await API.GetReccomendedSongsAsync(1);
+                    nextSong = fallback?.FirstOrDefault();
+                }
+
+                if (nextSong != null)
+                    PlaySong(nextSong);
+            }
+            await UpdateQueue();
+        }
+
+        public async Task Back()
+        {
+            //await API.AddToQueueAsync(CurrentSong.Id);
+            //await UpdateQueue();
+
+            if (History != null && History.Count > 0)
+            {
+                var last = History[^1];
+                History.RemoveAt(History.Count - 1);
+                CurrentSong = last;
+
+                PlaySong(CurrentSong);
                 await UpdateQueue();
             }
         }

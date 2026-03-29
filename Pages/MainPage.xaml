@@ -48,7 +48,7 @@
 
             <Button
                 Margin="0,10,0,0"
-                BackgroundColor="{StaticResource DarkGray}"
+                BackgroundColor="{StaticResource DarkBlue}"
                 Command="{Binding LoginBtnClickedCommand}"
                 CornerRadius="4"
                 FontAttributes="Bold"

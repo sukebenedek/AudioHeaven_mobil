@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:comp="clr-namespace:AudioHeaven.Components"
-             x:Class="AudioHeaven.Pages.RegisterPage"
-             Title="RegisterPage"
-             
-             >
-    <Grid RowDefinitions="Auto, *" Padding="30" >
-        <VerticalStackLayout Grid.Row="1"
-                         VerticalOptions="Center"
-                         Spacing="20"
-                             HeightRequest="500">
+<ContentPage
+    x:Class="AudioHeaven.Pages.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comp="clr-namespace:AudioHeaven.Components"
+    Title="RegisterPage">
+    <Grid Padding="30" RowDefinitions="Auto, *">
+        <VerticalStackLayout
+            Grid.Row="1"
+            HeightRequest="500"
+            Spacing="20"
+            VerticalOptions="Center">
 
             <VerticalStackLayout Spacing="0">
-                <Entry Placeholder="Email..."
-                   Keyboard="Email" 
-                       Text="{Binding InputEmail}"
-                       />
+                <Entry
+                    Keyboard="Email"
+                    Placeholder="Email..."
+                    Text="{Binding InputEmail}" />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Spacing="0">
-                <Entry Placeholder="Username..."
-       Keyboard="Text" 
-                       Text="{Binding InputUsername}"
-                       />
+                <Entry
+                    Keyboard="Text"
+                    Placeholder="Username..."
+                    Text="{Binding InputUsername}" />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Spacing="0">
-                <Entry Placeholder="Password..."
-       IsPassword="True" 
-                                              Text="{Binding InputPassword1}"
-/>
+                <Entry
+                    IsPassword="True"
+                    Placeholder="Password..."
+                    Text="{Binding InputPassword1}" />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
-            <VerticalStackLayout Spacing="0" Margin="0, 0, 0, 20">
-                <Entry Placeholder="Password..."
-                   IsPassword="True"
-                                              Text="{Binding InputPassword2}"
-                   
-                   
-                   />
+            <VerticalStackLayout Margin="0,0,0,20" Spacing="0">
+                <Entry
+                    IsPassword="True"
+                    Placeholder="Password..."
+                    Text="{Binding InputPassword2}" />
 
                 <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
-            
 
-            <Button Text="Register"
-                BackgroundColor="{StaticResource DarkGray}"
-                TextColor="{StaticResource White}"
-                FontSize="30"
-                FontAttributes="Bold"
+
+            <Button
+                Margin="0,50,0,0"
+                BackgroundColor="{StaticResource DarkBlue}"
+                Command="{Binding RegisterBtnClickedCommand}"
                 CornerRadius="4"
-                WidthRequest="180"
+                FontAttributes="Bold"
+                FontSize="30"
                 HeightRequest="65"
                 HorizontalOptions="Center"
-                Margin="0, 50, 0, 0" 
-                    
-                    Command="{Binding RegisterBtnClickedCommand}"/>
+                Text="Register"
+                TextColor="{StaticResource White}"
+                WidthRequest="180" />
 
             <!--<VerticalStackLayout HorizontalOptions="Center" Spacing="-8">
                 <Button Text="Login"
@@ -73,18 +71,20 @@
                     >
                 </Button>
 
-                <BoxView HeightRequest="1" 
-                 Color="{StaticResource LightGray}" 
-                 HorizontalOptions="Fill" 
+                <BoxView HeightRequest="1"
+                 Color="{StaticResource LightGray}"
+                 HorizontalOptions="Fill"
                  WidthRequest="50"
             />
             </VerticalStackLayout>-->
         </VerticalStackLayout>
 
-        <comp:LoadingOverlay Grid.Row="0" 
-                 Grid.RowSpan="2" 
-                 VerticalOptions="Fill" 
-                 HorizontalOptions="Fill" 
-                 Margin="-30" IsVisible="{Binding IsBusy}"/>
+        <comp:LoadingOverlay
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Margin="-30"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Fill" />
     </Grid>
 </ContentPage>

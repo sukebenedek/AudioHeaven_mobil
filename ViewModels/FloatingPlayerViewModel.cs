@@ -32,6 +32,12 @@ namespace AudioHeaven.ViewModels
         }
 
         [RelayCommand]
+        private async Task Back()
+        {
+            await MusicService.Back();
+        }
+
+        [RelayCommand]
         private async Task GoToUserPage() // Renamed for convention and made Task
         {
             if (MusicService.CurrentSong?.User != null)

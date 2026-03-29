@@ -56,7 +56,7 @@
                                         Text="{Binding MusicService.CurrentSong.Title}"
                                         TextColor="White">
                                         <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding GoToSongPageCommand}" />
+                                            <TapGestureRecognizer Tapped="OnGoToSongPageClicked" />
                                         </Label.GestureRecognizers>
                                     </Label>
                                     <Label
@@ -64,7 +64,7 @@
                                         Text="{Binding MusicService.CurrentSong.User.Name}"
                                         TextColor="Gray">
                                         <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding GoToUserPageCommand}" />
+                                            <TapGestureRecognizer Tapped="OnGoToUserPageClicked" />
                                         </Label.GestureRecognizers>
                                     </Label>
                                 </VerticalStackLayout>
@@ -81,6 +81,7 @@
                                 </HorizontalStackLayout.GestureRecognizers>
                                 <ImageButton
                                     BackgroundColor="Transparent"
+                                    Clicked="Back"
                                     HeightRequest="50"
                                     Source="backward"
                                     WidthRequest="50" />

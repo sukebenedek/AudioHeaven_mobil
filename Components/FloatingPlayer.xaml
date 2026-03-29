@@ -71,6 +71,7 @@
                     </HorizontalStackLayout.GestureRecognizers>
                     <ImageButton
                         BackgroundColor="Transparent"
+                        Command="{Binding BackCommand}"
                         HeightRequest="24"
                         Source="backward"
                         WidthRequest="24" />

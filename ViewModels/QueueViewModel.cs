@@ -37,13 +37,8 @@ namespace AudioHeaven.ViewModels
             int index = musicService.Queue.IndexOf(swipedSong);
             if (index == -1) return;
 
-            bool confirm = await Shell.Current.DisplayAlert("Remove", $"Remove '{swipedSong.Title}' from queue?", "Yes", "Cancel");
-
-            if (confirm)
-            {
                 musicService.Queue.Remove(swipedSong);
                 await API.DeleteQueuePositionAsync(index + 1);
-            }
         }
     }
 }

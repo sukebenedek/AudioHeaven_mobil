@@ -57,6 +57,11 @@ public partial class PlayerSheet : ContentView
         await _musicService.Skip();
     }
 
+    private async void Back(object sender, EventArgs e)
+    {
+        await _musicService.Back();
+    }
+
     private async void NextSongs(object sender, TappedEventArgs e)
     {
         //var title = "Queue";
@@ -71,5 +76,31 @@ public partial class PlayerSheet : ContentView
         Close();
         //await Shell.Current.GoToAsync($"SongListPage", navParam);
         await Shell.Current.GoToAsync($"QueuePage");
+    }
+
+    private async void OnGoToSongPageClicked(object sender, EventArgs e)
+    {
+        if (_musicService.CurrentSong.AlbumId != null)
+        {
+            await Shell.Current.GoToAsync($"AlbumPage?id={_musicService.CurrentSong.AlbumId}");
+            Close();
+            return;
+        }
+        await Shell.Current.GoToAsync($"SongPage?id={_musicService.CurrentSong.Id}");
+        Close();
+
+    }
+
+    private async void OnGoToUserPageClicked(object sender, EventArgs e)
+    {
+        if (_musicService.CurrentSong.User != null)
+        {
+            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
+            //await Shell.Current.GoToAsync("UserPage", navParam);
+            // Navigation by ID
+            await Shell.Current.GoToAsync($"UserPage?id={_musicService.CurrentSong.User.Id}");
+            Close();
+
+        }
     }
 }
