@@ -59,6 +59,7 @@
 
                     </VerticalStackLayout>
                     <ImageButton
+                        Grid.Column="1"
                         Margin="10,0"
                         BackgroundColor="Transparent"
                         Clicked="OnMeatballsClicked"

@@ -103,4 +103,24 @@ public partial class PlayerSheet : ContentView
 
         }
     }
+
+    private double _pendingSeekValue;
+
+    private void OnSliderChanged(object sender, ValueChangedEventArgs e)
+    {
+        _pendingSeekValue = e.NewValue;
+    }
+
+    private void OnSliderDragStarted(object sender, EventArgs e)
+    {
+        _musicService?.SetSeeking(true);
+    }
+
+    private void OnSliderDragCompleted(object sender, EventArgs e)
+    {
+        if (_musicService == null) return;
+
+        _musicService.Seek(_pendingSeekValue);
+        _musicService.SetSeeking(false);
+    }
 }

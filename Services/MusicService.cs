@@ -42,6 +42,27 @@ namespace AudioHeaven.Services
 
         private MediaElement _player;
         private Song _pendingSong;
+
+        [ObservableProperty]
+        double positionSeconds;
+
+        [ObservableProperty]
+        double durationSeconds;
+
+        [ObservableProperty]
+        string currentTimeText;
+
+        [ObservableProperty]
+        string durationText;
+
+        private bool _isSeeking;
+        public bool IsSeeking => _isSeeking;
+
+        public void SetSeeking(bool value)
+        {
+            _isSeeking = value;
+        }
+
         public MusicService()
         {
             Queue.CollectionChanged += OnQueueChanged;
@@ -155,8 +176,10 @@ namespace AudioHeaven.Services
         {
             if (_player == null) return;
 
+            _positionTimer?.Cancel();
             _player.Source = MediaSource.FromUri(song.FullAudioUrl);
             _player.Play();
+            StartTracking();
             IsPlaying = true;
 
         }
@@ -242,6 +265,54 @@ namespace AudioHeaven.Services
                 PlaySong(CurrentSong);
                 await UpdateQueue();
             }
+        }
+
+        private CancellationTokenSource _positionTimer;
+
+        private void StartTracking()
+        {
+            _positionTimer?.Cancel();
+            _positionTimer = new CancellationTokenSource();
+            var token = _positionTimer.Token;
+
+            Task.Run(async () =>
+            {
+                while (!token.IsCancellationRequested && _player != null)
+                {
+                    var pos = _player.Position;
+                    var dur = _player.Duration;
+
+                    // Some platforms return 0 when not ready
+                    if (dur.TotalSeconds > 0)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            if (!_isSeeking)
+                            {
+                                PositionSeconds = pos.TotalSeconds;
+                            }
+                            DurationSeconds = dur.TotalSeconds;
+
+                            CurrentTimeText = FormatTime(pos);
+                            DurationText = FormatTime(dur);
+                        });
+                    }
+
+                    await Task.Delay(500, token);
+                }
+            }, token);
+        }
+
+        public void Seek(double seconds)
+        {
+            if (_player == null) return;
+
+            _player.SeekTo(TimeSpan.FromSeconds(seconds));
+        }
+
+        private string FormatTime(TimeSpan time)
+        {
+            return $"{(int)time.TotalMinutes:D2}:{time.Seconds:D2}";
         }
     }
 }

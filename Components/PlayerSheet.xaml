@@ -119,6 +119,21 @@
                                     WidthRequest="50" />
                             </HorizontalStackLayout>
 
+                            <Grid Margin="15,0,10,0" ColumnDefinitions="auto,*,auto">
+                                <Label Grid.Column="0" Text="{Binding MusicService.CurrentTimeText}" />
+
+                                <Slider
+                                    Grid.Column="1"
+                                    DragCompleted="OnSliderDragCompleted"
+                                    DragStarted="OnSliderDragStarted"
+                                    Maximum="{Binding MusicService.DurationSeconds}"
+                                    Minimum="0"
+                                    ValueChanged="OnSliderChanged"
+                                    Value="{Binding MusicService.PositionSeconds}" />
+
+                                <Label Grid.Column="2" Text="{Binding MusicService.DurationText}" />
+                            </Grid>
+
                             <VerticalStackLayout IsVisible="{Binding MusicService.HasQueue}">
                                 <Grid Margin="14,0,11,20" ColumnDefinitions="*, Auto, Auto">
                                     <Label
