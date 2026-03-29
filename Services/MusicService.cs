@@ -127,12 +127,18 @@ namespace AudioHeaven.Services
             _player = player;
 
             _player.StateChanged += OnPlayerStateChanged;
+            _player.MediaEnded += OnMediaEnded;
 
             if (_pendingSong != null)
             {
                 PlayInternal(_pendingSong);
                 _pendingSong = null;
             }
+        }
+
+        private async void OnMediaEnded(object sender, EventArgs e)
+        {
+            await Skip();
         }
 
         private void OnPlayerStateChanged(object sender, EventArgs e)
