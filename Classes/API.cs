@@ -507,6 +507,33 @@ namespace AudioHeaven.Classes
             return false;
         }
 
+        public static async Task<bool> AddManyToQueueAsync(IEnumerable<int> songIds)
+        {
+            try
+            {
+                var payload = new
+                {
+                    song_ids = songIds.ToArray()
+                };
+
+                var response = await HTTPCommunication<AuthResponse>.Post(
+                    $"{BaseUrl}/queue/store-many",
+                    payload
+                );
+
+                if (response != null && response.StatusCode == 201)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddManyToQueueAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
+
         public static async Task<bool> AddToPlaylistAsync(int playlistId, int songId)
         {
             try
@@ -588,6 +615,25 @@ namespace AudioHeaven.Classes
             try
             {
                 var response = await HTTPCommunication<AuthResponse>.Delete($"{BaseUrl}/playlists/{playlistId}/songs/{songId}", new { });
+
+                if (response != null && response.StatusCode == 200)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DeletePlaylistAsync HIBA: {ex.Message}");
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> DeleteQueueAsync()
+        {
+            try
+            {
+                var response = await HTTPCommunication<AuthResponse>.Delete($"{BaseUrl}/queue/clear", new { });
 
                 if (response != null && response.StatusCode == 200)
                 {

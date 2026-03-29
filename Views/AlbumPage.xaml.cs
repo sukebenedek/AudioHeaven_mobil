@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 	using AudioHeaven.Classes;
 using AudioHeaven.Models;
+using AudioHeaven.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AudioHeaven.Views;
@@ -81,7 +82,17 @@ public partial class AlbumPage : ContentPage
         }
     }
 
-    private void OnPlayClicked(object sender, EventArgs e)
+    private async void OnPlayClicked(object sender, EventArgs e)
     {
+        var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
+
+        await API.DeleteQueueAsync();
+        await API.AddManyToQueueAsync(Songs.Select(s => s.Id));
+
+        if (musicService != null)
+        {
+            await musicService.UpdateQueue(); 
+            await musicService.Skip();        
+        }
     }
 }
