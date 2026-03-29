@@ -11,14 +11,19 @@
         <ScrollView Grid.Row="0">
             <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
 
-                <Image
-                    Aspect="AspectFill"
-                    HorizontalOptions="Fill"
-                    Source="{Binding TargetUser.FullProfilePicUrl}"
-                    VerticalOptions="Fill" />
+                <Border
+                    Padding="0"
+                    StrokeShape="RoundRectangle 20"
+                    StrokeThickness="0">
+                    <Image
+                        Aspect="AspectFill"
+                        HorizontalOptions="Fill"
+                        Source="{Binding TargetUser.FullProfilePicUrl}"
+                        VerticalOptions="Fill" />
+                </Border>
 
                 <Label
-                    Margin="0,0,0,20"
+                    Margin="0,10,0,20"
                     FontAttributes="Bold"
                     FontSize="32"
                     HorizontalOptions="Center"

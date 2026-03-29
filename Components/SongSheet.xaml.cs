@@ -62,9 +62,8 @@ public partial class SongSheet : ContentView
             return;
         }
 
-        // Create dictionary: display text -> playlist
         var map = myPlaylists.ToDictionary(
-            p => $"{p.Title} (ID:{p.Id})", // unique label
+            p => $"{p.Title} ({p.LengthFormatted})",
             p => p
         );
 
