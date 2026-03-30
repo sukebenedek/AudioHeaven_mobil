@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 
 namespace AudioHeaven.Views;
 
-// Change "SelectedUser" to "UserId" to match the incoming data
 [QueryProperty(nameof(UserId), "id")]
 public partial class UserPage : ContentPage, INotifyPropertyChanged
 {
@@ -137,10 +136,10 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
         var result = await API.GetUserAlbumsAsync(UserId);
         var parameters = new Dictionary<string, object>
         {
-            { "albums", result.ToList() } // List<Album>
+            { "albums", result.ToList() } 
         };
 
-        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
+        await Shell.Current.GoToAsync("SearchedAlbumsPage", parameters);
 
     }
 }

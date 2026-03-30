@@ -17,7 +17,7 @@ namespace AudioHeaven.Classes
 
         private static readonly HttpClient _client = new()
         {
-            Timeout = TimeSpan.FromSeconds(5)
+            Timeout = TimeSpan.FromSeconds(12)
         };
 
         public async static Task<T?> Get(string url)
@@ -75,6 +75,38 @@ namespace AudioHeaven.Classes
                 return res;
             }
             return null;
+        }
+
+        public async static Task<T?> PostMultipart(string url, MultipartFormDataContent content)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            if (!string.IsNullOrEmpty(UserData.Token))
+            {
+                _client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
+            }
+
+            using var response = await _client.PostAsync(url, content).ConfigureAwait(false);
+
+            string resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            System.Diagnostics.Debug.WriteLine($"RAW RESPONSE: {resultString}");
+
+            var res = JsonSerializer.Deserialize<T>(resultString, _options);
+
+            if (res != null)
+            {
+                var prop = typeof(T).GetProperty("StatusCode");
+                if (prop != null && prop.CanWrite)
+                {
+                    prop.SetValue(res, (int)response.StatusCode);
+                }
+            }
+
+            return res;
         }
 
         public async static Task<T?> Delete(string url, object data)

@@ -19,14 +19,14 @@ public partial class LibraryPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
-        if (_backPressedOnce) return false; // Let OS handle exit
+        if (_backPressedOnce) return false;
 
         _backPressedOnce = true;
         Toast.Make("Press back again to exit").Show();
 
         Dispatcher.StartTimer(TimeSpan.FromSeconds(2), () => {
             _backPressedOnce = false;
-            return false; // Stop timer
+            return false; 
         });
 
         return true;

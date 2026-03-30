@@ -39,7 +39,6 @@ namespace AudioHeaven.ViewModels
         public bool IsStartVisible => !HasAlbums && !HasSongs && !HasUsers;
 
 
-        // This method is automatically called by the Toolkit when SearchText changes
         partial void OnSearchTextChanged(string value)
         {
             HasAlbums = Albums.Count() != 0;
@@ -57,17 +56,14 @@ namespace AudioHeaven.ViewModels
                 return;
             }
 
-            // Trigger the async search
             _ = SearchAsync(value);
 
         }
 
         private async Task SearchAsync(string query)
         {
-            // Optional: Add a small delay (300ms) to wait for the user to stop typing
             await Task.Delay(300);
-            if (query != SearchText) return; // If text changed again, cancel this run
-             //await Shell.Current.DisplayAlert("Error", query, "Ok");
+            if (query != SearchText) return; 
 
             UserData.SearchTerm = query;
             var albumResults = await API.GetAlbumsSearchAsync(query, 5);

@@ -62,7 +62,6 @@ public partial class SongPage : ContentPage, INotifyPropertyChanged
     {
         if (CurrentSong == null) return;
 
-        // Get your Singleton MusicService
         var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
         musicService?.PlaySong(CurrentSong);
     }

@@ -38,16 +38,14 @@ namespace AudioHeaven.Classes
         {
             try
             {
-                // We call the /me endpoint which returns the current user's data
                 var user = await HTTPCommunication<User>.Get($"{BaseUrl}/me");
 
                 if (user != null)
                 {
-                    // We wrap it in an AuthResponse to match your existing app logic
                     return new AuthResponse
                     {
                         User = user,
-                        Token = UserData.Token // Keep using the token we already have
+                        Token = UserData.Token 
                     };
                 }
                 return null;
@@ -61,40 +59,20 @@ namespace AudioHeaven.Classes
 
         public static async Task<AuthResponse?> RegisterAsync(string name, string email, string password)
         {
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-            using var content = new MultipartFormDataContent();
-            content.Add(new StringContent(name), "username");
-            content.Add(new StringContent(email), "email");
-            content.Add(new StringContent(password), "password");
-
             try
             {
-                var response = await client.PostAsync($"{BaseUrl}/register", content);
-                string resultString = await response.Content.ReadAsStringAsync();
+                using var content = new MultipartFormDataContent();
+                content.Add(new StringContent(name), "username");
+                content.Add(new StringContent(email), "email");
+                content.Add(new StringContent(password), "password");
 
-                System.Diagnostics.Debug.WriteLine($"RAW RESPONSE: {resultString}");
+                var res = await HTTPCommunication<AuthResponse>.PostMultipart($"{BaseUrl}/register", content);
 
-                if (response.IsSuccessStatusCode || (int)response.StatusCode == 422)
-                {
-                    try
-                    {
-                        return JsonSerializer.Deserialize<AuthResponse>(resultString,
-                            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    }
-                    catch (JsonException jsonEx)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"JSON Parsing Error: {jsonEx.Message}");
-                        return new AuthResponse { Message = "Unexpected response format from server." };
-                    }
-                }
-
-                return new AuthResponse { Message = $"Server Error: {response.StatusCode}" };
+                return res ?? new AuthResponse { Message = "Unexpected response from server." };
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Network Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Register Error: {ex.Message}");
                 return new AuthResponse { Message = "Server is not reachable. Check your connection." };
             }
         }
@@ -138,7 +116,6 @@ namespace AudioHeaven.Classes
                  {
                     if (UserData.User != null && userId == UserData.User.Id)
                     {
-                        // Create the ShortUser once to avoid repeating it in the loop
                         var currentUser = new ShortUser
                         {
                             Id = UserData.User.Id,
@@ -147,7 +124,6 @@ namespace AudioHeaven.Classes
 
                         foreach (var song in response)
                         {
-                            // Inject the missing user info
                             song.User = currentUser;
                         }
                     }
@@ -255,7 +231,6 @@ namespace AudioHeaven.Classes
             {
                 string url = $"{BaseUrl}/users/{userId}";
 
-                // Update the generic type here
                 var response = await HTTPCommunication<UserProfileResponse>.Get(url);
                 return response?.User;
             }
@@ -401,14 +376,10 @@ namespace AudioHeaven.Classes
         {
             try
             {
-                // Construct the URL: /api/songs/{id}/log-play
                 string url = $"{BaseUrl}/songs/{songId}/log-play";
 
-                // Create the body object (Laravel expects JSON)
                 var body = new { playlist_id = playlistId };
 
-                // Using your HTTPCommunication helper to send the POST request
-                // We don't necessarily need a return object, just a success check
                 var response = await HTTPCommunication<object>.Post(url, body);
 
                 return response != null;
@@ -652,11 +623,8 @@ namespace AudioHeaven.Classes
         {
             try
             {
-                // Construct the URL matching your PATCH endpoint
                 string url = $"{BaseUrl}/queue/move/{fromPosition}/to/{toPosition}";
 
-                // Call the Patch method (assuming your HTTPCommunication class has it)
-                // We pass an empty object since the data is in the URL
                 var response = await HTTPCommunication<object>.Patch(url, new { });
 
                 return response != null;

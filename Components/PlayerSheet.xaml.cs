@@ -21,10 +21,8 @@ public partial class PlayerSheet : ContentView
     {
         base.OnHandlerChanged();
 
-        // Unregister first to avoid double-subscriptions if the handler reloads
         WeakReferenceMessenger.Default.Unregister<OpenPlayerMessage>(this);
 
-        // Register the listener
         WeakReferenceMessenger.Default.Register<OpenPlayerMessage>(this, (r, m) =>
         {
             MainThread.BeginInvokeOnMainThread(() => {
@@ -64,17 +62,7 @@ public partial class PlayerSheet : ContentView
 
     private async void NextSongs(object sender, TappedEventArgs e)
     {
-        //var title = "Queue";
-        ////var songs = (await API.GetQueueSongsAsync()).ToList();
-        //await _musicService.UpdateQueue();
-        //var navParam = new Dictionary<string, object>
-        //{
-        //    { "songs", _musicService.Queue },
-        //    { "title", title }
-        //};
-
         Close();
-        //await Shell.Current.GoToAsync($"SongListPage", navParam);
         await Shell.Current.GoToAsync($"QueuePage");
     }
 
@@ -95,9 +83,6 @@ public partial class PlayerSheet : ContentView
     {
         if (_musicService.CurrentSong.User != null)
         {
-            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
-            //await Shell.Current.GoToAsync("UserPage", navParam);
-            // Navigation by ID
             await Shell.Current.GoToAsync($"UserPage?id={_musicService.CurrentSong.User.Id}");
             Close();
 

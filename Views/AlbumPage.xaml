@@ -104,7 +104,6 @@
                             <DataTemplate>
                                 <Grid ColumnDefinitions="auto,*" ColumnSpacing="10">
 
-                                    <!--  Index  -->
                                     <Label
                                         Grid.Column="0"
                                         FontSize="20"
@@ -113,7 +112,6 @@
                                         VerticalOptions="Center"
                                         WidthRequest="30" />
 
-                                    <!--  Your existing row  -->
                                     <comp:SongItemRow
                                         Grid.Column="1"
                                         BindingContext="{Binding Song}"

@@ -38,7 +38,7 @@ namespace AudioHeaven.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToUserPage() // Renamed for convention and made Task
+        private async Task GoToUserPage() 
         {
             if (MusicService.CurrentSong?.User != null)
             {
@@ -47,7 +47,7 @@ namespace AudioHeaven.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToSongPage() // Renamed for convention and made Task
+        private async Task GoToSongPage() 
         {
             if (MusicService.CurrentSong != null)
             {

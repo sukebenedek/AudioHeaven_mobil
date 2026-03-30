@@ -22,10 +22,8 @@ public partial class SongSheet : ContentView
     {
         base.OnHandlerChanged();
 
-        // Unregister first to avoid double-subscriptions if the handler reloads
         WeakReferenceMessenger.Default.Unregister<OpenSongSheetMessage>(this);
 
-        // Register the listener
         WeakReferenceMessenger.Default.Register<OpenSongSheetMessage>(this, (r, m) =>
         {
             MainThread.BeginInvokeOnMainThread(() =>

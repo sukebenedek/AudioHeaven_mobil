@@ -58,7 +58,6 @@ public partial class SongItemRow : ContentView
         {
             var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
 
-            // Just call the service method!
             musicService?.PlaySong(song);
         }
     }
@@ -80,9 +79,6 @@ public partial class SongItemRow : ContentView
     {
         if (BindingContext is Song song && song.User != null)
         {
-            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
-            //await Shell.Current.GoToAsync("UserPage", navParam);
-            // Navigation by ID
             await Shell.Current.GoToAsync($"UserPage?id={song.User.Id}");
         }
     }
@@ -96,14 +92,4 @@ public partial class SongItemRow : ContentView
             WeakReferenceMessenger.Default.Send(new OpenSongSheetMessage(song));
         }
     }
-
-    //private void OnOpenRequested()
-    //{
-    //    if (BindingContext is Song song)
-    //            {
-    //                WeakReferenceMessenger.Default.Send(new OpenSongSheetMessage());
-    //        _musicService.SelectedSong = song;
-
-    //    }
-    //}
 }

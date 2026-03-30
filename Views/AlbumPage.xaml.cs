@@ -82,9 +82,6 @@ public partial class AlbumPage : ContentPage
     {
         if (BindingContext is Album a && a.User != null)
         {
-            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
-            //await Shell.Current.GoToAsync("UserPage", navParam);
-            // Navigation by ID
             await Shell.Current.GoToAsync($"UserPage?id={a.User.Id}");
         }
     }

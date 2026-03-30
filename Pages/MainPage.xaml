@@ -8,10 +8,6 @@
     Padding="0,40,0,0"
     Shell.NavBarIsVisible="False">
 
-    <!--<ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior/>
-    </ContentPage.Behaviors>-->
-
     <Grid Padding="30" RowDefinitions="Auto, *">
 
         <Label
@@ -34,7 +30,6 @@
                     Placeholder="Email..."
                     Text="{Binding InputEmail}" />
 
-                <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
 
             <VerticalStackLayout Margin="0,0,0,20" Spacing="0">
@@ -43,7 +38,6 @@
                     Placeholder="Password..."
                     Text="{Binding InputPassword}" />
 
-                <!--<BoxView HeightRequest="1" Color="{StaticResource DarkGray}" Margin="0,5,0,0" />-->
             </VerticalStackLayout>
 
             <Button

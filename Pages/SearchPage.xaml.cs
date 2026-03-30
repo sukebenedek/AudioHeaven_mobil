@@ -18,14 +18,14 @@ public partial class SearchPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
-        if (_backPressedOnce) return false; // Let OS handle exit
+        if (_backPressedOnce) return false;
 
         _backPressedOnce = true;
         Toast.Make("Press back again to exit").Show();
 
         Dispatcher.StartTimer(TimeSpan.FromSeconds(2), () => {
             _backPressedOnce = false;
-            return false; // Stop timer
+            return false;
         });
 
         return true;
@@ -37,15 +37,15 @@ public partial class SearchPage : ContentPage
         var result = await API.GetAlbumsSearchAsync(UserData.SearchTerm);
         var parameters = new Dictionary<string, object>
         {
-            { "albums", result.ToList() } // List<Album>
+            { "albums", result.ToList() } 
         };
 
-        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
+        await Shell.Current.GoToAsync("SearchedAlbumsPage", parameters);
     }
 
     private async void OnSongsHeaderClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("SeachedSongsPage");
+        await Shell.Current.GoToAsync("SearchedSongsPage");
     }
 
     private void MainSearchBar_SearchButtonPressed(object sender, EventArgs e)

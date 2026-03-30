@@ -23,20 +23,15 @@ public partial class SearchedSongsPage : ContentPage
         try
         {
             var result = await API.GetSongsSearchAsync(UserData.SearchTerm);
-            //await Shell.Current.DisplayAlert("Error", result.Count().ToString(), "Ok");
             if (result != null)
             {
                 Songs.Clear();
                 foreach (var s in result)
                 {
-                    //await Shell.Current.DisplayAlert(song.Title, UserData.SearchTerm, "Ok");
                     Songs.Add(s);
                 }
             }
         }
-        catch (Exception ex)
-        {
-            //await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-        }
+        catch (Exception ex){}
     }
 }

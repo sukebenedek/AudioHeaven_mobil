@@ -54,9 +54,6 @@ public partial class AlbumItemRow : ContentView
     {
         if (BindingContext is Album a && a != null)
         {
-            //var navParam = new Dictionary<string, User> { { "SelectedUserId", song.User.Id } };
-            //await Shell.Current.GoToAsync("UserPage", navParam);
-            // Navigation by ID
             await Shell.Current.GoToAsync($"UserPage?id={a.UserId}");
         }
     }

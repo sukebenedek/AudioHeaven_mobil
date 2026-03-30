@@ -5,38 +5,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AudioHeaven"
     xmlns:localPages="clr-namespace:AudioHeaven.Pages"
-    Shell.FlyoutBehavior="Disabled"
     Title="AudioHeaven"
-   
     Shell.BackgroundColor="Black"
+    Shell.FlyoutBehavior="Disabled"
     Shell.ForegroundColor="White"
-    Shell.TitleColor="White"
-    >
+    Shell.TitleColor="White">
 
     <ShellContent
-    Title="Login"
-    ContentTemplate="{DataTemplate local:MainPage}"
-    Route="MainPage" />
+        Title="Login"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 
     <TabBar Route="main">
         <ShellContent
-        Title="Home"
-        Icon="home.png"
-        ContentTemplate="{DataTemplate localPages:HomePage}"
-        />
+            Title="Home"
+            ContentTemplate="{DataTemplate localPages:HomePage}"
+            Icon="home.png" />
         <ShellContent
-        Title="Search"
-        Icon="search.png"
-        ContentTemplate="{DataTemplate localPages:SearchPage}" />
+            Title="Search"
+            ContentTemplate="{DataTemplate localPages:SearchPage}"
+            Icon="search.png" />
         <ShellContent
-        Title="My Music"
-        Icon="note.png"
-        ContentTemplate="{DataTemplate localPages:MySongsPage}" />
+            Title="My Music"
+            ContentTemplate="{DataTemplate localPages:MySongsPage}"
+            Icon="note.png" />
         <ShellContent
-        Title="Library"
-        Icon="library.png"
-        ContentTemplate="{DataTemplate localPages:LibraryPage}" />
+            Title="Library"
+            ContentTemplate="{DataTemplate localPages:LibraryPage}"
+            Icon="library.png" />
     </TabBar>
 
 </Shell>

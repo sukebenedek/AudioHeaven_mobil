@@ -57,8 +57,6 @@ namespace AudioHeaven.ViewModels
 
         public async Task LoadOnceAsync()
         {
-            //History = new ObservableCollection<Song>(await API.GetUserHistoryAsync()).OrderByDescending(s => s.Plays).Take(10).ToObservableCollection();
-            //HasHistory = History.Any();
             ReccomendedSongs = new ObservableCollection<Song>(await API.GetReccomendedSongsAsync(10));
             ReccomendedAlbums = new ObservableCollection<Album>(await API.GetReccomendedAlbumsAsync(10));
             NewSongs = new ObservableCollection<Song>(await API.GetNewSongsAsync(10));

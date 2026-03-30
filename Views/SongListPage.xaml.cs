@@ -25,13 +25,11 @@ public partial class SongListPage : ContentPage, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        // 1. Handle the Title
         if (query.TryGetValue("title", out var titleObj))
         {
             Title = HttpUtility.UrlDecode(titleObj.ToString());
         }
 
-        // 2. Handle the Songs via the Dictionary Cache ID
         if (query.TryGetValue("songs", out var songsObj))
         {
             if (songsObj is List<Song> songs)

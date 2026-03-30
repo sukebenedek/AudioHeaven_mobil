@@ -61,10 +61,10 @@ public partial class MySongsPage : ContentPage
         var result = await API.GetUserAlbumsAsync(UserData.User.Id);
         var parameters = new Dictionary<string, object>
         {
-            { "albums", result.ToList() } // List<Album>
+            { "albums", result.ToList() } 
         };
 
-        await Shell.Current.GoToAsync("SeachedAlbumsPage", parameters);
+        await Shell.Current.GoToAsync("SearchedAlbumsPage", parameters);
 
     }
 }
