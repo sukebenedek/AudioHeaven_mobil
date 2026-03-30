@@ -10,7 +10,7 @@ namespace AudioHeaven.Views;
 public partial class AlbumPage : ContentPage
 {
     public Album album { get; set; } = new();
-    public ObservableCollection<Song> Songs { get; set; } = new();
+    public ObservableCollection<IndexedSong> Songs { get; set; } = new();
 
     public AlbumPage()
 	{
@@ -54,8 +54,15 @@ public partial class AlbumPage : ContentPage
                 if (album.Songs != null)
                 {
                     Songs.Clear();
-                    foreach (var s in album.Songs)
-                        Songs.Add(s);
+
+                    for (int i = 0; i < album.Songs.Count; i++)
+                    {
+                        Songs.Add(new IndexedSong
+                        {
+                            Index = i + 1, // 1-based index
+                            Song = album.Songs[i]
+                        });
+                    }
                 }
 
                 Title = album.Title;
@@ -87,7 +94,7 @@ public partial class AlbumPage : ContentPage
         var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
 
         await API.DeleteQueueAsync();
-        await API.AddManyToQueueAsync(Songs.Select(s => s.Id));
+        await API.AddManyToQueueAsync(Songs.Select(s => s.Song.Id));
 
         if (musicService != null)
         {

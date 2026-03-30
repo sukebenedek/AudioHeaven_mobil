@@ -1,4 +1,5 @@
-﻿using AudioHeaven.Models;
+﻿using AudioHeaven.Classes;
+using AudioHeaven.Models;
 using AudioHeaven.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

@@ -1,5 +1,6 @@
 using AudioHeaven.Models;
 using AudioHeaven.Services;
+using AudioHeaven.Classes;
 using AudioHeaven.ViewModels;
 using CommunityToolkit.Mvvm.Messaging;
 

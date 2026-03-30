@@ -98,11 +98,28 @@
                     </HorizontalStackLayout>
                 </Border>
 
-                <VerticalStackLayout Padding="20" Spacing="10">
+                <VerticalStackLayout Padding="8,20,0,20" Spacing="10">
                     <CollectionView ItemsSource="{Binding Source={x:Reference ThisPage}, Path=Songs}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <comp:SongItemRow BindingContext="{Binding .}" Format="plays" />
+                                <Grid ColumnDefinitions="auto,*" ColumnSpacing="10">
+
+                                    <!--  Index  -->
+                                    <Label
+                                        Grid.Column="0"
+                                        FontSize="20"
+                                        HorizontalTextAlignment="End"
+                                        Text="{Binding Index}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="30" />
+
+                                    <!--  Your existing row  -->
+                                    <comp:SongItemRow
+                                        Grid.Column="1"
+                                        BindingContext="{Binding Song}"
+                                        Format="plays" />
+
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

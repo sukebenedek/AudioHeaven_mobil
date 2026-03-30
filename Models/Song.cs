@@ -44,4 +44,10 @@ namespace AudioHeaven.Models
             }
         }
     }
+
+    public class IndexedSong
+    {
+        public int Index { get; set; }
+        public Song Song { get; set; }
+    }
 }

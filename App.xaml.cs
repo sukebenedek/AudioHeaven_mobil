@@ -1,4 +1,5 @@
 ﻿using AudioHeaven.Classes;
+using AudioHeaven.Models;
 using AudioHeaven.ViewModels;
 
 namespace AudioHeaven

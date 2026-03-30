@@ -8,21 +8,6 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.Models
 {
-    public class OpenPlayerMessage { }
-    public class OpenSongSheetMessage
-    {
-        public Song Song { get; }
-
-        public OpenSongSheetMessage(Song song)
-        {
-            Song = song;
-        }
-    }
-    public class RelodadPlaylistsMessage : ValueChangedMessage<int>
-    {
-        public RelodadPlaylistsMessage(int playlistId) : base(playlistId) { }
-    }
-
     public class Album
     {
         public int Id { get; set; }
