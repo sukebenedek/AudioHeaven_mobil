@@ -668,5 +668,53 @@ namespace AudioHeaven.Classes
             }
         }
 
+        public static async Task<AuthResponse?> UploadProfilePictureAsync(FileResult photo)
+        {
+            try
+            {
+                using var stream = await photo.OpenReadAsync();
+
+                using var content = new MultipartFormDataContent();
+
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.ContentType =
+                    new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+
+                content.Add(streamContent, "profile_picture", photo.FileName);
+
+                using var client = new HttpClient();
+
+                if (!string.IsNullOrEmpty(UserData.Token))
+                {
+                    client.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserData.Token);
+                }
+
+                var response = await client.PostAsync($"{BaseUrl}/user", content);
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                };
+
+                var result = JsonSerializer.Deserialize<AuthResponse>(json, options);
+
+                if (result != null)
+                {
+                    result.StatusCode = (int)response.StatusCode;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UploadProfilePictureAsync HIBA: {ex.Message}");
+            }
+
+            return null;
+        }
     }
 }

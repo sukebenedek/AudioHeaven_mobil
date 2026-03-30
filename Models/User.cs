@@ -17,7 +17,7 @@ namespace AudioHeaven.Models
             public string profile_picture { get; set; } 
 
             public string FullProfilePicUrl => string.IsNullOrEmpty(profile_picture)
-            ? "default_profile_picture.png"
+            ? "user.png"
             : $"{API.BaseUrl.Replace("/api", "")}/{profile_picture}";
         }
 

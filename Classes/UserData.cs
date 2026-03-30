@@ -1,4 +1,5 @@
 ﻿using AudioHeaven.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,24 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.Classes
 {
-    public static class UserData
+    public static class UserData 
     {
-        public static User? User { get; set; }
+        public static event EventHandler? UserChanged;
+
+        private static User? _user;
+        public static User? User
+        {
+            get => _user;
+            set
+            {
+                if (_user != value)
+                {
+                    _user = value;
+                    UserChanged?.Invoke(null, EventArgs.Empty);
+                }
+            }
+        }
+
         public static string? Token { get; set; }
         public static List<Song>? Songs { get; set; }
         public static List<Album>? Albums { get; set; }

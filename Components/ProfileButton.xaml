@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AudioHeaven.Components.ProfileButton">
-    <ImageButton x:Name="ProfileImage"
-                 Source="{Binding FullProfilePicUrl}"
-                 WidthRequest="45"
-                 HeightRequest="45"
-                 Aspect="AspectFill"
-                 BackgroundColor="Transparent"
-                 Clicked="OnButtonClicked">
+<ContentView
+    x:Class="AudioHeaven.Components.ProfileButton"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ImageButton
+        x:Name="ProfileImage"
+        Aspect="AspectFill"
+        BackgroundColor="Transparent"
+        Clicked="OnButtonClicked"
+        HeightRequest="45"
+        Source="{Binding User.FullProfilePicUrl, FallbackValue='user.png'}"
+        WidthRequest="45">
         <ImageButton.Clip>
-            <EllipseGeometry Center="22.5,22.5" RadiusX="22.5" RadiusY="22.5" />
+            <EllipseGeometry
+                Center="22.5,22.5"
+                RadiusX="22.5"
+                RadiusY="22.5" />
         </ImageButton.Clip>
     </ImageButton>
 </ContentView>

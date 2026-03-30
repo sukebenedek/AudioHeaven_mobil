@@ -13,8 +13,12 @@
 
                 <Border
                     Padding="0"
+                    HeightRequest="300"
+                    HorizontalOptions="Fill"
                     StrokeShape="RoundRectangle 20"
-                    StrokeThickness="0">
+                    StrokeThickness="0"
+                    VerticalOptions="Fill"
+                    WidthRequest="300">
                     <Image
                         Aspect="AspectFill"
                         HorizontalOptions="Fill"
