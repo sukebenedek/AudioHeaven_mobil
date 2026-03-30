@@ -47,4 +47,9 @@ public partial class SearchPage : ContentPage
     {
         await Shell.Current.GoToAsync("SeachedSongsPage");
     }
+
+    private void MainSearchBar_SearchButtonPressed(object sender, EventArgs e)
+    {
+        MainSearchBar.Unfocus();
+    }
 }

@@ -131,7 +131,7 @@
                         Padding="30"
                         FontSize="16"
                         HorizontalTextAlignment="Center"
-                        IsVisible="{Binding DoesNotHaveSongs}"
+                        IsVisible="{Binding HasSongs, Converter={StaticResource InverseBoolConverter}}"
                         Text="This user has no music uploaded yet"
                         TextColor="{x:DynamicResource White}" />
 

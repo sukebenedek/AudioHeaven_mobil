@@ -121,7 +121,7 @@
                     BorderColor="{x:DynamicResource LightBlue}"
                     CornerRadius="10"
                     HasShadow="False"
-                    IsVisible="{Binding DoesNotHaveSongs}">
+                    IsVisible="{Binding HasSongs, Converter={StaticResource InverseBoolConverter}}">
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
                         <Label
                             FontSize="40"

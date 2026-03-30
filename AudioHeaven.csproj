@@ -62,6 +62,9 @@
 	  <None Remove="Resources\Images\icons\arrowr.png" />
 	  <None Remove="Resources\Images\icons\backward.png" />
 	  <None Remove="Resources\Images\icons\bin.png" />
+	  <None Remove="Resources\Images\icons\default_album_cover.png" />
+	  <None Remove="Resources\Images\icons\default_profile_picture.png" />
+	  <None Remove="Resources\Images\icons\default_song_cover.png" />
 	  <None Remove="Resources\Images\icons\edit.png" />
 	  <None Remove="Resources\Images\icons\forward.png" />
 	  <None Remove="Resources\Images\icons\hamburger.png" />
@@ -176,6 +179,9 @@
 	  <MauiImage Include="Resources\Images\icons\arrowr.png" />
 	  <MauiImage Include="Resources\Images\icons\backward.png" />
 	  <MauiImage Include="Resources\Images\icons\bin.png" />
+	  <MauiImage Include="Resources\Images\icons\default_album_cover.png" />
+	  <MauiImage Include="Resources\Images\icons\default_profile_picture.png" />
+	  <MauiImage Include="Resources\Images\icons\default_song_cover.png" />
 	  <MauiImage Include="Resources\Images\icons\edit.png" />
 	  <MauiImage Include="Resources\Images\icons\forward.png" />
 	  <MauiImage Include="Resources\Images\icons\hamburger.png" />

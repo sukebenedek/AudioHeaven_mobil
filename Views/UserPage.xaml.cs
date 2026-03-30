@@ -40,7 +40,7 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
         set
         {
             _songs = value;
-            OnPropertyChanged(); // CRITICAL: Tells XAML to refresh the list
+            OnPropertyChanged(); 
         }
     }
 
@@ -48,10 +48,8 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
     public bool HasSongs
     {
         get => _hasSongs;
-        set { _hasSongs = value; OnPropertyChanged(); OnPropertyChanged(nameof(DoesNotHaveSongs)); }
+        set { _hasSongs = value; OnPropertyChanged();}
     }
-
-    public bool DoesNotHaveSongs => !HasSongs;
 
     private ObservableCollection<Album> _albums = new();
     public ObservableCollection<Album> Albums
@@ -60,7 +58,7 @@ public partial class UserPage : ContentPage, INotifyPropertyChanged
         set
         {
             _albums = value;
-            OnPropertyChanged(); // CRITICAL: Tells XAML to refresh the list
+            OnPropertyChanged(); 
         }
     }
 

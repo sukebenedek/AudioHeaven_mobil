@@ -17,17 +17,13 @@ namespace AudioHeaven.ViewModels
         private ObservableCollection<Song> songs = new();
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(DoesNotHaveSongs))] 
         private bool hasSongs;
-        public bool DoesNotHaveSongs => !HasSongs;
 
         [ObservableProperty]
         private ObservableCollection<Album> albums = new();
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(DoesNotHaveAlbums))]
         private bool hasAlbums;
-        public bool DoesNotHaveAlbums => !HasAlbums;
 
         [ObservableProperty]
         private bool isBusy = true;
