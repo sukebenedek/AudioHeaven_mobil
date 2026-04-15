@@ -17,7 +17,7 @@ namespace AudioHeaven.ViewModels
 
 
         [ObservableProperty]
-        string? inputEmail = "a@a.com";
+        string? inputEmail = "suke.benedek@students.jedlik.eu";
 
         [ObservableProperty]
         string? inputPassword = "aaaaaaaa";

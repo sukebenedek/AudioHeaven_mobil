@@ -13,7 +13,8 @@ namespace AudioHeaven.Classes
     public static class API
     {
         //public static readonly string BaseUrl = "http://10.0.2.2:8000/api";
-        public static readonly string BaseUrl = "http://192.168.1.10:8000/api";
+        //public static readonly string BaseUrl = "http://192.168.1.10:8000/api";
+        public static readonly string BaseUrl = "https://jcloud02.jedlik.eu/csongeto.csongor/public/api";
 
         public static async Task<AuthResponse?> LoginAsync(string email, string password)
         {
