@@ -4,12 +4,12 @@ using CommunityToolkit.Maui.Alerts;
 
 namespace AudioHeaven.Pages;
 
-public partial class MySongsPage : ContentPage
+public partial class MyMusicPage : ContentPage
 {
-    private readonly MySongsViewModel _vm;
+    private readonly MyMusicViewModel _vm;
     private bool _backPressedOnce = false;
 
-    public MySongsPage(MySongsViewModel vm)
+    public MyMusicPage(MyMusicViewModel vm)
 	{
 		InitializeComponent();
         _vm = vm;

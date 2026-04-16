@@ -13,8 +13,8 @@
 
     <ShellContent
         Title="Login"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage" />
 
 
     <TabBar Route="main">
@@ -28,7 +28,7 @@
             Icon="search.png" />
         <ShellContent
             Title="My Music"
-            ContentTemplate="{DataTemplate localPages:MySongsPage}"
+            ContentTemplate="{DataTemplate localPages:MyMusicPage}"
             Icon="note.png" />
         <ShellContent
             Title="Library"

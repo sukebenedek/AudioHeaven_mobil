@@ -107,7 +107,7 @@
 	  <MauiXaml Update="Components\LoadingOverlay.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Components\LogoutSheetContent.xaml">
+	  <MauiXaml Update="Components\LogoutSheet.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Components\PlayerSheet.xaml">
@@ -143,7 +143,7 @@
 	  <MauiXaml Update="Pages\LibraryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\MySongsPage.xaml">
+	  <MauiXaml Update="Pages\MyMusicPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
@@ -202,6 +202,18 @@
 	  <MauiImage Include="Resources\Images\icons\shuffe.png" />
 	  <MauiImage Include="Resources\Images\icons\user.png" />
 	  <MauiImage Include="Resources\Images\icons\usergray.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Components\LogoutSheet.xaml.cs">
+	    <DependentUpon>LogoutSheet.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\MyMusicPage.xaml.cs">
+	    <DependentUpon>MyMusicPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

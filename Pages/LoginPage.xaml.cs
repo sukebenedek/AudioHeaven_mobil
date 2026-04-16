@@ -3,9 +3,9 @@ using AudioHeaven.ViewModels;
 
 namespace AudioHeaven
 {
-    public partial class MainPage : ContentPage
+    public partial class LoginPage : ContentPage
     {
-        public MainPage(MainViewModel vm)
+        public LoginPage(LoginViewModel vm)
         {
             InitializeComponent();
             this.BindingContext = vm;
@@ -13,7 +13,7 @@ namespace AudioHeaven
 
         protected override async void OnAppearing()
         {
-            if (BindingContext is MainViewModel vm)
+            if (BindingContext is LoginViewModel vm)
             {
                 vm.IsBusy = false;
             }

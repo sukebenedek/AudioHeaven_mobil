@@ -3,11 +3,11 @@ using AudioHeaven.Models;
 
 namespace AudioHeaven.Components;
 
-public partial class LogoutSheetContent : ContentView
+public partial class LogoutSheet : ContentView
 {
     public User? User => UserData.User;
 
-    public LogoutSheetContent()
+    public LogoutSheet()
     {
         InitializeComponent();
         lblName.Text = $"Logged in as: {UserData.User?.Name ?? "Guest"}";
@@ -18,23 +18,23 @@ public partial class LogoutSheetContent : ContentView
     {
         if (await API.LogoutAsync())
         {
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//LoginPage");
         }
         else
         {
             UserData.DeleteTokenStorage();
             await App.Current!.MainPage!.DisplayAlert("Error", "Unexpexted error occured.", "Ok");
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//LoginPage");
         }
 
-        LogoutSheet.IsOpen = false;
+        Sheet.IsOpen = false;
     }
 
     private async void OnProfilePageClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"UserPage?id={UserData.User?.Id}");
 
-        LogoutSheet.IsOpen = false;
+        Sheet.IsOpen = false;
     }
 
     private async void OnProfilePicChangeClicked(object sender, EventArgs e)
@@ -84,12 +84,12 @@ public partial class LogoutSheetContent : ContentView
 
     public void Open()
     {
-        LogoutSheet.IsOpen = true;
+        Sheet.IsOpen = true;
         lblName.Text = $"Logged in as: {UserData.User?.Name ?? "Guest"}";
     }
 
     public void Close()
     {
-        LogoutSheet.IsOpen = false;
+        Sheet.IsOpen = false;
     }
 }

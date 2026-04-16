@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace AudioHeaven.ViewModels
 {
 
-    public partial class MainViewModel : ObservableObject
+    public partial class LoginViewModel : ObservableObject
     {
 
 

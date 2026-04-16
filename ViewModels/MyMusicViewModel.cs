@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AudioHeaven.ViewModels
 {
-    public partial class MySongsViewModel : ObservableObject
+    public partial class MyMusicViewModel : ObservableObject
     {
         [ObservableProperty]
         private ObservableCollection<Song> songs = new();

@@ -26,20 +26,20 @@ namespace AudioHeaven
                 });
 
             //pages
-            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<RegisterPage>();
             builder.Services.AddSingleton<SearchPage>();
             builder.Services.AddSingleton<LibraryPage>();
             builder.Services.AddSingleton<QueuePage>();
-            builder.Services.AddSingleton<MySongsPage>();
+            builder.Services.AddSingleton<MyMusicPage>();
             //viewmodels
-            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddSingleton<SearchViewModel>();
             builder.Services.AddSingleton<LibraryViewModel>();
-            builder.Services.AddSingleton<MySongsViewModel>();
+            builder.Services.AddSingleton<MyMusicViewModel>();
             builder.Services.AddSingleton<FloatingPlayerViewModel>();
             builder.Services.AddSingleton<QueueViewModel>();
             //services

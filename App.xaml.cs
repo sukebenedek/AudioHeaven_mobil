@@ -18,7 +18,7 @@ namespace AudioHeaven
             base.OnStart();
 
             // Get the singleton MainViewModel
-            var mainVM = Handler.MauiContext.Services.GetService<MainViewModel>();
+            var mainVM = Handler.MauiContext.Services.GetService<LoginViewModel>();
 
             string savedToken = await UserData.GetTokenStorage();
 
