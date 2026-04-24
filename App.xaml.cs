@@ -11,6 +11,8 @@ namespace AudioHeaven
             InitializeComponent();
             UserAppTheme = AppTheme.Dark;
             MainPage = new AppShell();
+
+            Connectivity.Current.ConnectivityChanged += OnConnectivityChanged;
         }
 
         protected override async void OnStart()
@@ -40,6 +42,27 @@ namespace AudioHeaven
                     mainVM.IsBusy = false; 
                 }
 
+            }
+        }
+
+        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess != NetworkAccess.Internet)
+            {
+                // They just lost internet! 
+                // Warning: This runs on a background thread, so you MUST force UI alerts back onto the Main Thread.
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await Shell.Current.DisplayAlert("Connection Lost", "You are currently offline.", "OK");
+                });
+            }
+            else
+            {
+                // Optional: Let them know they are back online
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    // await Shell.Current.DisplayAlert("Back Online", "Your connection has been restored.", "OK");
+                });
             }
         }
     }
