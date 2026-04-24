@@ -42,7 +42,7 @@
                             <Label
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                FontSize="25"
+                                FontSize="20"
                                 Text="Reccomended songs for you"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />
@@ -72,7 +72,7 @@
                             <Label
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                FontSize="25"
+                                FontSize="20"
                                 Text="Your playing history"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />
@@ -102,7 +102,7 @@
                             <Label
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                FontSize="25"
+                                FontSize="20"
                                 Text="Reccomended albums for you"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />
@@ -132,7 +132,7 @@
                             <Label
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                FontSize="25"
+                                FontSize="20"
                                 Text="Discover the newest songs"
                                 TextColor="{x:DynamicResource LightBlue}"
                                 VerticalOptions="Center" />

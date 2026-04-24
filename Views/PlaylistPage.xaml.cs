@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using AudioHeaven.Services;
 
 namespace AudioHeaven.Views;
 
@@ -83,8 +84,18 @@ public partial class PlaylistPage : ContentPage
         }
     }
 
-    private void OnPlayClicked(object sender, EventArgs e)
+    private async void OnPlayClicked(object sender, EventArgs e)
     {
+        var musicService = IPlatformApplication.Current.Services.GetService<MusicService>();
+
+        await API.DeleteQueueAsync();
+        await API.AddManyToQueueAsync(Songs.Select(s => s.Id));
+
+        if (musicService != null)
+        {
+            await musicService.UpdateQueue();
+            await musicService.Skip();
+        }
     }
 
     private async Task RemoveSong(Song swipedSong)
